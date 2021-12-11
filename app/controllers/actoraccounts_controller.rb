@@ -1,0 +1,2 @@
+class ActoraccountsController < ApplicationController
+end

@@ -4,7 +4,11 @@ class StagesController < ApplicationController
   end
 
   def search
-    @stages = Stage.search(params[:title], params[:actor], params[:date], params[:morning], params[:afternoon])
+    if params[:actor].present?
+      @stages = Stage.left_joins(:actoraccounts).where("actor_name LIKE ?","%#{params[:actor]}%")
+    end
+    @stages = @stages.search(params[:title], params[:date], params[:morning], params[:afternoon])
+    
     render "index"
   end
 end

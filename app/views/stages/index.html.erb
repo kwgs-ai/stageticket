@@ -6,7 +6,7 @@
     <%= text_field_tag "title", params[:title] %>
   </p>
   <p>公演者名
-    <%= text_field_tag "q", params[:actor] %>
+    <%= text_field_tag "actor", params[:actor] %>
   </p>
   <p>日付
     <%= date_field_tag :date, params[:date] %>
@@ -36,7 +36,11 @@
       <tr>
         <td style="text-align: right">
           <%= stage.title %></td>
-        <td><%= stage.actor %></td>
+        <td>
+        <% stage.actoraccounts.each do |actor| %>
+         <%= actor.actor_name %>
+        <% end %>
+        </td>
         <td><%= stage.date %></td>
         <td><%= stage.time %></td>
         <td><%= stage.text %></td>

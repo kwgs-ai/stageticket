@@ -1,12 +1,11 @@
 class Stage < ApplicationRecord
+  has_many :actoraccounts, dependent: :destroy
+
   class << self
-    def search(title, actor, date, morning, afternoon)
+    def search(title, date, morning, afternoon)
       rel = order('id')
       if title.present?
         rel = rel.where('title LIKE ?', "%#{title}%")
-      end
-      if actor.present?
-        rel = rel.where('actor LIKE ?', "%#{actor}%")
       end
       if date.present?
         rel = rel.where('date LIKE ?', "%#{date}%")

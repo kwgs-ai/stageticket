@@ -13,7 +13,12 @@
 ActiveRecord::Schema.define(version: 2021_12_05_061449) do
 
   create_table "stages", force: :cascade do |t|
-    t.string "name"
+    t.string "status", null: false
+    t.string "title", null: false
+    t.string "text", null: false
+    t.date "date", null: false
+    t.string "actor", null: false
+    t.string "time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

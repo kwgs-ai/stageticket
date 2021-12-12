@@ -1,6 +1,5 @@
 class Stage < ApplicationRecord
-  has_many :actoraccounts, dependent: :destroy
-
+  belongs_to :actoraccount
   class << self
     def search(title, date, morning, afternoon)
       rel = order('id')

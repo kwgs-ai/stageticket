@@ -1,5 +1,8 @@
 <%#= render "shared/login_form"  unless current_member%>
-
+<% if current_actor %>
+  <%= current_actor.actor_name %>
+  <%= menu_link_to "ログアウト", :actorsession, method: :delete, data: { confirm: "ログアウトしますか" } %>
+<% end %>
 <h2>ログインはこちら</h2>
 <ul>
   <%= menu_link_to "ユーザー", "#" %>

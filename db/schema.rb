@@ -13,24 +13,23 @@
 ActiveRecord::Schema.define(version: 2021_12_11_120640) do
 
   create_table "actoraccounts", force: :cascade do |t|
-    t.integer "stage_id", null: false
     t.string "actor_name", null: false
     t.string "actor_ID", null: false
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["stage_id"], name: "index_actoraccounts_on_stage_id"
   end
 
   create_table "stages", force: :cascade do |t|
+    t.integer "actoraccount_id", null: false
     t.string "status", null: false
     t.string "title", null: false
     t.string "text", null: false
     t.date "date", null: false
-    t.string "actor", null: false
     t.string "time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["actoraccount_id"], name: "index_stages_on_actoraccount_id"
   end
 
 end

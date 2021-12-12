@@ -1,4 +1,4 @@
 class Actoraccount < ApplicationRecord
   has_secure_password
-  belongs_to :stage
+  has_many :stages, dependent: :destroy
 end

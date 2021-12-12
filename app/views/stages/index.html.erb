@@ -37,9 +37,7 @@
         <td style="text-align: right">
           <%= stage.title %></td>
         <td>
-        <% stage.actoraccounts.each do |actor| %>
-         <%= actor.actor_name %>
-        <% end %>
+        <%= stage.actoraccount.actor_name %>
         </td>
         <td><%= stage.date %></td>
         <td><%= stage.time %></td>

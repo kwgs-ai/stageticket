@@ -1,5 +1,5 @@
 class StagesController < ApplicationController
-  before_action :actor_login_required
+
   def index
     @stages = Stage.all
   end

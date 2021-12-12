@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     raise Actor_LoginRequired
   end
 
+  private def current_actor
+    Actoraccount.find_by(id: session[:actor_id]) if session[:actor_id]
+  end
+  helper_method :current_actor
 
   private def rescue_actor_login_required(exception)
     render "errors/login_required", status: 403, layout: "error",

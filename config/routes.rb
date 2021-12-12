@@ -3,4 +3,7 @@ Rails.application.routes.draw do
   resources :stages do
     get 'search', on: :collection
   end
+  resource :actorsession, only: [:create, :destroy]
+  resources :actoraccounts do
+  end
 end

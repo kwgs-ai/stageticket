@@ -7,8 +7,12 @@ Rails.application.routes.draw do
     end
   end
   resource :actorsession, only: [:create, :destroy]
-  resource :usersession, only: [:create, :destroy]
+  resource :usersessions, only: [:create, :destroy]
+
   resources :actoraccounts do
   end
+  resources :useraccounts do
+  end
+
 
 end

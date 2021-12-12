@@ -34,7 +34,6 @@ class StagesController < ApplicationController
     else
       @stages = Stage.search(params[:title], params[:date], params[:morning], params[:afternoon])
     end
-
     render "index"
   end
 

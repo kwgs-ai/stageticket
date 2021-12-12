@@ -18,16 +18,16 @@ class ApplicationController < ActionController::Base
   helper_method :current_actor
 
   private def current_user
-    Useraccount.find_by(id: session[:actor_id]) if session[:actor_id]
+    Useraccount.find_by(id: session[:actor_id]) if session[:user_id]
   end
   helper_method :current_user
 
   private def rescue_actor_login_required(exception)
-    render "errors/login_required", status: 403, layout: "error",
+    render "errors/actor_login_required", status: 403, layout: "error",
            formats: [:html]
   end
   private def rescue_user_login_required(exception)
-    render "errors/login_required", status: 403, layout: "error",
+    render "errors/user_login_required", status: 403, layout: "error",
            formats: [:html]
   end
 end

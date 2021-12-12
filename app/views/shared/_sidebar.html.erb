@@ -1,11 +1,18 @@
 <%#= render "shared/login_form"  unless current_member%>
+
 <% if current_actor %>
+  <h1>公演者</h1>
   <%= current_actor.actor_name %>
   <%= menu_link_to "ログアウト", :actorsession, method: :delete, data: { confirm: "ログアウトしますか" } %>
 <% end %>
+<% if current_user %>
+  <h1>ユーザー</h1>
+  <%= current_user.user_name %>
+  <%= menu_link_to "ログアウト", :usersession, method: :delete, data: { confirm: "ログアウトしますか" } %>
+<% end %>
 <h2>ログインはこちら</h2>
 <ul>
-  <%= menu_link_to "ユーザー", "#" %>
+  <%= menu_link_to "ユーザーマイページ", useraccounts_path %>
   <%= menu_link_to "公演者マイページ", actoraccounts_path %>
   <%= menu_link_to "管理者", "#" %>
 </ul>

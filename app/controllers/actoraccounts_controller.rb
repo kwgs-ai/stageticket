@@ -33,6 +33,11 @@ class ActoraccountsController < ApplicationController
     else
       render "edit"
     end
+  end
+  def destroy
+    @actor = Actoraccount.find(params[:id])
+    @actor.destroy
+    redirect_to :root, notice: "会員を削除しました。"
 
   end
 

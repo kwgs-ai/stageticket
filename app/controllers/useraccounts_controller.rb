@@ -36,4 +36,10 @@ class UseraccountsController < ApplicationController
   def show
     @user = current_user
   end
+  def destroy
+    @user = Useraccount.find(params[:id])
+    @user.destroy
+    redirect_to :root, notice: "会員を削除しました。"
+
+  end
 end

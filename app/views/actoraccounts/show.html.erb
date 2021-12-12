@@ -23,5 +23,5 @@
 <% end %>
 
 
-<%= menu_link_to "退会手続き", "#" %>
+<%= link_to "退会手続き", @actor, method: :delete, data: { confirm: "本当に削除しますか"} %>
 <%=menu_link_to "ユーザー情報編集",[:edit, @actor] %>

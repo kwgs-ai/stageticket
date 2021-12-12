@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_11_120640) do
+ActiveRecord::Schema.define(version: 2021_12_12_082836) do
 
   create_table "actoraccounts", force: :cascade do |t|
     t.string "actor_name", null: false
@@ -30,6 +30,14 @@ ActiveRecord::Schema.define(version: 2021_12_11_120640) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["actoraccount_id"], name: "index_stages_on_actoraccount_id"
+  end
+
+  create_table "useraccounts", force: :cascade do |t|
+    t.string "user_name", null: false
+    t.string "user_ID", null: false
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

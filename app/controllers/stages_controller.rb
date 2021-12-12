@@ -10,12 +10,12 @@ class StagesController < ApplicationController
 
   def confirm
     @stage = Stage.new(params[:stage])
-    @stage.actoraccounts << current_actor
+    @stage.actoraccount_id = session[:actor_id]
   end
 
   def create
     @stage = Stage.new(params[:stage])
-    @stage.actoraccounts << current_actor
+    @stage.actoraccount_id = session[:actor_id]
     if @stage.save
       redirect_to :root, notice: "登録しました"
     else
@@ -26,9 +26,14 @@ class StagesController < ApplicationController
 
   def search
     if params[:actor].present?
-      @stages = Stage.left_joins(:actoraccounts).where("actor_name LIKE ?", "%#{params[:actor]}%")
+      @actors = Actoraccount.where("actor_name LIKE ?", "%#{params[:actor]}%")
+      @actors.each do |actor|
+        @stages = actor.stages
+        @stages = @stages.search(params[:title], params[:date], params[:morning], params[:afternoon])
+      end
+    else
+      @stages = Stage.search(params[:title], params[:date], params[:morning], params[:afternoon])
     end
-    @stages = @stages.search(params[:title], params[:date], params[:morning], params[:afternoon])
 
     render "index"
   end

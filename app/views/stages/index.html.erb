@@ -35,7 +35,7 @@
     <% @stages.each do |stage| %>
       <tr>
         <td style="text-align: right">
-          <%= stage.title %></td>
+          <%=link_to stage.title,stage %></td>
         <td>
         <%= stage.actoraccount.actor_name %>
         </td>

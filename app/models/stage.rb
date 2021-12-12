@@ -1,5 +1,7 @@
 class Stage < ApplicationRecord
   belongs_to :actoraccount
+  belongs_to :reservation, optional: true
+
   class << self
     def search(title, date, morning, afternoon)
       rel = order('id')

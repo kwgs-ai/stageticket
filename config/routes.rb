@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     collection do
       post :confirm
     end
+    resources :reservations
   end
   resource :actorsession, only: [:create, :destroy]
   resource :usersessions, only: [:create, :destroy]

@@ -21,5 +21,19 @@ class ActoraccountsController < ApplicationController
       render "new"
     end
   end
+  def edit
+    @actor = Actoraccount.find(params[:id])
+  end
+
+  def update
+    @actor = Actoraccount.find(params[:id])
+    @actor.assign_attributes(params[:actoraccount])
+    if @actor.save
+      redirect_to @actor, notice: "会員情報を更新しました。"
+    else
+      render "edit"
+    end
+
+  end
 
 end

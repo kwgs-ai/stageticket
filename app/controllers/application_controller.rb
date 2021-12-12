@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_actor
 
   private def current_user
-    Useraccount.find_by(id: session[:actor_id]) if session[:user_id]
+    Useraccount.find_by(id: session[:user_id]) if session[:user_id]
   end
   helper_method :current_user
 

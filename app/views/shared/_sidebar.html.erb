@@ -8,7 +8,7 @@
 <% if current_user %>
   <h1>ユーザー</h1>
   <%= current_user.user_name %>
-  <%= menu_link_to "ログアウト", :usersession, method: :delete, data: { confirm: "ログアウトしますか" } %>
+  <%= menu_link_to "ログアウト", :usersessions, method: :delete, data: { confirm: "ログアウトしますか" } %>
 <% end %>
 <h2>ログインはこちら</h2>
 <ul>

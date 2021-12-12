@@ -1,0 +1,26 @@
+<%#= render "shared/errors", obj: @member %>
+
+<table class="attr">
+  <tr>
+    <th><%= form.label :title %></th>
+    <td><%= form.text_field :title, size: 8 %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :actor %></th>
+    <td><%= form.text_field :actor %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :text %></th>
+    <td><%= form.text_field :text %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :date, for: "member_birthday_1i" %></th>
+    <td><%= form.date_select :date,
+              start_year: 1940, end_year: Time.current.year,
+              use_month_numbers: true %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :午前・午後 %></th>
+    <td><%= form.select :time,{'午前':'午前', '午後': '午後'}  %></td>
+  </tr>
+</table>

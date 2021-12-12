@@ -4,6 +4,13 @@ class StagesController < ApplicationController
     @stages = Stage.all
   end
 
+  def new
+    @stage = Stage.new
+  end
+  def create
+
+  end
+
   def search
     if params[:actor].present?
       @stages = Stage.left_joins(:actoraccounts).where("actor_name LIKE ?","%#{params[:actor]}%")

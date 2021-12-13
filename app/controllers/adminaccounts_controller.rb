@@ -4,6 +4,6 @@ class AdminaccountsController < ApplicationController
 
   end
   def show
-    @actor = current_admin
+    @admin = current_admin
   end
 end

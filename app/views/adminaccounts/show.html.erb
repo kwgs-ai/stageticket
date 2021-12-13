@@ -1,0 +1,27 @@
+<% @page_title = "公演マイページ" %>
+<h1><%= @page_title %></h1>
+
+<% if @admin.present? %>
+  <table class="list">
+    <thead>
+    <tr>
+      <th>名前</th>
+      <th>ID</th>
+      <th>パスワード</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td style="text-align: right">
+        <%= @admin.admin_name %></td>
+      <td><%= @admin.admin_ID %></td>
+      <td><%= @admin.password %></td>
+    </tr>
+    </tbody>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to "申請一覧", "#"%>
+<%= link_to "退会手続き", "#" %>
+<%=menu_link_to "ユーザー情報編集","#" %>

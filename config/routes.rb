@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
     resources :reservations
   end
-  resource :actorsession, only: [:create, :destroy]
+  resource :actorsessions, only: [:create, :destroy]
   resource :usersessions, only: [:create, :destroy]
   resource :adminsessions, only: [:create, :destroy]
 

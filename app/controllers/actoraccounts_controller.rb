@@ -43,7 +43,16 @@ class ActoraccountsController < ApplicationController
 
   end
 
-  def actor_stages
+  def actor_false_stages
     @stages = Stage.where(actoraccount_id: session[:actor_id]).where(status: false)
+  end
+
+  def actor_true_stages
+    @stages = Stage.where(actoraccount_id: session[:actor_id]).where(status: true)
+  end
+
+  def actor_stage_show
+    @stage = Stage.find(params[:id])
+    @count = Stage.find(params[:id]).reservations.count
   end
 end

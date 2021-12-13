@@ -14,7 +14,11 @@ Rails.application.routes.draw do
 
   resources :actoraccounts do
     collection do
-      get :actor_stages
+      get :actor_false_stages
+      get :actor_true_stages
+    end
+    member do
+      get :actor_stage_show
     end
   end
   resources :useraccounts do

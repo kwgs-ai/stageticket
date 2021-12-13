@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
   resource :actorsession, only: [:create, :destroy]
   resource :usersessions, only: [:create, :destroy]
+  resource :adminsessions, only: [:create, :destroy]
 
   resources :actoraccounts do
     resources :stages, only: [:index]
@@ -19,5 +20,6 @@ Rails.application.routes.draw do
   end
   resources :useraccounts
   resources :actoraccounts
+  resources :adminaccounts
 
 end

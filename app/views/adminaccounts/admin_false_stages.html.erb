@@ -17,7 +17,7 @@
     <% @stages.each do |stage| %>
       <tr>
         <td style="text-align: right">
-          <%=link_to stage.title,stage %></td>
+          <%=link_to stage.title,admin_stage_show_adminaccount_path(stage) %></td>
         <td>
           <%= stage.actoraccount.actor_name %>
         </td>

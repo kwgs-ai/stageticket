@@ -32,6 +32,9 @@ Rails.application.routes.draw do
       get :admin_false_stages
       get :admin_true_stages
     end
+    member do
+      get :admin_stage_show
+    end
   end
 
 end

@@ -37,4 +37,9 @@ class AdminaccountsController < ApplicationController
   def admin_true_stages
     @stages = Stage.where(status: true)
   end
+
+  def admin_stage_show
+    @stage = Stage.find(params[:id])
+    @count = Stage.find(params[:id]).reservations.count
+  end
 end

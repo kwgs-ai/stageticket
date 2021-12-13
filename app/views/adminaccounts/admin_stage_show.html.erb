@@ -1,5 +1,6 @@
-<% @page_title = "予約確認" %>
+<% @page_title = "舞台詳細" %>
 <h1><%= @page_title %></h1>
+
 
 <% if @stage.present? %>
   <table class="list">
@@ -10,6 +11,7 @@
       <th>日時</th>
       <th>午前・午後</th>
       <th>本文</th>
+      <th>予約人数</th>
     </tr>
     </thead>
     <tbody>
@@ -22,17 +24,18 @@
       <td><%= @stage.date %></td>
       <td><%= @stage.time %></td>
       <td><%= @stage.text %></td>
+      <td><%= "#{@count}人" %></td>
     </tr>
     </tbody>
     </tbody>
   </table>
 <% end %>
-
-<%= form_for [@stage, @reservation] do |form| %>
-  <tr>
-    <th>:席種</th>
-    <td><%= select_tag('seat_type', options_for_select(%w[S A B])) %></td>
-  </tr>
-
+<%= form_for @stage do |form| %>
+  <%= form.hidden_field :title %>
+  <%= form.hidden_field :text %>
+  <%= form.hidden_field :date %>
+  <%= form.hidden_field :time %>
+  <p>この舞台を承認する</p>
+  <%= form.check_box :status, {class: "check"}, "true", "false" %>
   <div><%= form.submit %></div>
 <% end %>

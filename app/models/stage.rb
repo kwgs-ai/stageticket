@@ -1,6 +1,7 @@
 class Stage < ApplicationRecord
   belongs_to :actoraccount
   has_many :reservations, dependent: :destroy
+  has_many :seats, dependent: :destroy
 
   class << self
     def search(title, date, morning, afternoon)

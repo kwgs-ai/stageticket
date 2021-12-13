@@ -11,6 +11,8 @@
       <th>日時</th>
       <th>午前・午後</th>
       <th>本文</th>
+      <th>席種</th>
+      <th>金額</th>
     </tr>
     </thead>
     <tbody>
@@ -24,6 +26,8 @@
         <td><%= reservation.stage.date %></td>
         <td><%= reservation.stage.time %></td>
         <td><%= reservation.stage.text %></td>
+        <td><%= reservation.seat.seat_type %></td>
+        <td><%= reservation.seat.cost %></td>
       </tr>
       </tbody>
     <% end %>

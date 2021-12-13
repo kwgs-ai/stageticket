@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_13_045140) do
+ActiveRecord::Schema.define(version: 2021_12_13_092108) do
 
   create_table "actoraccounts", force: :cascade do |t|
     t.string "actor_name", null: false
@@ -31,11 +31,21 @@ ActiveRecord::Schema.define(version: 2021_12_13_045140) do
   create_table "reservations", force: :cascade do |t|
     t.integer "useraccount_id", null: false
     t.integer "stage_id"
-    t.string "seat", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["stage_id"], name: "index_reservations_on_stage_id"
     t.index ["useraccount_id"], name: "index_reservations_on_useraccount_id"
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.integer "stage_id", null: false
+    t.integer "reservation_id"
+    t.string "seat_type", null: false
+    t.integer "cost", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reservation_id"], name: "index_seats_on_reservation_id"
+    t.index ["stage_id"], name: "index_seats_on_stage_id"
   end
 
   create_table "stages", force: :cascade do |t|

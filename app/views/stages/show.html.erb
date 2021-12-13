@@ -11,6 +11,9 @@
       <th>日時</th>
       <th>午前・午後</th>
       <th>本文</th>
+      <th>残り座席数　S</th>
+      <th>残り座席数　A</th>
+      <th>残り座席数　B</th>
     </tr>
     </thead>
     <tbody>
@@ -23,23 +26,32 @@
       <td><%= @stage.date %></td>
       <td><%= @stage.time %></td>
       <td><%= @stage.text %></td>
+      <td><%= @stage.seats.where(reservation_id: nil, seat_type: "S").count %></td>
+      <td><%= @stage.seats.where(reservation_id: nil, seat_type: "A").count %></td>
+      <td><%= @stage.seats.where(reservation_id: nil, seat_type: "B").count %></td>
     </tr>
     </tbody>
     </tbody>
   </table>
-<% end %>
-<% if current_user %>
+  <ul>
+    <li>S席</li>
+    <li> <%= @stage.seats.find_by(seat_type:"S").cost%>円</li>
+    <li>A席</li>
+    <li><%= @stage.seats.find_by(seat_type:"A").cost%>円</li>
+    <li>B席</li>
+    <li><%= @stage.seats.find_by(seat_type:"B").cost%>円</li>
+  </ul>
 
-  <%= link_to "この舞台を予約", [:new, @stage, :reservation] %>
 
-<% elsif  current_admin %>
-  <%= form_for @stage do |form| %>
-    <%= form.hidden_field :title %>
-    <%= form.hidden_field :text %>
-    <%= form.hidden_field :date %>
-    <%= form.hidden_field :time %>
-    <p>この舞台を承認する</p>
-  <%= form.check_box :status, {class: "check"}, "true", "false" %>
-    <div><%= form.submit %></div>
 <% end %>
+
+<%= link_to "この舞台を予約", [:new, @stage, :reservation] %>
+
+
+<%= form_tag :search_stages, method: :get, class: "search" do %>
+  <p>人数
+    <%= text_field_tag "人数", params[:count] %>
+  </p>
+
+  <%= submit_tag "決定" %>
 <% end %>

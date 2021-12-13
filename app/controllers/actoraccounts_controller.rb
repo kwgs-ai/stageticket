@@ -21,6 +21,7 @@ class ActoraccountsController < ApplicationController
       render "new"
     end
   end
+
   def edit
     @actor = Actoraccount.find(params[:id])
   end
@@ -34,6 +35,7 @@ class ActoraccountsController < ApplicationController
       render "edit"
     end
   end
+
   def destroy
     @actor = Actoraccount.find(params[:id])
     @actor.destroy
@@ -41,4 +43,7 @@ class ActoraccountsController < ApplicationController
 
   end
 
+  def actor_stages
+    @stages = Stage.where(actoraccount_id: session[:actor_id]).where(status: false)
+  end
 end

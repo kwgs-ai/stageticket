@@ -1,5 +1,5 @@
 class Reservation < ApplicationRecord
-  has_many :stages, dependent: :destroy
+  belongs_to :stage, optional: true
   belongs_to :useraccount
 
 end

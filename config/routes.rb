@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'stages#index'
+
   resources :stages do
     get 'search', on: :collection
     collection do
@@ -11,9 +12,12 @@ Rails.application.routes.draw do
   resource :usersessions, only: [:create, :destroy]
 
   resources :actoraccounts do
+    resources :stages, only: [:index]
   end
   resources :useraccounts do
+    resources :reservations
   end
-
+  resources :useraccounts
+  resources :actoraccounts
 
 end

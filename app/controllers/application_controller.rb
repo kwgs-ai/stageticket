@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 
 
   private def current_admin
-    Adminaccount.find_by(id: session[:user_id]) if session[:user_id]
+    Adminaccount.find_by(id: session[:admin_id]) if session[:admin_id]
   end
   helper_method :current_admin
 

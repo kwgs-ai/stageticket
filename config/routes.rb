@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   end
   resources :useraccounts
   resources :actoraccounts
-  resources :adminaccounts
+  resources :adminaccounts do
+    resources :stages
+  end
 
 end

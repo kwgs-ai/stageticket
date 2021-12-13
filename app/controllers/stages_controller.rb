@@ -1,7 +1,11 @@
 class StagesController < ApplicationController
   # before_action :actor_login_required, only: [:new]
   def index
-    @stages = Stage.all
+    if current_admin
+    @stages = Stage.where(status: false)
+    else
+      @stages = Stage.where(status: true)
+      end
   end
 
   def show
@@ -9,6 +13,15 @@ class StagesController < ApplicationController
   end
   def new
     @stage = Stage.new
+  end
+  def update
+    @stage = Stage.find(params[:id])
+    @stage.assign_attributes(params[:stage])
+    if @stage.save
+      redirect_to @stage, notice: "会員情報を更新しました。"
+    else
+      render "edit"
+    end
   end
 
   def confirm

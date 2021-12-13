@@ -6,7 +6,6 @@ time = ['午前', '午後']
   0.upto(2) do |idx|
   Stage.create(
     actoraccount_id: actor.id,
-    status: '承認中',
     title: "#{fnames[idx % 4]} #{gnames[idx % 3]}",
     text: '見本です..見本です..見本です..見本です..見本です..見本です..見本です..見本です..
 見本です..見本です..見本です..見本です..見本です..見本です..見本です..見本です..見本です..見本です..

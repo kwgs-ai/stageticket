@@ -10,7 +10,7 @@ class ReservationsController < ApplicationController
 
   def create
     @stage = Stage.find(params[:stage_id])
-    @reservation = Reservation.new()
+    @reservation = Reservation.new(params[:reservation])
     @reservation.useraccount_id = session[:user_id]
     @reservation.stage_id = @stage.id
     if @reservation.save

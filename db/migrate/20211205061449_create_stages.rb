@@ -2,7 +2,7 @@ class CreateStages < ActiveRecord::Migration[5.2]
   def change
     create_table :stages do |t|
       t.references :actoraccount, null: false
-      t.string :status, null: false
+      t.boolean :status, null: false, default: false
       t.string :title, null: false
       t.string :text, null: false
       t.date :date, null: false
@@ -11,3 +11,4 @@ class CreateStages < ActiveRecord::Migration[5.2]
     end
   end
 end
+

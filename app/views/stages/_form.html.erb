@@ -1,10 +1,7 @@
 <%#= render "shared/errors", obj: @member %>
 
 <table class="attr">
-  <tr>
-    <th><%= form.label :status %></th>
-    <td><%= form.text_field :status, size: 8 %></td>
-  </tr>
+  <%=form.hidden_field :status %>
   <tr>
     <th><%= form.label :title %></th>
     <td><%= form.text_field :title, size: 8 %></td>

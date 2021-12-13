@@ -4,7 +4,8 @@
   0.upto(2) do |idx|
     Reservation.create(
       useraccount_id: user.id,
-      stage_id: stage.id
+      stage_id: stage.id,
+      seat: "S"
     )
   end
 end

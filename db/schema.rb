@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2021_12_12_104304) do
   create_table "reservations", force: :cascade do |t|
     t.integer "useraccount_id", null: false
     t.integer "stage_id"
+    t.string "seat", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["stage_id"], name: "index_reservations_on_stage_id"
@@ -31,7 +32,7 @@ ActiveRecord::Schema.define(version: 2021_12_12_104304) do
 
   create_table "stages", force: :cascade do |t|
     t.integer "actoraccount_id", null: false
-    t.string "status", null: false
+    t.boolean "status", default: false, null: false
     t.string "title", null: false
     t.string "text", null: false
     t.date "date", null: false

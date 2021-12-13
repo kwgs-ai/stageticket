@@ -28,9 +28,11 @@
   </table>
 <% end %>
 
-
-
-
 <%= form_for [@stage,@reservation] do |form| %>
+<tr>
+  <th><%= form.label :席種 %></th>
+  <td><%= form.select :seat,{'S':'S', 'A': 'A', 'B':'B'}  %></td>
+</tr>
+
   <div><%= form.submit %></div>
 <% end %>

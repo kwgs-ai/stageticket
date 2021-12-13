@@ -33,6 +33,8 @@
     <th>:席種</th>
     <td><%= select_tag('seat_type', options_for_select(%w[S A B])) %></td>
   </tr>
-
+  <p>人数
+    <%= text_field_tag "count" %>
+  </p>
   <div><%= form.submit %></div>
 <% end %>

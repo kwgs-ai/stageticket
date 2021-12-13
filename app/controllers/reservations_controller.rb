@@ -13,14 +13,23 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new()
     @reservation.useraccount_id = session[:user_id]
     @reservation.stage_id = @stage.id
-
+    @count = params[:count].to_i
     @seat = Seat.find_by(seat_type: params[:seat_type], stage_id: params[:stage_id], reservation_id: nil)
-    if @seat != nil
-      @seat.stage_id = params[:stage_id]
-
+    @seats = Seat.where(seat_type: params[:seat_type], stage_id: params[:stage_id], reservation_id: nil)
+    if @seats.count >= @count
       if @reservation.save
-        @seat.reservation_id = @reservation.id
-        if @seat.save
+        @count.times do
+          @seat = Seat.find_by(seat_type: params[:seat_type], stage_id: params[:stage_id], reservation_id: nil)
+          @seat.stage_id = params[:stage_id]
+          @seat.reservation_id = @reservation.id
+          if @seat.save
+          else
+            break
+          end
+        end
+        if true #@seat.save
+          @id = 0
+          # if @id == 0
           redirect_to :root, notice: "登録しました"
         else
           render "new"
@@ -28,6 +37,8 @@ class ReservationsController < ApplicationController
       else
         render "new"
       end
+      # end
+
     else
       redirect_to :root, notice: "席がない"
     end

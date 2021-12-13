@@ -1,3 +1,6 @@
+<% @page_title = "舞台確認" %>
+<h1><%= @page_title %></h1>
+<h1><%= @A %></h1>
 <table class="list">
   <thead>
   <tr>
@@ -6,30 +9,38 @@
     <th>日時</th>
     <th>午前・午後</th>
     <th>本文</th>
+    <th>S値段</th>
+    <th>A値段</th>
+    <th>B値段</th>
   </tr>
   </thead>
   <tbody>
-    <tr>
-      <td style="text-align: right">
-        <%= @stage.title %></td>
-      <td>
-        <%= @stage.actoraccount.actor_name %>
-      </td>
-      <td><%= @stage.date %></td>
-      <td><%= @stage.time %></td>
-      <td><%= @stage.text %></td>
-    </tr>
-    </tbody>
-    </tbody>
-    </table>
+  <tr>
+    <td style="text-align: right">
+      <%= @stage.title %></td>
+    <td>
+      <%= @stage.actoraccount.actor_name %>
+    </td>
+    <td><%= @stage.date %></td>
+    <td><%= @stage.time %></td>
+    <td><%= @stage.text %></td>
+    <td><%= @s %></td>
+    <td><%= @a %></td>
+    <td><%= @b %></td>
+  </tr>
+  </tbody>
+  </tbody>
+</table>
 
 
 <%= form_for @stage do |form| %>
-<%= form.hidden_field :status %>
+  <%= form.hidden_field :status %>
   <%= form.hidden_field :title %>
   <%= form.hidden_field :text %>
   <%= form.hidden_field :date %>
   <%= form.hidden_field :time %>
-
+  <%= hidden_field_tag :S_cost, @s %>
+  <%= hidden_field_tag :A_cost, @a %>
+  <%= hidden_field_tag :B_cost, @b %>
   <div><%= form.submit %></div>
 <% end %>

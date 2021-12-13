@@ -20,4 +20,16 @@
     <th><%= form.label :午前・午後 %></th>
     <td><%= form.select :time,{'午前':'午前', '午後': '午後'}  %></td>
   </tr>
+  <tr>
+    <th><%= form.label :S金額 %></th>
+    <td><%= text_field_tag :S_cost%></td>
+  </tr>
+  <tr>
+    <th><%= form.label :A金額 %></th>
+    <td><%= text_field_tag :A_cost %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :B金額 %></th>
+    <td><%= text_field_tag :B_cost %></td>
+  </tr>
 </table>

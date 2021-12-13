@@ -13,13 +13,14 @@
       <th>本文</th>
       <th>席種</th>
       <th>金額</th>
+      <th>枚数</th>
     </tr>
     </thead>
     <tbody>
     <% @reservations.each do |reservation| %>
       <tr>
         <td style="text-align: right">
-          <%=link_to reservation.stage.title, [reservation.useraccount, reservation]%></td>
+          <%= link_to reservation.stage.title, [reservation.useraccount, reservation] %></td>
         <td>
           <%= reservation.stage.actoraccount.actor_name %>
         </td>
@@ -28,6 +29,7 @@
         <td><%= reservation.stage.text %></td>
         <td><%= reservation.seat.seat_type %></td>
         <td><%= reservation.seat.cost %></td>
+        <td><%= Seat.where(stage_id: reservation.stage.id, reservation_id: reservation.id).count %></td>
       </tr>
       </tbody>
     <% end %>

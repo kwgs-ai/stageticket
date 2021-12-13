@@ -1,6 +1,5 @@
 <% @page_title = "舞台一覧" %>
 <h1><%= @page_title %></h1>
-
 <%= form_tag :search_stages, method: :get, class: "search" do %>
   <p>タイトル名
     <%= text_field_tag "title", params[:title] %>
@@ -29,6 +28,9 @@
       <th>日時</th>
       <th>午前・午後</th>
       <th>本文</th>
+      <th>残り座席数　S</th>
+      <th>残り座席数　A</th>
+      <th>残り座席数　B</th>
     </tr>
     </thead>
     <tbody>
@@ -42,6 +44,9 @@
         <td><%= stage.date %></td>
         <td><%= stage.time %></td>
         <td><%= stage.text %></td>
+        <td><%= stage.seats.where(reservation_id: nil, seat_type: "S").count %></td>
+        <td><%= stage.seats.where(reservation_id: nil, seat_type: "A").count %></td>
+        <td><%= stage.seats.where(reservation_id: nil, seat_type: "B").count %></td>
       </tr>
       </tbody>
     <% end %>

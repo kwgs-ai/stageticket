@@ -17,10 +17,11 @@
   <%= menu_link_to "ログアウト", :adminsessions, method: :delete, data: { confirm: "ログアウトしますか" } %>
 <% end %>
 <h2>ログインはこちら</h2>
+
 <ul>
-  <%= menu_link_to "ユーザーログイン", :useraccounts %>
-  <%= menu_link_to "公演者ログイン", :actoraccounts %>
-  <%= menu_link_to "管理者ログイン", :adminaccounts %>
+  <%= menu_link_to "ユーザーログイン", useraccount_path(1) %>
+  <%= menu_link_to "公演者ログイン", actoraccount_path(1) %>
+  <%= menu_link_to "管理者ログイン", adminaccount_path(1) %>
 </ul>
 
 

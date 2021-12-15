@@ -1,5 +1,5 @@
 class AdminaccountsController < ApplicationController
-  before_action :admin_login_required, only: [:index]
+  before_action :admin_login_required, only: [:index,:show]
 
   def index
     @stages = Stage.where(status: false)
@@ -17,7 +17,7 @@ class AdminaccountsController < ApplicationController
     @admin = Adminaccount.find(params[:id])
     @admin.assign_attributes(params[:adminaccount])
     if @admin.save
-      redirect_to @admin, notice: "会員情報を更新しました。"
+      redirect_to :admin, notice: "会員情報を更新しました。"
     else
       render "edit"
     end

@@ -1,6 +1,6 @@
 <% @page_title = "ログインが必要です" %>
 <h1><%= @page_title %></h1>
-<%= link_to "新規会員登録はこちら", "#" %>
+<%= link_to "新規会員登録はこちら", :new_actoraccount %>
 <% if flash.alert %><p class="alert"><%= flash.alert %></p><% end %>
 <%= form_tag :actorsessions, id: "login-form" do %>
   <form id="login-form">

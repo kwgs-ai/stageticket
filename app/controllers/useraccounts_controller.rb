@@ -1,5 +1,5 @@
 class UseraccountsController < ApplicationController
-  before_action :user_login_required, only: [:index]
+  before_action :user_login_required, only: [:index,:show]
 
   def index
 
@@ -36,6 +36,7 @@ class UseraccountsController < ApplicationController
   def show
     @user = current_user
   end
+
   def destroy
     @user = Useraccount.find(params[:id])
     @user.destroy

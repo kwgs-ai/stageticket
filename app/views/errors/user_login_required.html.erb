@@ -1,6 +1,6 @@
 <!--<h2>ログイン</h2>-->
 <!--<p> </p>-->
-<%= link_to "新規会員登録はこちら", "#" %>
+<%= link_to "新規会員登録はこちら", :new_useraccount %>
 <% if flash.alert %><p class="alert"><%= flash.alert %></p><% end %>
 <%= form_tag :usersessions, id: "login-form" do %>
   <form id="login-form">

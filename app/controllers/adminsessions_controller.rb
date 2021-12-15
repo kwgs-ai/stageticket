@@ -3,7 +3,7 @@ class AdminsessionsController < ApplicationController
     admin = Adminaccount.find_by(admin_ID: params[:ID])
     if admin&.authenticate(params[:password])
       session[:admin_id] = admin.id
-      redirect_to admin
+      redirect_to session[:path]
     else
       flash.alert = "IDとパスワードが一致しません"
       redirect_to :root

@@ -4,7 +4,7 @@ class ActorsessionsController < ApplicationController
     actor = Actoraccount.find_by(actor_ID: params[:ID])
     if actor&.authenticate(params[:password])
       session[:actor_id] = actor.id
-      redirect_to actor
+      redirect_to session[:path]
     else
       flash.alert = "IDとパスワードが一致しません"
       redirect_to :root

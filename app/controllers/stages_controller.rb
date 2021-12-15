@@ -1,11 +1,7 @@
 class StagesController < ApplicationController
-  # before_action :actor_login_required, only: [:new]
+  before_action :actor_login_required, only: [:new]
   def index
-    if current_admin
-      @stages = Stage.where(status: false)
-    else
-      @stages = Stage.where(status: true)
-    end
+      @stages = Stage.where(status: "承認")
   end
 
   def show

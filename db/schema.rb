@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2021_12_13_092108) do
 
   create_table "stages", force: :cascade do |t|
     t.integer "actoraccount_id", null: false
-    t.boolean "status", default: false, null: false
+    t.string "status", default: "申請中", null: false
     t.string "title", null: false
     t.string "text", null: false
     t.date "date", null: false

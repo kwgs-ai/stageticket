@@ -44,11 +44,11 @@ class ActoraccountsController < ApplicationController
   end
 
   def actor_false_stages
-    @stages = Stage.where(actoraccount_id: session[:actor_id]).where(status: false)
+    @stages = Stage.where(actoraccount_id: session[:actor_id]).where(status: "申請中")
   end
 
   def actor_true_stages
-    @stages = Stage.where(actoraccount_id: session[:actor_id]).where(status: true)
+    @stages = Stage.where(actoraccount_id: session[:actor_id]).where(status: "承認")
   end
 
   def actor_stage_show

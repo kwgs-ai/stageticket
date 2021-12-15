@@ -10,13 +10,16 @@ class ApplicationController < ActionController::Base
   rescue_from Admin_LoginRequired, with: :rescue_admin_login_required
 
   private def actor_login_required
-    raise Actor_LoginRequired
+    session[:path] = request.fullpath
+    raise Actor_LoginRequired unless current_actor
   end
   private def user_login_required
-    raise User_LoginRequired
+    session[:path] = request.fullpath
+    raise User_LoginRequired unless current_user
   end
   private def admin_login_required
-    raise Admin_LoginRequired
+    session[:path] = request.fullpath
+    raise Admin_LoginRequired unless current_admin
   end
 
   private def current_actor
@@ -28,7 +31,6 @@ class ApplicationController < ActionController::Base
     Useraccount.find_by(id: session[:user_id]) if session[:user_id]
   end
   helper_method :current_user
-
 
   private def current_admin
     Adminaccount.find_by(id: session[:admin_id]) if session[:admin_id]

@@ -31,11 +31,11 @@ class AdminaccountsController < ApplicationController
   end
 
   def admin_false_stages
-    @stages = Stage.where(status: false)
+    @stages = Stage.where(status: "申請中")
   end
 
   def admin_true_stages
-    @stages = Stage.where(status: true)
+    @stages = Stage.where(status: "承認")
   end
 
   def admin_stage_show

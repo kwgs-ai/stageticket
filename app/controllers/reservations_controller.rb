@@ -1,4 +1,5 @@
 class ReservationsController < ApplicationController
+  before_action :user_login_required, only: [:new]
   def new
     @stage = Stage.find(params[:stage_id])
     @reservation = Reservation.new

@@ -36,6 +36,6 @@
   <%= form.hidden_field :date %>
   <%= form.hidden_field :time %>
   <p>この舞台を承認する</p>
-  <%= form.check_box :status, {class: "check"}, "true", "false" %>
+  <%= form.select :status, {'承認':'承認', '拒否': '拒否'} %>
   <div><%= form.submit %></div>
 <% end %>

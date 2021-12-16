@@ -36,6 +36,7 @@
   <%= form.hidden_field :date %>
   <%= form.hidden_field :time %>
   <p>この舞台を承認する</p>
-  <%= form.select :status, {'承認':'承認', '拒否': '拒否'} %>
+  <%= form.select :status, { '承認': '承認', '拒否': '拒否' } %>
   <div><%= form.submit %></div>
+  <%= link_to "この舞台の編集", [:edit, @stage] %>
 <% end %>

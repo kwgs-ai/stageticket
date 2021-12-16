@@ -1,7 +1,8 @@
 class StagesController < ApplicationController
   before_action :actor_login_required, only: [:new]
+
   def index
-      @stages = Stage.where(status: "承認")
+    @stages = Stage.where(status: "承認")
   end
 
   def show
@@ -12,14 +13,18 @@ class StagesController < ApplicationController
     @stage = Stage.new
   end
 
+  def edit
+    @stage = Stage.find(params[:id])
+  end
+
   def update
     @stage = Stage.find(params[:id])
     @stage.assign_attributes(params[:stage])
     if @stage.save
       if current_admin
         redirect_to admin_stage_show_adminaccount_path(@stage), notice: '会員情報を更新しました。'
-        else
-      redirect_to @stage, notice: '会員情報を更新しました。'
+      else
+        redirect_to @stage, notice: '会員情報を更新しました。'
       end
     else
       render 'edit'

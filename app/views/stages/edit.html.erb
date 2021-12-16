@@ -1,8 +1,8 @@
-<% @page_title = "舞台団体情報の更新" %>
+<% @page_title = "舞台情報の編集" %>
 
 <h1><%= @page_title %></h1>
 
-<%= form_for @admin do |form| %>
+<%= form_for @stage, url: confirm_stages_path do |form| %>
   <%= render "form", form: form %>
   <div><%= form.submit %></div>
 <% end %>

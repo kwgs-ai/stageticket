@@ -10,38 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_13_092108) do
+ActiveRecord::Schema.define(version: 2021_12_18_125801) do
 
-  create_table "actoraccounts", force: :cascade do |t|
-    t.string "actor_name", null: false
-    t.string "actor_ID", null: false
+  create_table "actors", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "login_name", null: false
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "adminaccounts", force: :cascade do |t|
-    t.string "admin_name", null: false
-    t.string "admin_ID", null: false
+  create_table "admins", force: :cascade do |t|
+    t.string "login_name", null: false
     t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.integer "useraccount_id", null: false
+    t.integer "user_id", null: false
     t.integer "stage_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["stage_id"], name: "index_reservations_on_stage_id"
-    t.index ["useraccount_id"], name: "index_reservations_on_useraccount_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "seats", force: :cascade do |t|
     t.integer "stage_id", null: false
     t.integer "reservation_id"
     t.string "seat_type", null: false
-    t.integer "cost", null: false
+    t.integer "seat_prise", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reservation_id"], name: "index_seats_on_reservation_id"
@@ -49,20 +54,22 @@ ActiveRecord::Schema.define(version: 2021_12_13_092108) do
   end
 
   create_table "stages", force: :cascade do |t|
-    t.integer "actoraccount_id", null: false
-    t.string "status", default: "申請中", null: false
+    t.integer "actor_id", null: false
+    t.integer "category_id", null: false
+    t.integer "status", default: 1, null: false
     t.string "title", null: false
     t.string "text", null: false
     t.date "date", null: false
-    t.string "time", null: false
+    t.integer "time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["actoraccount_id"], name: "index_stages_on_actoraccount_id"
+    t.index ["actor_id"], name: "index_stages_on_actor_id"
+    t.index ["category_id"], name: "index_stages_on_category_id"
   end
 
-  create_table "useraccounts", force: :cascade do |t|
-    t.string "user_name", null: false
-    t.string "user_ID", null: false
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "login_name", null: false
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

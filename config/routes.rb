@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resource :usersessions, only: [:create, :destroy]
   resource :adminsessions, only: [:create, :destroy]
 
-  resources :actoraccounts do
+  resources :actors do
     collection do
       get :actor_false_stages
       get :actor_true_stages
@@ -21,12 +21,12 @@ Rails.application.routes.draw do
       get :actor_stage_show
     end
   end
-  resources :useraccounts do
+  resources :users do
     resources :reservations
   end
-  resources :useraccounts
+  resources :users
 
-  resources :adminaccounts do
+  resources :admin do
     resources :stages
     collection do
       get :admin_false_stages

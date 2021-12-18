@@ -1,4 +1,4 @@
-class ActoraccountsController < ApplicationController
+class ActorsController < ApplicationController
   before_action :actor_login_required, only: [:index,:show]
 
   def index

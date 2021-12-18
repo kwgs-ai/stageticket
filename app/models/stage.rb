@@ -1,5 +1,6 @@
 class Stage < ApplicationRecord
-  belongs_to :actoraccount
+  belongs_to :actor
+  belongs_to :category
   has_many :reservations, dependent: :destroy
   has_many :seats, dependent: :destroy
 

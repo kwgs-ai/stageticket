@@ -4,7 +4,7 @@ class CreateSeats < ActiveRecord::Migration[5.2]
       t.references :stage, null: false
       t.references :reservation
       t.string :seat_type, null: false
-      t.integer :cost, null: false
+      t.integer :seat_prise, null: false
 
       t.timestamps
     end

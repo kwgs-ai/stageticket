@@ -1,8 +1,8 @@
-class AdminaccountsController < ApplicationController
+class AdminController < ApplicationController
   before_action :admin_login_required, only: [:index,:show]
 
   def index
-    @stages = Stage.where(status: false)
+
   end
 
   def show

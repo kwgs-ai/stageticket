@@ -1,12 +1,13 @@
 class CreateStages < ActiveRecord::Migration[5.2]
   def change
     create_table :stages do |t|
-      t.references :actoraccount, null: false
-      t.string :status, null: false, default: "申請中"
+      t.references :actor, null: false
+      t.references :category, null: false
+      t.integer :status, null: false, default: 1
       t.string :title, null: false
       t.string :text, null: false
       t.date :date, null: false
-      t.string :time, null: false
+      t.integer :time, null: false
       t.timestamps
     end
   end

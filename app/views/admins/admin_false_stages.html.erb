@@ -1,7 +1,9 @@
-<% @page_title = "承認中一覧" %>
+<% @page_title = "舞台一覧" %>
 <h1><%= @page_title %></h1>
 
 
 <% if @stages.present? %>
+
+
   <%= render "shared/table_list", stages: @stages %>
 <% end %>

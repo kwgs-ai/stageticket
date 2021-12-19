@@ -1,25 +1,25 @@
 <% if current_actor %>
   <h1>公演者</h1>
-  <%= menu_link_to current_actor.actor_name, current_actor %>
+  <%= menu_link_to current_actor.name, current_actor %>
   <%= menu_link_to  "ログアウト", :actorsessions, method: :delete, data: { confirm: "ログアウトしますか" } %>
 <% end %>
 <% if current_user %>
   <h1>ユーザー</h1>
-  <%= menu_link_to current_user.user_name, current_user %>
+  <%= menu_link_to current_user.name, current_user %>
   <%= menu_link_to "ログアウト", :usersessions, method: :delete, data: { confirm: "ログアウトしますか" } %>
 <% end %>
 
 <% if current_admin %>
   <h1>管理者</h1>
-  <%= menu_link_to current_admin.admin_name, current_admin %>
+  <%= menu_link_to "管理者ページ", current_admin %>
   <%= menu_link_to "ログアウト", :adminsessions, method: :delete, data: { confirm: "ログアウトしますか" } %>
 <% end %>
 <h2>ログインはこちら</h2>
 
 <ul>
-  <%= menu_link_to "ユーザーログイン", useraccount_path(1) %>
+  <%= menu_link_to "ユーザーログイン", user_path(1) %>
   <%= menu_link_to "公演者ログイン", actor_path(1) %>
-  <%= menu_link_to "管理者ログイン", admin_path(1) %>
+  <%= menu_link_to "管理者ログイン", admin_path %>
 </ul>
 
 
@@ -30,8 +30,8 @@
 </ul>
 <h2>新規登録</h2>
 <ul>
-  <%= menu_link_to "ユーザー新規登録", :new_useraccount %>
-  <%= menu_link_to "公演者新規登録", :new_actoraccount %>
+  <%= menu_link_to "ユーザー新規登録", :new_user %>
+  <%= menu_link_to "公演者新規登録", :new_actor %>
 
 </ul>
 

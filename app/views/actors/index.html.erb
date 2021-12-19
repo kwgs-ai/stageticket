@@ -37,10 +37,10 @@
         <td style="text-align: right">
           <%=link_to stage.title,stage %></td>
         <td>
-          <%= stage.actoraccount.actor_name %>
+          <%= stage.Actor.name %>
         </td>
         <td><%= stage.date %></td>
-        <td><%= stage.time %></td>
+        <td><%= stage.time == 1 ? "午前" : "午後" %></td>
         <td><%= stage.text %></td>
       </tr>
       </tbody>

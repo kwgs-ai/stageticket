@@ -6,11 +6,11 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = Useraccount.new
+    @user = User.new
   end
 
   def create
-    @user = Useraccount.new(params[:useraccount])
+    @user = User.new(params[:user])
     if @user.save
       redirect_to :root, notice: "登録しました"
     else
@@ -19,12 +19,12 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = Useraccount.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def update
-    @user = Useraccount.find(params[:id])
-    @user.assign_attributes(params[:useraccount])
+    @user = User.find(params[:id])
+    @user.assign_attributes(params[:user])
     if @user.save
       redirect_to @user, notice: "会員情報を更新しました。"
     else
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = Useraccount.find(params[:id])
+    @user = User.find(params[:id])
     @user.destroy
     redirect_to :root, notice: "会員を削除しました。"
 

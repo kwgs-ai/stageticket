@@ -1,7 +1,7 @@
 categories = ['恋愛もの', 'お笑い', 'オペラ', '戯曲']
 
-1.upto(10) do |idx|
+0.upto(3) do |idx|
   Category.create(
-    name: "#{categories[idx % 4]}"
+    name: (categories[idx]).to_s
   )
 end

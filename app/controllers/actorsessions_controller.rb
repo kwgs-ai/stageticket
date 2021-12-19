@@ -1,7 +1,7 @@
 class ActorsessionsController < ApplicationController
 
   def create
-    actor = Actoraccount.find_by(actor_ID: params[:ID])
+    actor = Actor.find_by(login_name: params[:ID])
     if actor&.authenticate(params[:password])
       session[:actor_id] = actor.id
       if action_name == "show"

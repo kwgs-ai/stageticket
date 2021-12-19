@@ -1,6 +1,6 @@
 class AdminsessionsController < ApplicationController
   def create
-    admin = Adminaccount.find_by(admin_ID: params[:ID])
+    admin = Admin.find_by(login_name: params[:ID])
     if admin&.authenticate(params[:password])
       session[:admin_id] = admin.id
       if action_name == "show"

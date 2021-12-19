@@ -23,17 +23,17 @@ class ApplicationController < ActionController::Base
   end
 
   private def current_actor
-    Actoraccount.find_by(id: session[:actor_id]) if session[:actor_id]
+    Actor.find_by(id: session[:actor_id]) if session[:actor_id]
   end
   helper_method :current_actor
 
   private def current_user
-    Useraccount.find_by(id: session[:user_id]) if session[:user_id]
+    User.find_by(id: session[:user_id]) if session[:user_id]
   end
   helper_method :current_user
 
   private def current_admin
-    Adminaccount.find_by(id: session[:admin_id]) if session[:admin_id]
+    Admin.find_by(id: session[:admin_id]) if session[:admin_id]
   end
   helper_method :current_admin
 

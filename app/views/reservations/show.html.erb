@@ -1,34 +1,61 @@
+<% @page_title = "予約詳細" %>
+<h1><%= @page_title %></h1>
 <% if @reservation.present? %>
+  <%=render"shared/table_show", stage: @stage %>
+
+
+<h2>チケット購入枚数</h2>
   <table class="list">
     <thead>
+    <% if @reservation.seats.where(seat_type: "S").count !=0 %>
+      <tr>
+        <th>S席 枚数</th>
+        <td>
+          <%= @reservation.seats.where(seat_type: "S").count %>
+        </td>
+      </tr>
+      <tr>
+        <th>S席　小計</th>
+        <td>
+          <%= @cost += @reservation.seats.where(seat_type: "S").count * @reservation.seats.find_by(seat_type: "S").seat_prise %>
+        </td>
+      </tr>
+    <% end %>
+    <% if @reservation.seats.where(seat_type: "A").count != 0 %>
+      <tr>
+        <th>A席 枚数</th>
+        <td>
+          <%= @reservation.seats.where(seat_type: "A").count %>
+        </td>
+      </tr>
+      <tr>
+        <th>A席　小計</th>
+        <td>
+          <%= @cost += @reservation.seats.where(seat_type: "A").count * @reservation.seats.find_by(seat_type: "A").seat_prise %>
+        </td>
+      </tr>
+    <% end %>
+    <% if @reservation.seats.where(seat_type: "B").count != 0 %>
+      <tr>
+        <th>B席 枚数</th>
+        <td>
+          <%= @reservation.seats.where(seat_type: "B").count %>
+        </td>
+      </tr>
+      <tr>
+        <th>B席　小計</th>
+        <td>
+          <%= @cost += @reservation.seats.where(seat_type: "B").count * @reservation.seats.find_by(seat_type: "B").seat_prise %>
+        </td>
+      </tr>
+    <% end %>
     <tr>
-      <th>予約番号</th>
-      <th>席種</th>
-      <th>舞台タイトル</th>
-      <th>団体名</th>
-      <th>日時</th>
-      <th>午前・午後</th>
-      <th>本文</th>
+      <th>合計金額</th>
+      <td><%= @cost %></td>
     </tr>
+
     </thead>
     <tbody>
-    <tr>
-      <td style="text-align: right">
-        <%= @reservation.id %>
-      </td>
-      <td>
-        <%= @reservation.seat.seat_type %>
-      </td>
-      <td>
-        <%= @reservation.stage.title %></td>
-      <td>
-        <%= @reservation.stage.actoraccount.actor_name %>
-      </td>
-      <td><%= @reservation.stage.date %></td>
-      <td><%= @reservation.stage.time %></td>
-      <td><%= @reservation.stage.text %></td>
-    </tr>
-    </tbody>
-    </tbody>
+
   </table>
 <% end %>

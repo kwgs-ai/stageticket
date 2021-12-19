@@ -1,0 +1,37 @@
+
+<table class="attr">
+  <thead>
+  <tr>
+    <th>予約番号</th>
+    <td>
+      <%= stage.id %>
+    </td>
+  </tr>
+  <tr>
+    <th>舞台タイトル</th>
+    <td>
+      <%= stage.title %></td>
+  </tr>
+  <tr>
+    <th>団体名</th>
+    <td>
+      <%= stage.actor.name %>
+    </td>
+  </tr>
+  <tr>
+    <th>日時</th>
+    <td><%= stage.date %></td>
+  </tr>
+  <tr>
+    <th>午前・午後</th>
+    <td><%= stage.time == 1 ? "午前" : "午後" %></td>
+  </tr>
+  <tr>
+    <th>本文</th>
+    <td><%= stage.text %></td>
+  </tr>
+
+  </thead>
+  <tbody>
+
+</table>

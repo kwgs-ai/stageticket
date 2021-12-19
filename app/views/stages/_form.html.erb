@@ -7,6 +7,10 @@
     <td><%= form.text_field :title, size: 8 %></td>
   </tr>
   <tr>
+    <th><%= form.label :category %></th>
+    <td><%= form.select :category_id, {'お笑い':1,'恋愛もの':2,'オペラ':3,'戯曲':4} %></td>
+  </tr>
+  <tr>
     <th><%= form.label :text %></th>
     <td><%= form.text_field :text %></td>
   </tr>
@@ -18,7 +22,7 @@
   </tr>
   <tr>
     <th><%= form.label :午前・午後 %></th>
-    <td><%= form.select :time,{'午前':'午前', '午後': '午後'}  %></td>
+    <td><%= form.select :time,{'午前':1, '午後': 2}  %></td>
   </tr>
   <tr>
     <th><%= form.label :S金額 %></th>

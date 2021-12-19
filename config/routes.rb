@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     collection do
       post :confirm
     end
+    member do
+      get :admin_stage_show
+      get :actor_stage_show
+    end
     resources :reservations
   end
   resource :actorsessions, only: [:create, :destroy]
@@ -17,24 +21,19 @@ Rails.application.routes.draw do
       get :actor_false_stages
       get :actor_true_stages
     end
-    member do
-      get :actor_stage_show
-    end
   end
   resources :users do
     resources :reservations
   end
   resources :users
+  resource :admin do
 
-  resources :admin do
-    resources :stages
-    collection do
-      get :admin_false_stages
-      get :admin_true_stages
-    end
-    member do
-      get :admin_stage_show
-    end
+      collection do
+        get :admin_false_stages
+        get :admin_true_stages
+      end
+
   end
+
 
 end

@@ -19,10 +19,10 @@
       <td style="text-align: right">
         <%= @stage.title %></td>
       <td>
-        <%= @stage.actoraccount.actor_name %>
+        <%= @stage.actor.name %>
       </td>
       <td><%= @stage.date %></td>
-      <td><%= @stage.time %></td>
+      <td><%= @stage.time== 1 ? "午前" : "午後" %></td>
       <td><%= @stage.text %></td>
       <td><%= "#{@count}人" %></td>
     </tr>
@@ -36,7 +36,7 @@
   <%= form.hidden_field :date %>
   <%= form.hidden_field :time %>
   <p>この舞台を承認する</p>
-  <%= form.select :status, { '承認': '承認', '拒否': '拒否' } %>
+  <%= form.select :status, { '承認': 2, '拒否': 3 } %>
   <div><%= form.submit %></div>
   <%= link_to "この舞台の編集", [:edit, @stage] %>
 <% end %>

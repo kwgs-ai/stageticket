@@ -21,7 +21,7 @@
       <td style="text-align: right">
         <%= @stage.title %></td>
       <td>
-        <%= @stage.actoraccount.actor_name %>
+        <%= @stage.actor.name %>
       </td>
       <td><%= @stage.date %></td>
       <td><%= @stage.time %></td>
@@ -35,11 +35,11 @@
   </table>
   <ul>
     <li>S席</li>
-    <li> <%= @stage.seats.find_by(seat_type:"S").cost%>円</li>
+    <li> <%= @stage.seats.find_by(seat_type:"S").seat_prise%>円</li>
     <li>A席</li>
-    <li><%= @stage.seats.find_by(seat_type:"A").cost%>円</li>
+    <li><%= @stage.seats.find_by(seat_type:"A").seat_prise%>円</li>
     <li>B席</li>
-    <li><%= @stage.seats.find_by(seat_type:"B").cost%>円</li>
+    <li><%= @stage.seats.find_by(seat_type:"B").seat_prise%>円</li>
   </ul>
 
 

@@ -17,7 +17,7 @@
       <td style="text-align: right">
         <%= @stage.title %></td>
       <td>
-        <%= @stage.actoraccount.actor_name %>
+        <%= @stage.actor.name %>
       </td>
       <td><%= @stage.date %></td>
       <td><%= @stage.time %></td>
@@ -29,12 +29,25 @@
 <% end %>
 
 <%= form_for [@stage, @reservation] do |form| %>
-  <tr>
-    <th>:席種</th>
-    <td><%= select_tag('seat_type', options_for_select(%w[S A B])) %></td>
-  </tr>
-  <p>人数
-    <%= text_field_tag "count" %>
+<!--  <tr>-->
+<!--    <th>席種</th>-->
+<!--    <p></p>-->
+    <%#=label_tag :S席 %>
+    <%#= check_box_tag "s" %>
+    <%#=label_tag :A席 %>
+    <%#= check_box_tag "a" %>
+    <%#=label_tag :B席 %>
+    <%#= check_box_tag "b" %>
+<!--    <td><%#= select_tag('seat_type', options_for_select(%w[S A B])) %></td>-->
+<!--  </tr>-->
+  <p>S席のチケット枚数
+    <%= text_field_tag "s_count" ,"",{size: 3} %>
+  </p>
+  <p>A席のチケット枚数
+    <%= text_field_tag "a_count" ,"",{size: 3} %>
+  </p>
+  <p>B席のチケット枚数
+    <%= text_field_tag "b_count" ,"",{size: 3} %>
   </p>
   <div><%= form.submit %></div>
 <% end %>

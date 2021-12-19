@@ -6,6 +6,7 @@ time = [1, 2]
   category = Category.find(rand(1..3))
   0.upto(2) do |idx|
     Stage.create(
+      status: rand(1..3),
       actor_id: actor.id,
       category_id: category.id,
       title: "#{fnames[idx % 4]} #{gnames[idx % 3]}",

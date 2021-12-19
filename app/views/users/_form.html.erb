@@ -2,12 +2,12 @@
 
 <table class="attr">
   <tr>
-    <th><%= form.label :user_name %></th>
-    <td><%= form.text_field :user_name, size: 8 %></td>
+    <th><%= form.label :name %></th>
+    <td><%= form.text_field :name, size: 8 %></td>
   </tr>
   <tr>
-    <th><%= form.label :user_ID %></th>
-    <td><%= form.text_field :user_ID, size: 8 %></td>
+    <th><%= form.label :login_name %></th>
+    <td><%= form.text_field :login_name, size: 8 %></td>
   </tr>
   <% if @user.new_record? %>
     <tr>

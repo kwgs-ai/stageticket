@@ -3,30 +3,5 @@
 
 
 <% if @stages.present? %>
-  <table class="list">
-    <thead>
-    <tr>
-      <th>舞台タイトル</th>
-      <th>団体名</th>
-      <th>日時</th>
-      <th>午前・午後</th>
-      <th>本文</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @stages.each do |stage| %>
-      <tr>
-        <td style="text-align: right">
-          <%=link_to stage.title,actor_stage_show_actoraccount_path(stage) %></td>
-        <td>
-          <%= stage.actoraccount.actor_name %>
-        </td>
-        <td><%= stage.date %></td>
-        <td><%= stage.time %></td>
-        <td><%= stage.text %></td>
-      </tr>
-      </tbody>
-    <% end %>
-    </tbody>
-    </table>
+  <%= render "shared/table_list", stages: @stages %>
 <% end %>

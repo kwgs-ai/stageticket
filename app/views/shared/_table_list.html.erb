@@ -1,0 +1,30 @@
+<table class="list">
+  <thead>
+  <tr>
+    <th>舞台タイトル</th>
+    <th>団体名</th>
+    <th>カテゴリー</th>
+    <th>日時</th>
+    <th>午前・午後</th>
+    <th>本文</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% stages.each do |stage| %>
+    <tr>
+      <td style="text-align: right">
+        <%=link_to stage.title,send("#{@link}_path",stage) %></td>
+      <td>
+        <%= stage.actor.name %>
+      </td>
+      <td>
+        <%= stage.category.name %>
+      </td>
+      <td><%= stage.date %></td>
+      <td><%= stage.time == 1 ? "午前" : "午後"%></td>
+      <td><%= stage.text %></td>
+    </tr>
+    </tbody>
+  <% end %>
+  </tbody>
+  </table>

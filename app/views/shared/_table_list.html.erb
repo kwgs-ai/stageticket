@@ -1,30 +1,35 @@
-<table class="list">
-  <thead>
-  <tr>
-    <th>舞台タイトル</th>
-    <th>団体名</th>
-    <th>カテゴリー</th>
-    <th>日時</th>
-    <th>午前・午後</th>
-    <th>本文</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% stages.each do |stage| %>
-    <tr>
-      <td style="text-align: right">
-        <%=link_to stage.title,send("#{@link}_path",stage) %></td>
-      <td>
-        <%= stage.actor.name %>
-      </td>
-      <td>
-        <%= stage.category.name %>
-      </td>
-      <td><%= stage.date %></td>
-      <td><%= stage.time == 1 ? "午前" : "午後"%></td>
-      <td><%= stage.text %></td>
-    </tr>
-    </tbody>
-  <% end %>
-  </tbody>
-  </table>
+<% stages.each do |stage| %>
+  <div class="index_list">
+    <h3> <%= link_to stage.title, send("#{@link}_path", stage) %></h3>
+    <div class="list-content">
+      <p><%= stage.actor.name %></p>
+      <p> <%= stage.category.name %></p>
+    </div>
+    <table class="list">
+      <thead>
+      <tr>
+        <th>日時</th>
+        <th>午前・午後</th>
+        <% if action_name == 'actor_false_stages' || action_name == 'actor_true_stages' || action_name == 'admin_false_stages' || action_name == 'admin_true_stages' %>
+          <th>ステータス</th>
+        <% end %>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= stage.date %></td>
+        <td><%= stage.time == 1 ? "午前" : "午後" %></td>
+        <% if action_name == 'actor_false_stages' || action_name == 'actor_true_stages' || action_name == 'admin_false_stages' || action_name == 'admin_true_stages' %>
+          <% if stage.status == 1 %>
+            <td>申請中</td>
+          <% elsif stage.status == 2 %>
+            <td>承認</td>
+          <% else %>
+            <td>拒否</td>
+          <% end %>
+        <% end %>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>

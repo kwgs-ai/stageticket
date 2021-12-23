@@ -10,13 +10,16 @@
 </head>
 
 <body>
+<header>
+  <%= render "shared/header" %>
+</header>
 <div id="container">
-  <header>
-    <%= render "shared/header" %>
-  </header>
+
+<!--<div id="center-content">-->
   <main>
+    <% if flash.alert %><p class="alert"><%= flash.alert %></p><% end %>
     <% if flash.notice %>
-      <p class="notice"><%= flash.notice %></p>
+      <h2 class="notice"><%= flash.notice %></h2>
     <% end %>
 
     <%= yield %>
@@ -24,9 +27,11 @@
   <aside id="sidebar">
     <%= render "shared/sidebar" %>
   </aside>
-  <footer>
-    <%= render "shared/footer" %>
-  </footer>
+<!--</div>-->
+
 </div>
+<footer>
+  <%= render "shared/footer" %>
+</footer>
 </body>
 </html>

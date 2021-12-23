@@ -1,11 +1,15 @@
-<h1>舞台予約システム</h1>
+
+<div class="header-content">
+  <%= image_tag "logo.svg", size: "90x100", alt: "TeS", class: "head-imag" %>
+  <h1 class="header-center">Stage e-Ticket</h1>
+</div>
+
 
 <nav class="menubar">
-  <ul>
+  <ul class="main-nav">
     <%= menu_link_to "TOP", :root %>
-    <%= menu_link_to "ニュース", "#" %>
-    <%= menu_link_to "ブログ", "#" %>
-    <%= menu_link_to "会員名簿", "#" %>
-    <%= menu_link_to "管理ページ", "#" %>
+    <%= menu_link_to "公演団体用予約", :new_stage %>
+    <%= menu_link_to "ユーザー新規登録", :new_user %>
+    <%= menu_link_to "公演者新規登録", :new_actor %>
   </ul>
 </nav>

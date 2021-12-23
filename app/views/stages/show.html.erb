@@ -44,5 +44,6 @@
 
 
 <% end %>
-
+<% unless current_admin || current_user %>
 <%= link_to "この舞台を予約", [:new, @stage, :reservation] %>
+<% end %>

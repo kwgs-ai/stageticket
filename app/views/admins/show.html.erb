@@ -20,8 +20,9 @@
   </table>
 
 
-<%= menu_link_to "申請一覧", admin_false_stages_admin_path %>
-<%= menu_link_to "公演一覧", admin_true_stages_admin_path %>
-<%= link_to "退会手続き", @admin, method: :delete, data: { confirm: "本当に退会しますか？" } %>
-<%= menu_link_to "ユーザー情報編集", [:edit, @admin] %>
+  <%= menu_link_to "申請一覧", admin_false_stages_admin_path %>
+  <%= menu_link_to "公演一覧", admin_true_stages_admin_path %>
+  <%= link_to "退会手続き", @admin, method: :delete, data: { confirm: "本当に退会しますか？" } %>
+  <%= menu_link_to "ユーザー情報編集", [:edit, @admin] %>
+  <%= menu_link_to "パスワードの変更", :edit_password %>
 <% end %>

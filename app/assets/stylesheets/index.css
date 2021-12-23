@@ -1,0 +1,20 @@
+
+.index_list {
+    padding: 0.2em 0.5em;
+    margin: 3em 2em;
+    color: #565656;
+    background: white;
+    box-shadow: 0px 0px 0px 10px white;
+    border: solid 2px black;
+    border-radius: 8px;
+}
+
+.list-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search {
+    padding: 20px;
+
+}

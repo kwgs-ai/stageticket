@@ -1,15 +1,15 @@
 class AdminsessionsController < ApplicationController
   def create
     admin = Admin.find_by(login_name: params[:ID])
-    if admin&.authenticate(params[:password])
+    if admin&.authenticate(params[:password]) && session[:user_id].nil? && session[:actor_id].nil?
       session[:admin_id] = admin.id
-      if action_name == "show"
+      if action_name == 'show'
         redirect_to admin
       else
         redirect_to session[:path]
       end
     else
-      flash.alert = "IDとパスワードが一致しません"
+      flash.alert = 'IDとパスワードが一致しません'
       redirect_to :root
     end
   end

@@ -1,0 +1,28 @@
+
+/* 右の枠（サイドバーを入れる） */
+aside#sidebar {
+    /*border: solid 1px black;*/
+    /*float: left;*/
+    width: 28%;
+    background-color: #d8ffff;
+    padding: 5px;
+    font-size: 86%;
+}
+/* サイドバー */
+
+aside#sidebar h2 {
+    color: #080;
+    font-weight: bold;
+    border-bottom: 1px dotted #080;
+    margin-bottom: 0.5em;
+    font-size: 100%;
+}
+
+aside#sidebar ul {
+    padding-left: 1em;
+    list-style-type: none;
+}
+
+aside#sidebar li {
+    margin-bottom: 0.3em;
+}

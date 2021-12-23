@@ -1,0 +1,101 @@
+/* ヘッダー */
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+}
+
+.head-imag {
+    z-index: 10;
+padding-bottom: 10px;
+}
+
+/* メニューバー */
+nav.menubar {
+right: 0;
+    color: #ccc;
+    font-size: 80%;
+    padding: 8px 16px;
+}
+header h1 {
+    margin-bottom: 30px;
+    z-index: 2000;
+    font-size: 50px;
+    text-align: center;
+    color: white;
+}
+
+header {
+
+    /*background-image: url("header-img.jpg");*/
+    background-color: black;
+    background-size: cover;
+    font-family: 'Caveat', cursive;
+    border-top: 4px solid #6bb;
+    padding: 40px 10px;
+
+}
+
+/*header::before {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    !*left: 16.5%;*!*/
+/*    display: block;*/
+/*    width: 100%;*/
+/*    height: 36%;*/
+/*    background: rgba(255, 255, 255, 0.2);*/
+/*}*/
+
+
+ul.account-menu {
+    text-align: right;
+}
+
+/* ナビゲーション */
+
+.main-nav {
+    z-index: 10;
+    margin-right: 40px;
+    margin-bottom: 0;
+    display: flex;
+    text-transform: uppercase;
+    list-style-type: none;
+    font-size: 20px;
+    justify-content: right;
+}
+
+
+nav.menubar ul li:not(:last-child):after {
+    color: #ccc;
+    content: " | ";
+    margin: 0 2px;
+}
+
+/* メニューバーのリンク */
+nav.menubar a {
+    text-decoration: none;
+}
+
+/* メニューバーのリンク（未訪問） */
+nav.menubar a:link {
+    color: #ccc;
+}
+
+/* メニューバーのリンク（訪問済） */
+nav.menubar a:visited {
+    color: #ccc;
+}
+
+/* メニューバーのリンク（マウスを合わせたとき） */
+nav.menubar a:hover {
+    color: #f88;
+    text-decoration: underline;
+}
+
+/* メニューバーのリンク（現在のページ） */
+nav.menubar span {
+    color: #ff8;
+    font-weight: bold;
+}

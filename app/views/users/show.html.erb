@@ -24,4 +24,5 @@
 <%= link_to "予約一覧", [@user, :reservations]%>
 <%= link_to "退会手続き", @user, method: :delete, data: { confirm: "本当に削除しますか"} %>
 <%=menu_link_to "ユーザー情報編集",[:edit, @user] %>
+  <%=menu_link_to "パスワードの変更", :edit_password %>
 <% end %>

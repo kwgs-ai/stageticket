@@ -2,7 +2,7 @@ class ActorsessionsController < ApplicationController
 
   def create
     actor = Actor.find_by(login_name: params[:ID])
-    if actor&.authenticate(params[:password])
+    if actor&.authenticate(params[:password]) && session[:user_id].nil? && session[:admin_id].nil?
       session[:actor_id] = actor.id
       if action_name == "show"
         redirect_to actor

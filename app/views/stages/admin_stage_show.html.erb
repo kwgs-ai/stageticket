@@ -35,6 +35,9 @@
   <%= form.hidden_field :text %>
   <%= form.hidden_field :date %>
   <%= form.hidden_field :time %>
+  <%= hidden_field_tag :S_prise, @s %>
+  <%= hidden_field_tag :A_prise, @a %>
+  <%= hidden_field_tag :B_prise, @b %>
   <p>この舞台を承認する</p>
   <%= form.select :status, { '承認': 2, '拒否': 3 } %>
   <div><%= form.submit %></div>

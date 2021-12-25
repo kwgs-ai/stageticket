@@ -3,7 +3,8 @@ class StagesController < ApplicationController
 
   def index
     @link = 'stage'
-    @stages = Stage.where("date <= 'Date.today'").where(status: 2)
+    @today
+    @stages = Stage.where('date >= ?', Date.today).where(status: 2)
                    .page(params[:page]).per(5)
   end
 

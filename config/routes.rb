@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get :actor_false_stages
       get :actor_true_stages
     end
+    # resources :stages
   end
   resources :users do
     resources :reservations

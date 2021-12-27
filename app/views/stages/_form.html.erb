@@ -1,4 +1,5 @@
-<%#= render "shared/errors", obj: @member %>
+<%= render "shared/errors", obj: @stage %>
+<%= render "shared/errors", obj: @seat %>
 
 <table class="attr">
   <%= form.hidden_field :status %>
@@ -38,3 +39,5 @@
     <td><%= text_field_tag :B_prise, @seat_b %></td>
   </tr>
 </table>
+<h1><%=@seat %></h1>
+<h1><%=@stage %></h1>

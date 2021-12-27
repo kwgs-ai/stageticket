@@ -4,6 +4,19 @@ class Stage < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_many :seats, dependent: :destroy
 
+  validates :title, presence: true,
+                    length: { minimum: 1, maximum: 20, allow_blank: true }
+  validates :text, presence: true,
+                   length: { minimum: 10, maximum: 400, allow_blank: true }
+  validate do
+    errors.add(:after_date, '日付が不正です') if date <= Date.today + 2
+  end
+  validate do
+    unless Stage.where(date: date).nil?
+      errors.add(:dable_stage, '同じ日時あり')
+    end
+  end
+
   class << self
     def search(title, date, morning, afternoon, actor, category)
       rel = order('id')
@@ -15,12 +28,8 @@ class Stage < ApplicationRecord
         category = Category.where('name LIKE ?', "%#{category}%").ids
         rel = rel.where(category_id: category)
       end
-      if title.present?
-        rel = rel.where('title LIKE ?', "%#{title}%")
-      end
-      if date.present?
-        rel = rel.where('date LIKE ?', "%#{date}%")
-      end
+      rel = rel.where('title LIKE ?', "%#{title}%") if title.present?
+      rel = rel.where('date LIKE ?', "%#{date}%") if date.present?
       if (morning.present? && afternoon.blank?) || (morning.blank? && afternoon.present?) then
         time = if morning.present? then
                  1

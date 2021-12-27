@@ -3,8 +3,7 @@ class StagesController < ApplicationController
 
   def index
     @link = 'stage'
-    @today
-    @stages = Stage.where('date >= ?', Date.today).where(status: 2)
+    @stages = Stage.where('date >= ?', Date.today).where(status: 2).order(:date)
                    .page(params[:page]).per(5)
   end
 
@@ -14,6 +13,7 @@ class StagesController < ApplicationController
 
   def new
     @stage = Stage.new
+    @seat = Seat.new
   end
 
   def edit
@@ -61,6 +61,10 @@ class StagesController < ApplicationController
     @b = params[:B_prise]
     @stage = Stage.new(params[:stage])
     @stage.actor_id = session[:actor_id]
+    @seat = Seat.new(seat_type: 'S', stage_id: @stage.id, seat_prise: @s)
+    @seat = Seat.new(seat_type: 'A', stage_id: @stage.id, seat_prise: @a)
+    @seat = Seat.new(seat_type: 'B', stage_id: @stage.id, seat_prise: @b)
+
   end
 
   def create
@@ -69,20 +73,36 @@ class StagesController < ApplicationController
     @b = params[:B_prise]
     @stage = Stage.new(params[:stage])
     @stage.actor_id = session[:actor_id]
-    if @stage.save!
-      10.times do
-        @seat = Seat.new(seat_type: 'S', stage_id: @stage.id, seat_prise: @s)
-        @seat.save
+    @seat = Seat.new(seat_type: 'S', stage_id: @stage.id, seat_prise: @s)
+    @label = true
+
+    10.times do
+      @seat = Seat.new(seat_type: 'S', stage_id: @stage.id, seat_prise: @s)
+      unless @seat.save
+        @label = false
+        break
       end
-      10.times do
-        @seat = Seat.new(seat_type: 'A', stage_id: @stage.id, seat_prise: @a)
-        @seat.save
+    end
+    10.times do
+      @seat = Seat.new(seat_type: 'A', stage_id: @stage.id, seat_prise: @a)
+      unless @seat.save
+        @label = false
+        break
       end
-      10.times do
-        @seat = Seat.new(seat_type: 'B', stage_id: @stage.id, seat_prise: @b)
-        @seat.save
+    end
+    10.times do
+      @seat = Seat.new(seat_type: 'B', stage_id: @stage.id, seat_prise: @b)
+      unless @seat.save
+        @label = false
+        break
       end
-      redirect_to :root, notice: '登録しました'
+    end
+    if @label
+      if @stage.save
+        redirect_to :root, notice: '登録しました'
+      else
+        render 'new'
+      end
     else
       render 'new'
     end

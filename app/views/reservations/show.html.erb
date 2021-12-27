@@ -1,13 +1,13 @@
 <% @page_title = "予約詳細" %>
 <h1><%= @page_title %></h1>
 <% if @reservation.present? %>
-  <%=render"shared/table_show", stage: @stage %>
+  <%= render "shared/table_show", stage: @stage %>
 
 
-<h2>チケット購入枚数</h2>
+  <h2>チケット購入枚数</h2>
   <table class="list">
     <thead>
-    <% if @reservation.seats.where(seat_type: "S").count !=0 %>
+    <% if @reservation.seats.where(seat_type: "S").count != 0 %>
       <tr>
         <th>S席 枚数</th>
         <td>
@@ -58,4 +58,6 @@
     <tbody>
 
   </table>
+
+  <%= link_to "予約キャンセル", [@user, @reservation], method: :delete, data: { confirm: "本当に削除しますか" } %>
 <% end %>

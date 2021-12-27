@@ -13,6 +13,7 @@ class ReservationsController < ApplicationController
   def show
     @reservation = Reservation.find(params[:id])
     @cost = 0
+    @user = User.find(params[:user_id])
     @stage = @reservation.stage
   end
 
@@ -24,39 +25,52 @@ class ReservationsController < ApplicationController
     @s_count = params[:s_count].to_i
     @a_count = params[:a_count].to_i
     @b_count = params[:b_count].to_i
-    @a_seats = Seat.where(seat_type: 'S', stage_id: params[:stage_id], reservation_id: nil)
-    @s_seats = Seat.where(seat_type: 'A', stage_id: params[:stage_id], reservation_id: nil)
-    @b_seats = Seat.where(seat_type: 'B', stage_id: params[:stage_id], reservation_id: nil)
-    if @s_seats.count >= @s_count && @a_seats.count >= @a_count && @b_seats.count >= @b_count
-      if @reservation.save
-        @s_count.times do
-          @seat = Seat.find_by(seat_type: 'S', stage_id: params[:stage_id], reservation_id: nil)
-          @seat.stage_id = params[:stage_id]
-          @seat.reservation_id = @reservation.id
-          break unless @seat.save
+    @sum = @s_count + @a_count + @b_count
+    if @sum > 0 && @sum < 6
+      @a_seats = Seat.where(seat_type: 'S', stage_id: params[:stage_id], reservation_id: nil)
+      @s_seats = Seat.where(seat_type: 'A', stage_id: params[:stage_id], reservation_id: nil)
+      @b_seats = Seat.where(seat_type: 'B', stage_id: params[:stage_id], reservation_id: nil)
+      if @s_seats.count >= @s_count && @a_seats.count >= @a_count && @b_seats.count >= @b_count
+        if @reservation.save
+          @s_count.times do
+            @seat = Seat.find_by(seat_type: 'S', stage_id: params[:stage_id], reservation_id: nil)
+            @seat.stage_id = params[:stage_id]
+            @seat.reservation_id = @reservation.id
+            break unless @seat.save
+          end
+          @a_count.times do
+            @seat = Seat.find_by(seat_type: 'A', stage_id: params[:stage_id], reservation_id: nil)
+            @seat.stage_id = params[:stage_id]
+            @seat.reservation_id = @reservation.id
+            break unless @seat.save
+          end
+          @b_count.times do
+            @seat = Seat.find_by(seat_type: 'B', stage_id: params[:stage_id], reservation_id: nil)
+            @seat.stage_id = params[:stage_id]
+            @seat.reservation_id = @reservation.id
+            break unless @seat.save
+          end
+          redirect_to :root, notice: '登録しました'
+
+        else
+          render 'new'
         end
-        @a_count.times do
-          @seat = Seat.find_by(seat_type: 'A', stage_id: params[:stage_id], reservation_id: nil)
-          @seat.stage_id = params[:stage_id]
-          @seat.reservation_id = @reservation.id
-          break unless @seat.save
-        end
-        @b_count.times do
-          @seat = Seat.find_by(seat_type: 'B', stage_id: params[:stage_id], reservation_id: nil)
-          @seat.stage_id = params[:stage_id]
-          @seat.reservation_id = @reservation.id
-          break unless @seat.save
-        end
-        redirect_to :root, notice: '登録しました'
+        # end
 
       else
-        render 'new'
+        redirect_to :root, notice: '席数がたりませんでした'
       end
-      # end
-
     else
-      redirect_to :root, notice: '席数がたりませんでした'
+      redirect_to :root, notice: '席数は０以上６以下です'
     end
   end
 
+  def destroy
+    @reservation = Reservation.find(params[:id])
+    @stage = @reservation.stage_id
+    if Stage.find(@stage).date >= Date.today + 2
+      @reservation.destroy
+      redirect_to :root, notice: "会員を削除しました。"
+    end
+  end
 end

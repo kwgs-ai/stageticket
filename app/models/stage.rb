@@ -12,9 +12,18 @@ class Stage < ApplicationRecord
     errors.add(:after_date, '日付が不正です') if date <= Date.today + 2
   end
   validate do
-    unless Stage.where(date: date).nil?
-      errors.add(:dable_stage, '同じ日時あり')
+    unless Stage.where(date: date).count.zero?
+      if Stage.where(date: date).count == 1
+        if Stage.find_by(date: date).id == self.id
+        else
+          errors.add(:dable_stage, '同じ日時あり')
+        end
+      else
+        errors.add(:dable_stage, '同じ日時あり')
+      end
+
     end
+
   end
 
   class << self

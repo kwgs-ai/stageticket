@@ -11,11 +11,6 @@ class StagesController < ApplicationController
     @stage = Stage.find(params[:id])
   end
 
-  def new
-    @stage = Stage.new
-    @seat = Seat.new
-  end
-
   def edit
     @stage = Stage.find(params[:id])
     @seat = @stage.seats.find_by(seat_type: 'S')
@@ -66,7 +61,6 @@ class StagesController < ApplicationController
       @label = false
     end
 
-
     if @stage.save && @label
       if current_admin
         redirect_to admin_false_stages_admin_path, notice: 'この公演のステータスを更新しました'
@@ -81,62 +75,37 @@ class StagesController < ApplicationController
   end
 
   def confirm
-    @s = params[:S_prise]
-    @a = params[:A_prise]
-    @b = params[:B_prise]
-    @stage = Stage.new(params[:stage])
-    @stage.actor_id = session[:actor_id]
-    @seat = Seat.new(seat_type: 'S', stage_id: @stage.id, seat_prise: @s)
-    @seat = Seat.new(seat_type: 'A', stage_id: @stage.id, seat_prise: @a)
-    @seat = Seat.new(seat_type: 'B', stage_id: @stage.id, seat_prise: @b)
+    @stage_date = params[:stage_seats]
+    @seat = @stage_date[:seats]
+    @actor = session[:actor_id]
+    @date = Date.parse("#{@stage_date["date(1i)"]}-#{@stage_date["date(2i)"]}-#{@stage_date["date(3i)"]}")
+    @stage = Stage.new(title: @stage_date[:title], text: @stage_date[:text],
+                           date: @date, time: @stage_date[:time], category_id: @stage_date[:category_id],actor_id: session[:actor_id])
+    @seats = StageSeats.new()
+    @s = @stage_date[:seats][0]['seat_prise']
+    @a = @stage_date[:seats][1]['seat_prise']
+    @b = @stage_date[:seats][2]['seat_prise']
+  end
 
+  def new
+    @seats = StageSeats.new
   end
 
   def create
-    @s = params[:S_prise]
-    @a = params[:A_prise]
-    @b = params[:B_prise]
-    @stage = Stage.new(params[:stage])
-    @stage.actor_id = session[:actor_id]
-    @seat = Seat.new(seat_type: 'S', stage_id: @stage.id, seat_prise: @s)
-    @label = true
-    if @stage.save
-      10.times do
-        @seat = Seat.new(seat_type: 'S', stage_id: @stage.id, seat_prise: @s)
-        unless @seat.save
-          @label = false
-          break
-        end
-      end
-      10.times do
-        @seat = Seat.new(seat_type: 'A', stage_id: @stage.id, seat_prise: @a)
-        unless @seat.save
-          @label = false
-          break
-        end
-      end
-      10.times do
-        @seat = Seat.new(seat_type: 'B', stage_id: @stage.id, seat_prise: @b)
-        unless @seat.save
-          @label = false
-          break
-        end
-      end
-      if @label
-          redirect_to :root, notice: '登録しました'
-      else
-        @stage.destroy
-        render 'new'
-      end
+    @stage_date = params[:stage_seats]
+    @seat = @stage_date[:seats]
+    @actor = session[:actor_id]
+    @seats = StageSeats.new(@stage_date, @seat, @actor)
+    if (@error = @seats.save).blank?
+      redirect_to :root, notice: '登録しました'
     else
       render 'new'
     end
-
   end
 
   def search
-    @stages = Stage.search(params[:title], params[:date], params[:morning], params[:afternoon], params[:actor], params[:category])
-    @stages = @stages.where(status: 2)
+    @stages = Stage.search(params[:title], params[:date], params[:morning], params[:afternoon], params[:actor], 
+                           params[:category]).where(status: 2)
     render 'index'
   end
 

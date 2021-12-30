@@ -1,4 +1,4 @@
-<%= render "shared/errors", obj: @stage %>
+<%#= render "shared/errors", obj: @stage %>
 <% @page_title = "舞台確認" %>
 <h1><%= @page_title %></h1>
 <table class="list">
@@ -26,7 +26,7 @@
       <%= @stage.category.name %>
     </td>
     <td><%= @stage.date %></td>
-    <td><%= @stage.time == 1 ? "午前":"午後"%></td>
+    <td><%= @stage.time == 1 ? "午前" : "午後" %></td>
     <td><%= @stage.text %></td>
     <td><%= @s %></td>
     <td><%= @a %></td>
@@ -37,15 +37,24 @@
 </table>
 
 
-<%= form_for @stage do |form| %>
-  <%= form.hidden_field :status %>
-  <%= form.hidden_field :title %>
-  <%= form.hidden_field :category_id %>
-  <%= form.hidden_field :text %>
-  <%= form.hidden_field :date %>
-  <%= form.hidden_field :time %>
-  <%= hidden_field_tag :S_prise, @s %>
-  <%= hidden_field_tag :A_prise, @a %>
-  <%= hidden_field_tag :B_prise, @b %>
+<%= form_for @seats, url: stages_path do |form| %>
+  <%= form.hidden_field :title, :value => @stage.title %>
+  <%= form.hidden_field :category_id, :value => @stage.category_id %>
+  <%= form.hidden_field :text, :value => @stage.text %>
+  <%= form.hidden_field :date, :value => @stage.date %>
+  <%= form.hidden_field :time, :value => @stage.time %>
+  <% @seats.collection.each do |seat| %>
+    <% @count = 0 %>
+    <%= form.fields_for 'seats[]', seat do |fs| %>
+      <% if @count == 0 %>
+        <%= fs.hidden_field :seat_prise, :value => @s %>
+      <% elsif @count == 1 %>
+        <%= fs.hidden_field :seat_prise, :value => @a %>
+      <% else %>
+        <%= fs.hidden_field :seat_prise, :value => @b %>
+      <% end %>
+    <% end %>
+    <% @count += 1 %>
+  <% end %>
   <div><%= form.submit %></div>
 <% end %>

@@ -3,28 +3,29 @@ class Stage < ApplicationRecord
   belongs_to :category
   has_many :reservations, dependent: :destroy
   has_many :seats, dependent: :destroy
+  validates_associated :seats
 
   validates :title, presence: true,
                     length: { minimum: 1, maximum: 20, allow_blank: true }
   validates :text, presence: true,
                    length: { minimum: 10, maximum: 400, allow_blank: true }
-  validate do
-    errors.add(:after_date, '日付が不正です') if date <= Date.today + 2
-  end
-  validate do
-    unless Stage.where(date: date).count.zero?
-      if Stage.where(date: date).count == 1
-        if Stage.find_by(date: date).id == self.id
-        else
-          errors.add(:dable_stage, '同じ日時あり')
-        end
-      else
-        errors.add(:dable_stage, '同じ日時あり')
-      end
+  # validate do
+  #   errors.add(:after_date, '日付が不正です') if date <= Date.today + 2
+  # end
+  # validate do
+  #   unless Stage.where(date: date).count.zero?
+  #     if Stage.where(date: date).count == 1
+  #       if Stage.find_by(date: date).id == self.id
+  #       else
+  #         errors.add(:dable_stage, '同じ日時あり')
+  #       end
+  #     else
+  #       errors.add(:dable_stage, '同じ日時あり')
+  #     end
+  #
+  #   end
 
-    end
-
-  end
+  # end
 
   class << self
     def search(title, date, morning, afternoon, actor, category)

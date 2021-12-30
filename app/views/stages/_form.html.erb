@@ -1,8 +1,7 @@
-<%= render "shared/errors", obj: @stage %>
-<%= render "shared/errors", obj: @seat %>
 
+<%#= render "shared/errors", obj: @seats %>
+<%= @error %>
 <table class="attr">
-  <%= form.hidden_field :status %>
   <tr>
     <th><%= form.label :title %></th>
     <td><%= form.text_field :title, size: 8 %></td>
@@ -26,19 +25,12 @@
     <td><%= form.select :time, { '午前': 1, '午後': 2 } %></td>
   </tr>
 
-  <tr>
-    <th><%= form.label :S金額 %></th>
-    <td><%= text_field_tag :S_prise, @seat_s %></td>
-  </tr>
-  <tr>
-    <th><%= form.label :A金額 %></th>
-    <td><%= text_field_tag :A_prise, @seat_a %></td>
-  </tr>
-  <tr>
-    <th><%= form.label :B金額 %></th>
-    <td><%= text_field_tag :B_prise, @seat_b %></td>
-  </tr>
+  <% @seats.collection.each do |seat| %>
+    <%= form.fields_for 'seats[]', seat do |fs| %>
+      <tr>
+        <th><%= fs.label :S金額 %></th>
+        <td><%= fs.text_field :seat_prise %></td>
+      </tr>
+    <% end %>
+  <% end %>
 </table>
-<h1><%=@seat %></h1>
-<h1><%=@stage %></h1>
-<h1><%=@label %></h1>

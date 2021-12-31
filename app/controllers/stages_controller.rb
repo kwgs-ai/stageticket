@@ -37,7 +37,8 @@ class StagesController < ApplicationController
     @date = Date.parse("#{@stage_date["date(1i)"]}-#{@stage_date["date(2i)"]}-#{@stage_date["date(3i)"]}")
     @stage = Stage.new(title: @stage_date[:title], text: @stage_date[:text],
                        date: @date, time: @stage_date[:time], category_id: @stage_date[:category_id], actor_id: session[:actor_id])
-    @seats = StageSeats.new
+    @form = StageSeats.new
+    @seats = @form.collection
     @cost = [@stage_date[:seats][0]['seat_prise'], @stage_date[:seats][1]['seat_prise'],
              @stage_date[:seats][2]['seat_prise']]
 
@@ -45,6 +46,7 @@ class StagesController < ApplicationController
 
   def new
     @form = StageSeats.new
+    p @stage = Stage.new
     @seats = @form.collection
   end
 
@@ -53,12 +55,12 @@ class StagesController < ApplicationController
     @stage_date = params[:stage_seats]
     @seat = @stage_date[:seats]
     @actor = session[:actor_id]
-    @seats = StageSeats.new(@stage_date, @seat, @actor)
-    if (@error = @seats.save).blank?
+    @form = StageSeats.new(@stage_date, @seat, @actor)
+    if (@error = @form.save).blank?
       redirect_to :root, notice: '登録しました'
     else
-      @form = @seats
-      @seats = @seats.collection
+      @seats = @form.collection.drop(1)
+      @stage = @form.collection.first
       render 'new'
     end
   end

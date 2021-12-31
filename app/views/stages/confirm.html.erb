@@ -37,13 +37,13 @@
 </table>
 
 
-<%= form_for @seats, url: stages_path do |form| %>
+<%= form_for @form, url: stages_path do |form| %>
   <%= form.hidden_field :title, :value => @stage.title %>
   <%= form.hidden_field :category_id, :value => @stage.category_id %>
   <%= form.hidden_field :text, :value => @stage.text %>
   <%= form.hidden_field :date, :value => @stage.date %>
   <%= form.hidden_field :time, :value => @stage.time %>
-  <% @seats.collection.each_with_index do |seat, i| %>
+  <% @seats.each_with_index do |seat, i| %>
     <%= form.fields_for 'seats[]', seat do |fs| %>
       <h1><%= @cost[i] %></h1>
       <%= fs.hidden_field :seat_prise, :value => @cost[i] %>

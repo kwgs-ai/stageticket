@@ -3,23 +3,18 @@ class StageSeats
   attr_accessor :title, :text, :date, :time, :actor_id, :category_id, :seat_prise, :collection,
                 :stage, :errors, :prise
   SEAT_NUM = 3
+
   def initialize(attributes = [], attributes2 = [], actor = nil)
     if attributes.present?
       self.collection = []
       types = %w[S A B]
       self.prise = []
-      self.stage = Stage.new(title: attributes[:title], text: attributes[:text],
-                             date: attributes[:date], time: attributes[:time], category_id: attributes[:category_id])
-      stage.actor_id = actor
+      self.stage = Stage.new(actor_id: actor, title: attributes[:title], text: attributes[:text],
+                           date: attributes[:date], time: attributes[:time], category_id: attributes[:category_id])
+      self.collection << self.stage
       attributes2.each_with_index do |value, i|
         prise << value['seat_prise']
-        0.upto(9) do
-          collection <<
-            Seat.new(
-              seat_prise: value['seat_prise'],
-              seat_type: types[i]
-            )
-        end
+        0.upto(9) { collection << Seat.new(seat_prise: value['seat_prise'], seat_type: types[i]) }
       end
     else
       self.collection = SEAT_NUM.times.map { Seat.new }
@@ -53,12 +48,9 @@ class StageSeats
   def save
     errors = []
     ActiveRecord::Base.transaction do
-      unless stage.save
-        errors << stage.errors.full_messages
-      end
-      collection.each do |result|
-        result.stage_id = stage.id
-        # バリデーションを全てかけたいからsave!ではなくsaveを使用
+      errors << collection.first.errors.full_messages unless collection.first.save
+      collection.drop(1).each do |result|
+        result.stage_id = collection.first.id
         unless result.save
           errors << result.errors.full_messages
           break
@@ -68,9 +60,10 @@ class StageSeats
     end
   rescue => e
     p 'エラーがあります＜デバッグ用＞'
-    p prise[0]
+    p e
     self.collection = []
-    3.times {|id| collection << Seat.new(seat_prise: prise[id])}
+    collection << self.stage
+    3.times { |id| collection << Seat.new(seat_prise: prise[id]) }
   ensure
     return errors
   end

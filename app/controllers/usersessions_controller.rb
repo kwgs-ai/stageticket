@@ -11,6 +11,7 @@ class UsersessionsController < ApplicationController
       end
     else
       flash.alert = 'IDとパスワードが一致しません'
+      flash.alert = 'すでにログイン中であるユーザーがいます。一旦ログアウトしてからログインしてください' unless session[:admin_id].nil? && session[:actor_id].nil?
       redirect_to :root
     end
   end

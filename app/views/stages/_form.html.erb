@@ -25,7 +25,7 @@
     <td><%= form.select :time, { '午前': 1, '午後': 2 } %></td>
   </tr>
 
-  <% @seats.collection.each do |seat| %>
+  <% @seats.each do |seat| %>
     <%= form.fields_for 'seats[]', seat do |fs| %>
       <tr>
         <th><%= fs.label :S金額 %></th>
@@ -34,3 +34,4 @@
     <% end %>
   <% end %>
 </table>
+

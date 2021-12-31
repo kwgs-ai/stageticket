@@ -13,65 +13,29 @@ class StagesController < ApplicationController
 
   def edit
     @stage = Stage.find(params[:id])
-    @seat = @stage.seats.find_by(seat_type: 'S')
-    @seat_s = @stage.seats.find_by(seat_type: 'S').seat_prise
-    @seat_a = @stage.seats.find_by(seat_type: 'A').seat_prise
-    @seat_b = @stage.seats.find_by(seat_type: 'B').seat_prise
+    @seats = []
+    @seats << @stage.seats.find_by(seat_type: 'S')
+    @seats << @stage.seats.find_by(seat_type: 'A')
+    @seats << @stage.seats.find_by(seat_type: 'B')
+
+
   end
 
   def update
+    @seats = StageSeats.new
     @stage = Stage.find(params[:id])
-    @stage.assign_attributes(params[:stage])
-    @seats_s = @stage.seats.where(seat_type: 'S')
-    @seats_a = @stage.seats.where(seat_type: 'A')
-    @seats_b = @stage.seats.where(seat_type: 'B')
-    @seat = @stage.seats.find_by(seat_type: 'S')
-    @label = true
-    @seats_s.each do |seat|
-      seat.assign_attributes(seat_prise: params[:S_prise])
-      unless seat.save
-        @label = false
-      end
-    end
-    @seats_a.each do |seat|
-      seat.assign_attributes(seat_prise: params[:A_prise])
-      unless seat.save
-        @label = false
-      end
-    end
-    @seats_b.each do |seat|
-      seat.assign_attributes(seat_prise: params[:B_prise])
-      unless seat.save
-        @label = false
-      end
-    end
-    @seat = @stage.seats.find_by(seat_type: 'S')
-    @seat.assign_attributes(seat_prise: params[:S_prise])
-    unless @seat.save
-      @label = false
-    end
-    @seat = @stage.seats.find_by(seat_type: 'A')
-    @seat.assign_attributes(seat_prise: params[:A_prise])
-    unless @seat.save
-      @label = false
-    end
-    @seat = @stage.seats.find_by(seat_type: 'B')
-    @seat.assign_attributes(seat_prise: params[:B_prise])
-    unless @seat.save
-      @label = false
-    end
-
-    if @stage.save && @label
-      if current_admin
-        redirect_to admin_false_stages_admin_path, notice: 'この公演のステータスを更新しました'
-      elsif current_actor
-        redirect_to actor_stage_show_stage_path(@stage), notice: '舞台情報を更新しました。'
-      else
-        redirect_to @stage, notice: '舞台情報を更新しました。'
-      end
+    @seats.assign_attributes(@stage, params[:stage], params[:stage][:seats])
+    if (@error = @seats.save).blank?
+      redirect_to :root, notice: '登録しました'
     else
+      @stage = Stage.find(params[:id])
+      @seats = []
+      @seats << @stage.seats.find_by(seat_type: 'S')
+      @seats << @stage.seats.find_by(seat_type: 'A')
+      @seats << @stage.seats.find_by(seat_type: 'B')
       render 'edit'
     end
+
   end
 
   def confirm
@@ -80,7 +44,7 @@ class StagesController < ApplicationController
     @actor = session[:actor_id]
     @date = Date.parse("#{@stage_date["date(1i)"]}-#{@stage_date["date(2i)"]}-#{@stage_date["date(3i)"]}")
     @stage = Stage.new(title: @stage_date[:title], text: @stage_date[:text],
-                           date: @date, time: @stage_date[:time], category_id: @stage_date[:category_id],actor_id: session[:actor_id])
+                       date: @date, time: @stage_date[:time], category_id: @stage_date[:category_id], actor_id: session[:actor_id])
     @seats = StageSeats.new()
     @s = @stage_date[:seats][0]['seat_prise']
     @a = @stage_date[:seats][1]['seat_prise']
@@ -88,10 +52,12 @@ class StagesController < ApplicationController
   end
 
   def new
-    @seats = StageSeats.new
+    @form = StageSeats.new
+    @seats = @form.collection
   end
 
   def create
+    @form = StageSeats.new
     @stage_date = params[:stage_seats]
     @seat = @stage_date[:seats]
     @actor = session[:actor_id]
@@ -99,12 +65,14 @@ class StagesController < ApplicationController
     if (@error = @seats.save).blank?
       redirect_to :root, notice: '登録しました'
     else
+      @form = StageSeats.new
+      @seats = @form.collection
       render 'new'
     end
   end
 
   def search
-    @stages = Stage.search(params[:title], params[:date], params[:morning], params[:afternoon], params[:actor], 
+    @stages = Stage.search(params[:title], params[:date], params[:morning], params[:afternoon], params[:actor],
                            params[:category]).where(status: 2)
     render 'index'
   end

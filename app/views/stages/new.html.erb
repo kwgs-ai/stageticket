@@ -5,7 +5,7 @@
 <h1><%= @page_title %></h1>
 
 
-<%= form_for @seats, url: confirm_stages_path do |form| %>
+<%= form_for @form, url: confirm_stages_path do |form| %>
   <%= render "form", form: form %>
   <div><%= form.submit %></div>
 <% end %>

@@ -29,12 +29,10 @@ Rails.application.routes.draw do
   end
   resources :users
   resource :admin do
-
     collection do
       get :admin_false_stages
       get :admin_true_stages
     end
-
   end
 
 end

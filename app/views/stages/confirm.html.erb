@@ -28,9 +28,9 @@
     <td><%= @stage.date %></td>
     <td><%= @stage.time == 1 ? "午前" : "午後" %></td>
     <td><%= @stage.text %></td>
-    <td><%= @s %></td>
-    <td><%= @a %></td>
-    <td><%= @b %></td>
+    <% 3.times do |i| %>
+      <td><%= @cost[i] %></td>
+    <% end %>
   </tr>
   </tbody>
   </tbody>
@@ -43,18 +43,11 @@
   <%= form.hidden_field :text, :value => @stage.text %>
   <%= form.hidden_field :date, :value => @stage.date %>
   <%= form.hidden_field :time, :value => @stage.time %>
-  <% @seats.collection.each do |seat| %>
-    <% @count = 0 %>
+  <% @seats.collection.each_with_index do |seat, i| %>
     <%= form.fields_for 'seats[]', seat do |fs| %>
-      <% if @count == 0 %>
-        <%= fs.hidden_field :seat_prise, :value => @s %>
-      <% elsif @count == 1 %>
-        <%= fs.hidden_field :seat_prise, :value => @a %>
-      <% else %>
-        <%= fs.hidden_field :seat_prise, :value => @b %>
-      <% end %>
+      <h1><%= @cost[i] %></h1>
+      <%= fs.hidden_field :seat_prise, :value => @cost[i] %>
     <% end %>
-    <% @count += 1 %>
   <% end %>
   <div><%= form.submit %></div>
 <% end %>

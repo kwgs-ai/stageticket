@@ -45,12 +45,18 @@ class ActorsController < ApplicationController
 
   def actor_false_stages
     @link = 'actor_stage_show_stage'
-    @stages = Stage.where(actor_id: session[:actor_id]).where(status: 1)
+    @stages = Stage.where(actor_id: session[:actor_id]).where(status: 1).where('date >= ?', Date.today)
+                .page(params[:page]).per(3)
+    @after = Stage.where(actor_id: session[:actor_id]).where(status: 1).where('date < ?', Date.today)
+               .page(params[:page]).per(3)
   end
 
   def actor_true_stages
     @link = 'actor_stage_show_stage'
-    @stages = Stage.where(actor_id: session[:actor_id]).where(status: [2, 3])
+    @stages = Stage.where(actor_id: session[:actor_id]).where(status: [2, 3]).where('date >= ?', Date.today)
+                .page(params[:page]).per(3)
+    @after = Stage.where(actor_id: session[:actor_id]).where(status: [2, 3]).where('date < ?', Date.today)
+               .page(params[:page]).per(3)
   end
 
   def actor_stage_show

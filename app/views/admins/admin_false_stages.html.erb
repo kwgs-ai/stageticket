@@ -3,7 +3,11 @@
 
 
 <% if @stages.present? %>
-
-
   <%= render "shared/table_list", stages: @stages %>
 <% end %>
+<%= paginate @stages %>
+<h1>過去</h1>
+<% if @after.present? %>
+  <%= render "shared/table_list", stages: @after %>
+<% end %>
+<%= paginate @after %>

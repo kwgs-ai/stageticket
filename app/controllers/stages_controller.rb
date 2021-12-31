@@ -13,12 +13,8 @@ class StagesController < ApplicationController
 
   def edit
     @stage = Stage.find(params[:id])
-    @seats = []
-    @seats << @stage.seats.find_by(seat_type: 'S')
-    @seats << @stage.seats.find_by(seat_type: 'A')
-    @seats << @stage.seats.find_by(seat_type: 'B')
-
-
+    @seats = [@stage.seats.find_by(seat_type: 'S'), @stage.seats.find_by(seat_type: 'A'),
+              @stage.seats.find_by(seat_type: 'B')]
   end
 
   def update
@@ -28,14 +24,10 @@ class StagesController < ApplicationController
     if (@error = @seats.save).blank?
       redirect_to :root, notice: '登録しました'
     else
-      @stage = Stage.find(params[:id])
-      @seats = []
-      @seats << @stage.seats.find_by(seat_type: 'S')
-      @seats << @stage.seats.find_by(seat_type: 'A')
-      @seats << @stage.seats.find_by(seat_type: 'B')
+      @seats = [@stage.seats.find_by(seat_type: 'S'), @stage.seats.find_by(seat_type: 'A'),
+                @stage.seats.find_by(seat_type: 'B')]
       render 'edit'
     end
-
   end
 
   def confirm
@@ -45,10 +37,10 @@ class StagesController < ApplicationController
     @date = Date.parse("#{@stage_date["date(1i)"]}-#{@stage_date["date(2i)"]}-#{@stage_date["date(3i)"]}")
     @stage = Stage.new(title: @stage_date[:title], text: @stage_date[:text],
                        date: @date, time: @stage_date[:time], category_id: @stage_date[:category_id], actor_id: session[:actor_id])
-    @seats = StageSeats.new()
-    @s = @stage_date[:seats][0]['seat_prise']
-    @a = @stage_date[:seats][1]['seat_prise']
-    @b = @stage_date[:seats][2]['seat_prise']
+    @seats = StageSeats.new
+    @cost = [@stage_date[:seats][0]['seat_prise'], @stage_date[:seats][1]['seat_prise'],
+             @stage_date[:seats][2]['seat_prise']]
+
   end
 
   def new
@@ -57,7 +49,7 @@ class StagesController < ApplicationController
   end
 
   def create
-    @form = StageSeats.new
+    # @form = StageSeats.new
     @stage_date = params[:stage_seats]
     @seat = @stage_date[:seats]
     @actor = session[:actor_id]
@@ -65,8 +57,8 @@ class StagesController < ApplicationController
     if (@error = @seats.save).blank?
       redirect_to :root, notice: '登録しました'
     else
-      @form = StageSeats.new
-      @seats = @form.collection
+      @form = @seats
+      @seats = @seats.collection
       render 'new'
     end
   end

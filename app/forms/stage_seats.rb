@@ -1,35 +1,25 @@
 class StageSeats
   include ActiveModel::Model
   attr_accessor :title, :text, :date, :time, :actor_id, :category_id, :seat_prise, :collection,
-                :stage, :errors, :prise_a, :prise_b, :prise_s
+                :stage, :errors, :prise
   SEAT_NUM = 3
   def initialize(attributes = [], attributes2 = [], actor = nil)
     if attributes.present?
       self.collection = []
       types = %w[S A B]
-      count = 0
-      # date = Date.parse("#{attributes["date(1i)"]}-#{attributes["date(2i)"]}-#{attributes["date(3i)"]}")
+      self.prise = []
       self.stage = Stage.new(title: attributes[:title], text: attributes[:text],
                              date: attributes[:date], time: attributes[:time], category_id: attributes[:category_id])
       stage.actor_id = actor
-      attributes2.each do |value|
-        0.upto(9) do |idx|
+      attributes2.each_with_index do |value, i|
+        prise << value['seat_prise']
+        0.upto(9) do
           collection <<
             Seat.new(
               seat_prise: value['seat_prise'],
-              # stage_id: 1,
-              seat_type: types[count]
+              seat_type: types[i]
             )
-          case count
-          when 0
-            self.prise_s = value['seat_prise']
-          when 1
-            self.prise_a = value['seat_prise']
-          else
-            self.prise_b = value['seat_prise']
-          end
         end
-        count += 1
       end
     else
       self.collection = SEAT_NUM.times.map { Seat.new }
@@ -37,7 +27,7 @@ class StageSeats
   end
 
   def assign_attributes(stage, attributes, update_seat)
-    date = Date.parse("#{attributes["date(1i)"]}-#{attributes["date(2i)"]}-#{attributes["date(3i)"]}")
+    date = Date.parse("#{attributes['date(1i)']}-#{attributes['date(2i)']}-#{attributes['date(3i)']}")
     stage.assign_attributes(title: attributes[:title], text: attributes[:text],
                             date: date, time: attributes[:time], category_id: attributes[:category_id])
     self.stage = stage
@@ -78,10 +68,9 @@ class StageSeats
     end
   rescue => e
     p 'エラーがあります＜デバッグ用＞'
+    p prise[0]
     self.collection = []
-    collection << Seat.new(seat_prise: prise_s)
-    collection << Seat.new(seat_prise: prise_a)
-    collection << Seat.new(seat_prise: prise_b)
+    3.times {|id| collection << Seat.new(seat_prise: prise[id])}
   ensure
     return errors
   end

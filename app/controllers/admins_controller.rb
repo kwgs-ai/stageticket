@@ -10,11 +10,11 @@ class AdminsController < ApplicationController
   end
 
   def edit
-    @admin = Admin.find(params[:id])
+    @admin = current_admin
   end
 
   def update
-    @admin = Admin.find(params[:id])
+    @admin = current_admin
     @admin.assign_attributes(params[:admin])
     if @admin.save
       redirect_to :admin, notice: '会員情報を更新しました。'
@@ -23,20 +23,20 @@ class AdminsController < ApplicationController
     end
   end
 
-  def destroy
-    @admin = Admin.find(params[:id])
-    @admin.destroy
-    redirect_to :root, notice: '会員を削除しました。'
-
-  end
 
   def admin_false_stages
     @link = 'admin_stage_show_stage'
-    @stages = Stage.where(status: 1)
+    @stages = Stage.where(status: 1).where('date >= ?', Date.today)
+                .page(params[:page]).per(3)
+    @after = Stage.where(status: 1).where('date < ?', Date.today)
+                  .page(params[:page]).per(3)
   end
 
   def admin_true_stages
-    @stages = Stage.where(status: 2)
+    @stages = Stage.where(status: [2,3]).where('date >= ?', Date.today)
+                   .page(params[:page]).per(3)
+    @after = Stage.where(status: [2,3]).where('date < ?', Date.today)
+                  .page(params[:page]).per(3)
     @link = 'stage'
   end
 

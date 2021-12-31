@@ -1,7 +1,7 @@
 types = ['S', 'A', 'B']
 costs = [7000, 5000, 1000]
 count = 0
-1.upto(27) do |idx|
+1.upto(26) do |idx|
   stage = Stage.find(idx)
   0.upto(1) do |idx|
     count += 1

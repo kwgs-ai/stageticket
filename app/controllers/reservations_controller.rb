@@ -18,51 +18,55 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @stage = Stage.find(params[:stage_id])
-    @reservation = Reservation.new
-    @reservation.user_id = session[:user_id]
-    @reservation.stage_id = @stage.id
-    @s_count = params[:s_count].to_i
-    @a_count = params[:a_count].to_i
-    @b_count = params[:b_count].to_i
-    @sum = @s_count + @a_count + @b_count
-    if @sum > 0 && @sum < 6
+    @errors = []
+    ActiveRecord::Base.transaction do
+      @stage = Stage.find(params[:stage_id])
+      @reservation = Reservation.new(user_id: session[:user_id], stage_id: @stage.id)
+      @s_count = params[:s_count].to_i
+      @a_count = params[:a_count].to_i
+      @b_count = params[:b_count].to_i
+      @sum = @s_count + @a_count + @b_count
+      @errors << '席数は０以上６未満です' if @sum <= 0 || @sum > 6
       @a_seats = Seat.where(seat_type: 'S', stage_id: params[:stage_id], reservation_id: nil)
       @s_seats = Seat.where(seat_type: 'A', stage_id: params[:stage_id], reservation_id: nil)
       @b_seats = Seat.where(seat_type: 'B', stage_id: params[:stage_id], reservation_id: nil)
-      if @s_seats.count >= @s_count && @a_seats.count >= @a_count && @b_seats.count >= @b_count
-        if @reservation.save
-          @s_count.times do
-            @seat = Seat.find_by(seat_type: 'S', stage_id: params[:stage_id], reservation_id: nil)
-            @seat.stage_id = params[:stage_id]
-            @seat.reservation_id = @reservation.id
-            break unless @seat.save
+      @errors << 'あき席数が足りないです' if @s_seats.count < @s_count || @a_seats.count < @a_count || @b_seats.count < @b_count
+      if @reservation.save
+        @s_count.times do
+          @seat = Seat.find_by(seat_type: 'S', stage_id: params[:stage_id], reservation_id: nil)
+          @seat.reservation_id = @reservation.id
+          unless @seat.save
+            @errors << @seat.errors.full_messages
+            break
           end
-          @a_count.times do
-            @seat = Seat.find_by(seat_type: 'A', stage_id: params[:stage_id], reservation_id: nil)
-            @seat.stage_id = params[:stage_id]
-            @seat.reservation_id = @reservation.id
-            break unless @seat.save
-          end
-          @b_count.times do
-            @seat = Seat.find_by(seat_type: 'B', stage_id: params[:stage_id], reservation_id: nil)
-            @seat.stage_id = params[:stage_id]
-            @seat.reservation_id = @reservation.id
-            break unless @seat.save
-          end
-          redirect_to :root, notice: '登録しました'
-
-        else
-          render 'new'
         end
-        # end
-
+        @a_count.times do
+          @seat = Seat.find_by(seat_type: 'A', stage_id: params[:stage_id], reservation_id: nil)
+          @seat.reservation_id = @reservation.id
+          unless @seat.save
+            @errors << @seat.errors.full_messages
+            break
+          end
+        end
+        @b_count.times do
+          @seat = Seat.find_by(seat_type: 'B', stage_id: params[:stage_id], reservation_id: nil)
+          @seat.reservation_id = @reservation.id
+          unless @seat.save
+            @errors << @seat.errors.full_messages
+            break
+          end
+        end
       else
-        redirect_to :root, notice: '席数がたりませんでした'
+        @errors << @reservation.errors.full_messages
       end
-    else
-      redirect_to :root, notice: '席数は０以上６以下です'
+      @errors << @reservation.errors.full_messages
+      raise ActiveRecord::RecordInvalid if @errors.present?
     end
+  rescue => e
+    p 'エラーがあります＜デバッグ用＞'
+  ensure
+    p @errors
+    redirect_to :root, notice: @errors
   end
 
   def destroy
@@ -70,7 +74,7 @@ class ReservationsController < ApplicationController
     @stage = @reservation.stage_id
     if Stage.find(@stage).date >= Date.today + 2
       @reservation.destroy
-      redirect_to :root, notice: "会員を削除しました。"
+      redirect_to :root, notice: '会員を削除しました。'
     end
   end
 end

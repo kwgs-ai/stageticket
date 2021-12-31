@@ -10,6 +10,9 @@
       <th>日時</th>
       <th>午前・午後</th>
       <th>本文</th>
+      <th>残り座席数　S</th>
+      <th>残り座席数　A</th>
+      <th>残り座席数　B</th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +25,9 @@
       <td><%= @stage.date %></td>
       <td><%= @stage.time %></td>
       <td><%= @stage.text %></td>
+      <td><%= @stage.seats.where(reservation_id: nil, seat_type: "S").count %></td>
+      <td><%= @stage.seats.where(reservation_id: nil, seat_type: "A").count %></td>
+      <td><%= @stage.seats.where(reservation_id: nil, seat_type: "B").count %></td>
     </tr>
     </tbody>
     </tbody>
@@ -29,17 +35,6 @@
 <% end %>
 
 <%= form_for [@stage, @reservation] do |form| %>
-<!--  <tr>-->
-<!--    <th>席種</th>-->
-<!--    <p></p>-->
-    <%#=label_tag :S席 %>
-    <%#= check_box_tag "s" %>
-    <%#=label_tag :A席 %>
-    <%#= check_box_tag "a" %>
-    <%#=label_tag :B席 %>
-    <%#= check_box_tag "b" %>
-<!--    <td><%#= select_tag('seat_type', options_for_select(%w[S A B])) %></td>-->
-<!--  </tr>-->
   <p>S席のチケット枚数
     <%= text_field_tag "s_count" ,"",{size: 3} %>
   </p>

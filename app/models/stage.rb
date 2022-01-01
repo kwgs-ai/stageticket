@@ -13,39 +13,25 @@ class Stage < ApplicationRecord
     errors.add(:after_date, '日付が不正です') if date <= Date.today + 2
   end
   validate do
-    unless Stage.where(date: date).count.zero?
-      if Stage.where(date: date).count == 1
-        if Stage.find_by(date: date).id == self.id
-        else
-          errors.add(:dable_stage, '同じ日時あり')
-        end
-      else
-        errors.add(:dable_stage, '同じ日時あり')
-      end
-
-    end
+    errors.add(:dable_stage, '同じ日時あり') if Stage.where.not(id: id).where(date: date, status: 2).present?
 
   end
 
   class << self
     def search(title, date, morning, afternoon, actor, category)
-      rel = order('id')
+      rel = order("date").where(status: 2).where('date >= ?', Date.today)
       if actor.present?
         actor = Actor.where('name LIKE ?', "%#{actor}%").ids
         rel = rel.where(actor_id: actor)
       end
-      if category.present?
+      if category.present? && category != 'なし'
         category = Category.where('name LIKE ?', "%#{category}%").ids
         rel = rel.where(category_id: category)
       end
       rel = rel.where('title LIKE ?', "%#{title}%") if title.present?
       rel = rel.where('date LIKE ?', "%#{date}%") if date.present?
       if (morning.present? && afternoon.blank?) || (morning.blank? && afternoon.present?) then
-        time = if morning.present? then
-                 1
-               else
-                 2
-               end
+        time = morning.present? ? 1 : 2
         rel = rel.where('time = ?', time)
       end
       rel

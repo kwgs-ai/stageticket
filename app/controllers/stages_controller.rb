@@ -7,6 +7,14 @@ class StagesController < ApplicationController
                    .page(params[:page]).per(5)
   end
 
+  def search
+    @link = 'stage'
+    @stages = Stage.search(params[:title], params[:date], params[:morning], params[:afternoon], params[:actor],
+                           params[:category])
+                   .page(params[:page]).per(5)
+    render 'index'
+  end
+
   def show
     @stage = Stage.find(params[:id])
   end
@@ -24,38 +32,29 @@ class StagesController < ApplicationController
     if (@error = @seats.save).blank?
       redirect_to :root, notice: '登録しました'
     else
-      @seats = [@stage.seats.find_by(seat_type: 'S'), @stage.seats.find_by(seat_type: 'A'),
-                @stage.seats.find_by(seat_type: 'B')]
+      @seats = [@stage.seats.find_by(seat_type: 'S'), @stage.seats.find_by(seat_type: 'A'), @stage.seats.find_by(seat_type: 'B')]
       render 'edit'
     end
   end
 
   def confirm
     @stage_date = params[:stage_seats]
-    @seat = @stage_date[:seats]
-    @actor = session[:actor_id]
     @date = Date.parse("#{@stage_date["date(1i)"]}-#{@stage_date["date(2i)"]}-#{@stage_date["date(3i)"]}")
     @stage = Stage.new(title: @stage_date[:title], text: @stage_date[:text],
                        date: @date, time: @stage_date[:time], category_id: @stage_date[:category_id], actor_id: session[:actor_id])
     @form = StageSeats.new
     @seats = @form.collection
-    @cost = [@stage_date[:seats][0]['seat_prise'], @stage_date[:seats][1]['seat_prise'],
-             @stage_date[:seats][2]['seat_prise']]
-
+    @cost = [@stage_date[:seats][0]['seat_prise'], @stage_date[:seats][1]['seat_prise'], @stage_date[:seats][2]['seat_prise']]
   end
 
   def new
     @form = StageSeats.new
-    p @stage = Stage.new
+    @stage = Stage.new
     @seats = @form.collection
   end
 
   def create
-    # @form = StageSeats.new
-    @stage_date = params[:stage_seats]
-    @seat = @stage_date[:seats]
-    @actor = session[:actor_id]
-    @form = StageSeats.new(@stage_date, @seat, @actor)
+    @form = StageSeats.new( params[:stage_seats],  params[:stage_seats][:seats], session[:actor_id])
     if (@error = @form.save).blank?
       redirect_to :root, notice: '登録しました'
     else
@@ -63,12 +62,6 @@ class StagesController < ApplicationController
       @stage = @form.collection.first
       render 'new'
     end
-  end
-
-  def search
-    @stages = Stage.search(params[:title], params[:date], params[:morning], params[:afternoon], params[:actor],
-                           params[:category]).where(status: 2)
-    render 'index'
   end
 
   def admin_stage_show

@@ -1,6 +1,7 @@
 
 <%#= render "shared/errors", obj: @seats %>
 <%= @error %>
+<%if @stage.status == 1 %>
 <table class="attr">
   <tr>
     <th><%= form.label :title %></th>
@@ -34,4 +35,47 @@
     <% end %>
   <% end %>
 </table>
+<%else %>
+  <table class="attr">
+    <tr>
+      <th><%= form.label :title %></th>
+      <td><%= form.text_field :title,:value => @stage.title, size: 8 %></td>
+    </tr>
+    <tr>
+      <th><%= form.label :category %></th>
+      <td><%= @stage.category.name %></td>
+    </tr>
+    <tr>
+      <th><%= form.label :text %></th>
+      <td><%= form.text_field :text,:value => @stage.text %></td>
+    </tr>
+    <tr>
+      <th><%= form.label :date, for: "member_birthday_1i" %></th>
+      <td><%= @stage.date %></td>
+    </tr>
+    <tr>
+      <th><%= form.label :午前・午後 %></th>
+      <td><%= @stage.time == 1 ? "午前" : "午後" %></td>
+    </tr>
+
+    <%= form.hidden_field :category_id, :value => @stage.category_id %>
+    <%= form.hidden_field :date, :value => @stage.date %>
+    <%= form.hidden_field :time, :value => @stage.time %>
+    <% @seats.each_with_index do |seat, i| %>
+      <%= form.fields_for 'seats[]', seat do |fs| %>
+        <%= fs.hidden_field :seat_prise, :value => seat.seat_prise %>
+      <% end %>
+    <% end %>
+
+    <% @seats.each do |seat| %>
+        <tr>
+          <th>S金額 </th>
+          <td><%= seat.seat_prise %></td>
+        </tr>
+    <% end %>
+  </table>
+
+<%end %>
+
+
 

@@ -24,7 +24,7 @@
         <%= @stage.actor.name %>
       </td>
       <td><%= @stage.date %></td>
-      <td><%= @stage.time %></td>
+      <td><%= @stage.time == 1 ? "午前" : "午後" %></td>
       <td><%= @stage.text %></td>
       <td><%= @stage.seats.where(reservation_id: nil, seat_type: "S").count %></td>
       <td><%= @stage.seats.where(reservation_id: nil, seat_type: "A").count %></td>

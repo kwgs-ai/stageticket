@@ -22,7 +22,7 @@
         <%= @stage.actor.name %>
       </td>
       <td><%= @stage.date %></td>
-      <td><%= @stage.time== 1 ? "午前" : "午後" %></td>
+      <td><%= @stage.time == 1 ? "午前" : "午後" %></td>
       <td><%= @stage.text %></td>
       <td><%= "#{@count}人" %></td>
     </tr>
@@ -32,14 +32,19 @@
 <% end %>
 <%= form_for @stage do |form| %>
   <%= form.hidden_field :title %>
+  <%= form.hidden_field :category_id %>
   <%= form.hidden_field :text %>
   <%= form.hidden_field :date %>
   <%= form.hidden_field :time %>
-  <%= hidden_field_tag :S_prise, @s %>
-  <%= hidden_field_tag :A_prise, @a %>
-  <%= hidden_field_tag :B_prise, @b %>
-  <p>この舞台を承認する</p>
-  <%= form.select :status, { '承認': 2, '拒否': 3 } %>
-  <div><%= form.submit %></div>
-  <%= link_to "この舞台の編集", [:edit, @stage] %>
+  <% @seats.each_with_index do |seat, i| %>
+    <%= form.fields_for 'seats[]', seat do |fs| %>
+      <%= fs.hidden_field :seat_prise, :value => seat.seat_prise %>
+    <% end %>
+  <% end %>
+  <% if @stage.date >= Date.today %>
+    <p>この舞台を承認する</p>
+    <%= form.select :status, { '承認': 2, '拒否': 3 } %>
+    <div><%= form.submit %></div>
+  <% end %>
 <% end %>
+<%= link_to "戻る",:back %>

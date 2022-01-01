@@ -6,15 +6,10 @@
     <thead>
     <tr>
       <th>ID</th>
-      <th>パスワード</th>
+      <td> <%= @admin.login_name %></td>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td style="text-align: right">
-        <%= @admin.login_name %></td>
-      <td><%= @admin&.authenticate(params[:password]) %></td>
-    </tr>
     </tbody>
     </tbody>
   </table>

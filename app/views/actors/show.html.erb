@@ -6,24 +6,20 @@
     <thead>
     <tr>
       <th>名前</th>
-      <th>ID</th>
-      <th>パスワード</th>
+      <td><%= @actor.name %></td>
+    </tr>
+    <th>ID</th>
+    <td><%= @actor.login_name %></td>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td style="text-align: right">
-        <%= @actor.name %></td>
-      <td><%= @actor.login_name %></td>
-      <td><%= @actor.password %></td>
-    </tr>
     </tbody>
     </tbody>
   </table>
 
-<%= menu_link_to "申請一覧", actor_false_stages_actors_path %>
-<%= link_to "退会手続き", @actor, method: :delete, data: { confirm: "本当に削除しますか" } %>
-<%= menu_link_to "ユーザー情報編集", [:edit, @actor] %>
-  <%=menu_link_to "パスワードの変更", :edit_password %>
-<%= menu_link_to "公演一覧",actor_true_stages_actors_path  %>
+  <%= menu_link_to "申請一覧", actor_false_stages_actors_path %>
+  <%= link_to "退会手続き", @actor, method: :delete, data: { confirm: "本当に削除しますか" } %>
+  <%= menu_link_to "ユーザー情報編集", [:edit, @actor] %>
+  <%= menu_link_to "パスワードの変更", :edit_password %>
+  <%= menu_link_to "公演一覧", actor_true_stages_actors_path %>
 <% end %>

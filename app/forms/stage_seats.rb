@@ -13,7 +13,7 @@ class StageSeats
       types = %w[S A B]
       self.prise = []
       self.stage = Stage.new(actor_id: actor, title: attributes[:title], text: attributes[:text],
-                           date: attributes[:date], time: attributes[:time], category_id: attributes[:category_id])
+                             date: attributes[:date], time: attributes[:time], category_id: attributes[:category_id])
       collection << stage
       attributes2.each_with_index do |value, i|
         prise << value['seat_prise']
@@ -29,6 +29,7 @@ class StageSeats
 
     stage.assign_attributes(title: attributes[:title], text: attributes[:text],
                             date: date, time: attributes[:time], category_id: attributes[:category_id])
+    stage.assign_attributes(status: attributes[:status]) if attributes[:status]
     seats_s = stage.seats.where(seat_type: 'S')
     seats_a = stage.seats.where(seat_type: 'A')
     seats_b = stage.seats.where(seat_type: 'B')

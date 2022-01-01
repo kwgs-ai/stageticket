@@ -1,7 +1,4 @@
 <% @page_title = "舞台詳細" %>
 <h1><%= @page_title %></h1>
-<% if @stage.present? %>
-  <%= render "shared/table_show", stage: @stage %>
-<% end %>
-
-<%=link_to "この舞台の編集を行う",[:edit, @stage] %>
+<%= render "shared/table_show", stage: @stage if @stage.present? %>
+<%= link_to "この舞台の編集を行う", [:edit, @stage] if @stage.date >= Date.today %>

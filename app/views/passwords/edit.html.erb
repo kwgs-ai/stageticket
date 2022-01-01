@@ -3,7 +3,7 @@
 <!--<div class="toolbar"><%#= link_to "マイアカウントに戻る", :account %></div>-->
 
 <%= form_for @account, as: "account", url: :password do |form| %>
-  <%#= render "shared/errors", obj: @member %>
+  <%= render "shared/errors", obj: @account %>
 
   <table class="attr">
     <tr>
@@ -22,3 +22,4 @@
 
   <div><%= form.submit "変更" %></div>
 <% end %>
+<%= link_to "戻る",:back %>

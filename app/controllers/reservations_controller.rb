@@ -22,14 +22,14 @@ class ReservationsController < ApplicationController
     ActiveRecord::Base.transaction do
       @stage = Stage.find(params[:stage_id])
       @reservation = Reservation.new(user_id: session[:user_id], stage_id: @stage.id)
+      @a_seats = Seat.where(seat_type: 'S', stage_id: params[:stage_id], reservation_id: nil)
+      @s_seats = Seat.where(seat_type: 'A', stage_id: params[:stage_id], reservation_id: nil)
+      @b_seats = Seat.where(seat_type: 'B', stage_id: params[:stage_id], reservation_id: nil)
       @s_count = params[:s_count].to_i
       @a_count = params[:a_count].to_i
       @b_count = params[:b_count].to_i
       @sum = @s_count + @a_count + @b_count
       @errors << '席数は０以上６未満です' if @sum <= 0 || @sum > 6
-      @a_seats = Seat.where(seat_type: 'S', stage_id: params[:stage_id], reservation_id: nil)
-      @s_seats = Seat.where(seat_type: 'A', stage_id: params[:stage_id], reservation_id: nil)
-      @b_seats = Seat.where(seat_type: 'B', stage_id: params[:stage_id], reservation_id: nil)
       @errors << 'あき席数が足りないです' if @s_seats.count < @s_count || @a_seats.count < @a_count || @b_seats.count < @b_count
       if @reservation.save
         @s_count.times do
@@ -59,13 +59,13 @@ class ReservationsController < ApplicationController
       else
         @errors << @reservation.errors.full_messages
       end
-      @errors << @reservation.errors.full_messages
       raise ActiveRecord::RecordInvalid if @errors.present?
     end
   rescue => e
     p 'エラーがあります＜デバッグ用＞'
+    p e
   ensure
-    p @errors
+    @errors << "予約完了"
     redirect_to :root, notice: @errors
   end
 

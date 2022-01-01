@@ -35,22 +35,23 @@ class PasswordsController < ApplicationController
         @account.assign_attributes(params[:account])
         if @account.save
           if current_actor
-            redirect_to current_actor
+            redirect_to current_actor,notice: 'パスワードを変更しました'
           elsif current_user
-            redirect_to current_user
+            redirect_to current_user,notice: 'パスワードを変更しました'
           elsif current_admin
-            redirect_to current_admin
+            redirect_to current_admin,notice: 'パスワードを変更しました'
           end
         else
-          render "edit"
+          @account.errors.add(:current_password, '新しいパスワードへの変更に失敗しました')
+          render 'edit'
         end
       else
-        @account.errors.add(:current_password, :wrong)
-        render "edit"
+        @account.errors.add(:current_password, '現在のパスワードが異なります')
+        render 'edit'
       end
     else
-      @account.errors.add(:current_password, :empty)
-      render "edit"
+      @account.errors.add(:current_password, 'パスワードを入力してください')
+      render 'edit'
     end
 
   end

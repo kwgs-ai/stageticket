@@ -6,16 +6,30 @@ aside#sidebar {
     width: 28%;
     background-color: #d8ffff;
     padding: 5px;
-    font-size: 86%;
+    font-size: 90%;
 }
 /* サイドバー */
 
+aside#sidebar h1 {
+    color: black;
+    margin-top: 10px;
+    font-size: 23px;
+}
 aside#sidebar h2 {
-    color: #080;
-    font-weight: bold;
-    border-bottom: 1px dotted #080;
-    margin-bottom: 0.5em;
-    font-size: 100%;
+    color: black;
+    border-bottom: solid 2px #0000cc;
+    margin-top: 10px;
+    font-size: 23px;
+}
+.account{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    background: #c9e3ff;
+    border: dashed 2px #5b8bd0;/*点線*/
+}
+.account p {
+    margin: 0;
+    padding: 0;
 }
 
 aside#sidebar ul {

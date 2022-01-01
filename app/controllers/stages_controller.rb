@@ -30,7 +30,11 @@ class StagesController < ApplicationController
     @stage = Stage.find(params[:id])
     @seats.assign_attributes(@stage, params[:stage], params[:stage][:seats])
     if (@error = @seats.save).blank?
-      redirect_to :root, notice: '登録しました'
+      if current_actor
+        redirect_to :root, notice: '登録しました'
+      else
+        redirect_to admin_false_stages_admin_path, notice: '登録しました'
+        end
     else
       @seats = [@stage.seats.find_by(seat_type: 'S'), @stage.seats.find_by(seat_type: 'A'), @stage.seats.find_by(seat_type: 'B')]
       render 'edit'
@@ -56,7 +60,7 @@ class StagesController < ApplicationController
   def create
     @form = StageSeats.new( params[:stage_seats],  params[:stage_seats][:seats], session[:actor_id])
     if (@error = @form.save).blank?
-      redirect_to :root, notice: '登録しました'
+      redirect_to current_actor, notice: '登録しました'
     else
       @seats = @form.collection.drop(1)
       @stage = @form.collection.first
@@ -66,9 +70,8 @@ class StagesController < ApplicationController
 
   def admin_stage_show
     @stage = Stage.find(params[:id])
-    @s = @stage.seats.find_by(seat_type: 'S').seat_prise
-    @a = @stage.seats.find_by(seat_type: 'A').seat_prise
-    @b = @stage.seats.find_by(seat_type: 'B').seat_prise
+    @seats = [@stage.seats.find_by(seat_type: 'S'), @stage.seats.find_by(seat_type: 'A'),
+              @stage.seats.find_by(seat_type: 'B')]
     @count = Stage.find(params[:id]).reservations.count
   end
 

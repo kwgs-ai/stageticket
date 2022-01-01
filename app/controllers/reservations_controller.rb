@@ -3,6 +3,7 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = Reservation.where(user_id: session[:user_id])
+
   end
 
   def new
@@ -74,7 +75,9 @@ class ReservationsController < ApplicationController
     @stage = @reservation.stage_id
     if Stage.find(@stage).date >= Date.today + 2
       @reservation.destroy
-      redirect_to :root, notice: '会員を削除しました。'
+      redirect_to :root, notice: '予約をキャンセルしました'
+    else
+      redirect_to user_reservation_path, notice: 'この予約はキャンセルできません'
     end
   end
 end

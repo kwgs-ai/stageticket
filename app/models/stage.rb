@@ -14,7 +14,6 @@ class Stage < ApplicationRecord
   end
   validate do
     errors.add(:dable_stage, '同じ日時あり') if Stage.where.not(id: id).where(date: date, status: 2).present?
-
   end
 
   class << self

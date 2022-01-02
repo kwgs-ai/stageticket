@@ -7,6 +7,7 @@ aside#sidebar {
     background-color: #d8ffff;
     padding: 5px;
     font-size: 90%;
+    font-family: "Hiragino Kaku Gothic Pro";
 }
 /* サイドバー */
 
@@ -16,10 +17,11 @@ aside#sidebar h1 {
     font-size: 23px;
 }
 aside#sidebar h2 {
-    color: black;
-    border-bottom: solid 2px #0000cc;
-    margin-top: 10px;
-    font-size: 23px;
+    padding: 1rem 2rem;
+    color: #fff;
+    background: #819eff;
+    -webkit-box-shadow: 5px 5px 0 #007032;
+    box-shadow: 5px 5px 0 #007032;
 }
 .account{
     padding: 0.5em 1em;
@@ -39,4 +41,5 @@ aside#sidebar ul {
 
 aside#sidebar li {
     margin-bottom: 0.3em;
+    font-size: 17px;
 }

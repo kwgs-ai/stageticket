@@ -2,8 +2,6 @@
 
 /* 左の枠（コンテンツを入れる） */
 main {
-    /*border: solid 1px black;*/
-
     width: 70%;
     padding: 10px 10px 10px 0;
 }

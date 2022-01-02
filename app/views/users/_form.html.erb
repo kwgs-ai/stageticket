@@ -2,16 +2,16 @@
 
 <table class="attr">
   <tr>
-    <th><%= form.label :name %></th>
+    <th><%= form.label :名前 %></th>
     <td><%= form.text_field :name, size: 8 %></td>
   </tr>
   <tr>
-    <th><%= form.label :login_name %></th>
+    <th><%= form.label :ログインID %></th>
     <td><%= form.text_field :login_name, size: 8 %></td>
   </tr>
   <% if @user.new_record? %>
     <tr>
-      <th><%= form.label :password %></th>
+      <th><%= form.label :パスワード %></th>
       <td><%= form.text_field :password %></td>
     </tr>
   <% end %>

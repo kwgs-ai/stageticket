@@ -1,6 +1,18 @@
 class StagesController < ApplicationController
   before_action :actor_login_required, only: [:new]
 
+  def bad_request
+    raise ActionController::ParameterMissing, ""
+  end
+
+  def forbidden
+    raise Forbidden, ""
+  end
+
+  def internal_server_error
+    raise
+  end
+
   def index
     @link = 'stage'
     @stages = Stage.where('date >= ?', Date.today).where(status: 2).order(:date)

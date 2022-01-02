@@ -6,23 +6,18 @@
     <thead>
     <tr>
       <th>名前</th>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
       <th>ID</th>
-      <th>パスワード</th>
+      <td><%= @user.login_name %></td>
     </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td style="text-align: right">
-          <%= @user.name %></td>
-        <td><%= @user.login_name %></td>
-        <td><%= @user.password %></td>
-      </tr>
-      </tbody>
     </tbody>
     </table>
 
-<%= link_to "予約一覧", [@user, :reservations]%>
-<%= link_to "退会手続き", @user, method: :delete, data: { confirm: "本当に削除しますか"} %>
+<%=menu_link_to "予約一覧", [@user, :reservations]%>
+<li><%= link_to "退会手続き", @user, method: :delete, data: { confirm: "本当に削除しますか"} %></li>
 <%=menu_link_to "ユーザー情報編集",[:edit, @user] %>
   <%=menu_link_to "パスワードの変更", :edit_password %>
 <% end %>

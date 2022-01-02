@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root 'stages#index'
+  get "bad_request" => "stages#bad_request"
+  get "forbidden" => "stages#forbidden"
+  get "internal_server_error" => "stages#internal_server_error"
 
   resources :stages do
     get 'search', on: :collection

@@ -4,6 +4,16 @@ class ApplicationController < ActionController::Base
   class User_LoginRequired < StandardError; end
 
   class Admin_LoginRequired < StandardError; end
+  class Forbidden < StandardError; end
+
+  if Rails.env.production? || ENV["RESCUE_EXCEPTIONS"]
+    rescue_from StandardError, with: :rescue_internal_server_error
+    rescue_from ActiveRecord::RecordNotFound, with: :rescue_not_found
+    rescue_from ActionController::ParameterMissing, with: :rescue_bad_request
+  end
+
+  rescue_from Forbidden, with: :rescue_forbidden
+
 
   rescue_from Actor_LoginRequired, with: :rescue_actor_login_required
   rescue_from User_LoginRequired, with: :rescue_user_login_required
@@ -49,4 +59,25 @@ class ApplicationController < ActionController::Base
     render "errors/admin_login_required", status: 403, layout: "error",
            formats: [:html]
   end
+
+  private def rescue_bad_request(exception)
+    render "errors/bad_request", status: 400, layout: "error",
+           formats: [:html]
+  end
+
+  private def rescue_forbidden(exception)
+    render "errors/forbidden", status: 403, layout: "error",
+           formats: [:html]
+  end
+
+  private def rescue_not_found(exception)
+    render "errors/not_found", status: 404, layout: "error",
+           formats: [:html]
+  end
+
+  private def rescue_internal_server_error(exception)
+    render "errors/internal_server_error", status: 500, layout: "error",
+           formats: [:html]
+  end
+
 end

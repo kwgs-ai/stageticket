@@ -56,10 +56,7 @@ class StageSeats
       errors << collection.first.errors.full_messages unless collection.first.save
       collection.drop(1).each do |result|
         result.stage_id = collection.first.id
-        unless result.save
-          errors << result.errors.full_messages
-          break
-        end
+        break errors << result.errors.full_messages unless result.save
       end
       raise ActiveRecord::RecordInvalid if errors.present?
     end

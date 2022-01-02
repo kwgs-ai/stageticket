@@ -27,27 +27,18 @@ class ReservationsController < ApplicationController
       @errors << '席数は０以上６未満です' if @sum <= 0 || @sum > 6
       @errors << 'あき席数が足りないです' if @s_seats.count < @s_count || @a_seats.count < @a_count || @b_seats.count < @b_count
       if @reservation.save
-        @s_count.times do |i|
+        @s_count.times { |i|
           @s_seats[i].reservation_id = @reservation.id
-          unless @s_seats[i].save
-            @errors << @s_seats[i].errors.full_messages
-            break
-          end
-        end
-        @a_count.times do |i|
+          break @errors << @s_seats[i].errors.full_messages unless @s_seats[i].save
+        }
+        @a_count.times { |i|
           @a_seats[i].reservation_id = @reservation.id
-          unless  @a_seats[i].save
-            @errors << @a_seats[i].errors.full_messages
-            break
-          end
-        end
-        @b_count.times do |i|
+          break @errors << @a_seats[i].errors.full_messages unless @a_seats[i].save
+        }
+        @b_count.times { |i|
           @b_seats[i].reservation_id = @reservation.id
-          unless @b_seats[i].save
-            @errors << @b_seats[i].errors.full_messages
-            break
-          end
-        end
+          break @errors << @b_seats[i].errors.full_messages unless @b_seats[i].save
+        }
       else
         @errors << @reservation.errors.full_messages
       end

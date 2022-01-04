@@ -16,14 +16,14 @@ class StagesController < ApplicationController
   def index
     @link = 'stage'
     @stages = Stage.where('date >= ?', Date.today).where(status: 2).order(:date)
-                   .page(params[:page]).per(5)
+                   .page(params[:page]).per(4)
   end
 
   def search
     @link = 'stage'
     @stages = Stage.search(params[:title], params[:date], params[:morning], params[:afternoon], params[:actor],
                            params[:category])
-                   .page(params[:page]).per(5)
+                   .page(params[:page]).per(4)
     render 'index'
   end
 
@@ -43,9 +43,9 @@ class StagesController < ApplicationController
     @seats.assign_attributes(@stage, params[:stage], params[:stage][:seats])
     if (@error = @seats.save).blank?
       if current_actor
-        redirect_to :root, notice: '登録しました'
+        redirect_to actor_stage_show_stage_path(@stage), notice: '更新しました'
       else
-        redirect_to admin_false_stages_admin_path, notice: '登録しました'
+        redirect_to admin_false_stages_admin_path, notice: '更新しました'
         end
     else
       @seats = [@stage.seats.find_by(seat_type: 'S'), @stage.seats.find_by(seat_type: 'A'), @stage.seats.find_by(seat_type: 'B')]

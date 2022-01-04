@@ -4,15 +4,16 @@
 main {
     width: 70%;
     padding: 10px 10px 10px 0;
+    font-family: fantasy;
 }
 
 /* メインコンテンツ */
 
 main h1 {
-    margin: 0 auto;
     text-align: center;
     position: relative;
-    padding: 1rem 2rem;
+    padding: 2rem 2rem;
+    margin: 0 auto 40px;
     border: 4px solid black;
     width: 70%;
     font-size: 30px;
@@ -37,10 +38,12 @@ main h2 {
 }
 
 main p {
-    font-size: 90%;
+    font-size: large;
     line-height: 1.5;
 }
-
+main li{
+    font-size:  19px;
+}
 ul.toolbar,
 div.toolbar {
     padding: 15px 0;

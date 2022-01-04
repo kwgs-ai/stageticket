@@ -1,6 +1,6 @@
 /* 表：一覧表示、詳細表示 */
 table.list, table.attr {
-    font-size: 90%;
+    font-size: large;
     width: 80%;
     padding-top: 50px;
     margin: 0 auto;

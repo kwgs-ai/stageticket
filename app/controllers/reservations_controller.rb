@@ -24,7 +24,6 @@ class ReservationsController < ApplicationController
       @a_seats = Seat.where(seat_type: 'A', stage_id: params[:stage_id], reservation_id: nil)
       @b_seats = Seat.where(seat_type: 'B', stage_id: params[:stage_id], reservation_id: nil)
       @sum = @s_count = params[:s_count].to_i + @a_count = params[:a_count].to_i + @b_count = params[:b_count].to_i
-      @errors << '席数は０以上６未満です' if @sum <= 0 || @sum > 6
       @errors << 'あき席数が足りないです' if @s_seats.count < @s_count || @a_seats.count < @a_count || @b_seats.count < @b_count
       if @reservation.save
         @s_count.times { |i|
@@ -55,7 +54,7 @@ class ReservationsController < ApplicationController
   def destroy
     @reservation = Reservation.find(params[:id])
     @stage = @reservation.stage_id
-    if Stage.find(@stage).date >= Date.today + 2
+    if Stage.find(@stage).date >= Date.today.days_since(2)
       @reservation.destroy
       redirect_to user_reservations_path, notice: '予約をキャンセルしました'
     else

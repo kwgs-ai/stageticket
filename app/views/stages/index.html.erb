@@ -4,19 +4,19 @@
   <table class="attr">
     <%= form_tag :search_stages, method: :get, class: "search" do %>
       <tr>
-        <th width="100" height="50">タイトル名</th>
+        <th width="100" height="70">タイトル名</th>
         <td><%= text_field_tag "title", params[:title] %></td>
       </tr>
       <tr>
-        <th height="50">公演者名</th>
+        <th height="70">公演者名</th>
         <td><%= text_field_tag "actor", params[:actor] %></td>
       </tr>
       <tr>
-        <th height="50">日付</th>
+        <th height="70">日付</th>
         <td><%= date_field_tag :date, params[:date] %></td>
       </tr>
       <tr>
-        <th height="50">午前・午後</th>
+        <th height="70">午前・午後</th>
         <td>
           午前
           <%= check_box_tag "morning" %>
@@ -24,7 +24,7 @@
           <%= check_box_tag "afternoon" %></td>
       </tr>
       <tr>
-        <th height="50"><%= label_tag :カテゴリー %></th>
+        <th height="70"><%= label_tag :カテゴリー %></th>
         <td><%= select_tag "category", options_for_select(%w[なし お笑い 恋愛もの オペラ 戯曲]) %></td>
       </tr>
       </table>
@@ -32,8 +32,11 @@
     <% end %>
 
     </div>
+
 <% if @stages.present? %>
+
   <%= render "shared/table_list", stages: @stages %>
+
   <%= paginate @stages %>
 <% end %>
 

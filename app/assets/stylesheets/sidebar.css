@@ -11,12 +11,8 @@ aside#sidebar {
 }
 /* サイドバー */
 
-aside#sidebar h1 {
-    color: black;
-    margin-top: 10px;
-    font-size: 23px;
-}
 aside#sidebar h2 {
+    font-size: 25px;
     padding: 1rem 2rem;
     color: #fff;
     background: #819eff;

@@ -17,7 +17,6 @@ class PasswordsController < ApplicationController
     elsif current_admin
       redirect_to :admin
     end
-
   end
 
   def update

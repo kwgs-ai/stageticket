@@ -1,12 +1,6 @@
-<% @page_title = "舞台詳細" %>
+<% @page_title = "公演者用舞台詳細画面" %>
 <h1><%= @page_title %></h1>
 
-<h1>ACTOR</h1>
 <% if @stage.present? %>
-  <%=render"shared/table_show",stage:@stage %>
-<!--        <td><%#= "#{@count}人" %></td>-->
-<!--        </tr>-->
-        </tbody>
-        </tbody>
-        </table>
-      <% end %>
+  <%= render "shared/table_show", stage: @stage %>
+<% end %>

@@ -2,7 +2,7 @@ class ReservationsController < ApplicationController
   before_action :user_login_required, only: [:new]
 
   def index
-    @reservations = Reservation.where(user_id: session[:user_id])
+    @reservations = Reservation.where(user_id: cookies.signed[:user_id])
   end
 
   def new
@@ -21,7 +21,7 @@ class ReservationsController < ApplicationController
     @stage = Stage.find(params[:stage_id])
     p @seat_types = params['seat']['seat_type']
     ActiveRecord::Base.transaction do
-      @reservation = Reservation.new(user_id: session[:user_id], stage_id: Stage.find(params[:stage_id]).id)
+      @reservation = Reservation.new(user_id: cookies.signed[:user_id], stage_id: Stage.find(params[:stage_id]).id)
       @s_seats = Seat.where('seat_type like ?', '%S%').where(stage_id: params[:stage_id], reservation_id: nil)
       @a_seats = Seat.where('seat_type like ?', '%A%').where(stage_id: params[:stage_id], reservation_id: nil)
       @b_seats = Seat.where('seat_type  like ?', '%B%').where(stage_id: params[:stage_id], reservation_id: nil)
@@ -31,8 +31,7 @@ class ReservationsController < ApplicationController
       if @reservation.save
         @seat_types.each do |seat|
           @seat = Seat.find_by(seat_type: seat, stage_id: params[:stage_id], reservation_id: nil)
-          break @errors << 'その席は予約済みです' if  @seat.nil?
-
+          break @errors << 'その席は予約済みです' if @seat.nil?
           @seat.reservation_id = @reservation.id
           break @errors << @seat.errors.full_messages unless @seat.save
         end
@@ -46,7 +45,12 @@ class ReservationsController < ApplicationController
     p e
   ensure
     @errors = '予約完了' unless @errors.present?
-    render "new"
+    if @errors.instance_of?(Array)
+      render "new"
+    else
+      redirect_to :root, notice: @errors
+    end
+
   end
 
   def destroy

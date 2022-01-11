@@ -57,7 +57,7 @@ class StagesController < ApplicationController
     @stage_date = params[:stage_seats]
     @date = Date.parse("#{@stage_date["date(1i)"]}-#{@stage_date["date(2i)"]}-#{@stage_date["date(3i)"]}")
     @stage = Stage.new(title: @stage_date[:title], text: @stage_date[:text],
-                       date: @date, time: @stage_date[:time], category_id: @stage_date[:category_id], actor_id: session[:actor_id])
+                       date: @date, time: @stage_date[:time], category_id: @stage_date[:category_id], actor_id: cookies.signed[:actor_id])
     @form = StageSeats.new
     @seats = @form.collection
     @cost = [@stage_date[:seats][0]['seat_prise'], @stage_date[:seats][1]['seat_prise'], @stage_date[:seats][2]['seat_prise']]
@@ -70,7 +70,7 @@ class StagesController < ApplicationController
   end
 
   def create
-    @form = StageSeats.new(params[:stage_seats], params[:stage_seats][:seats], session[:actor_id])
+    @form = StageSeats.new(params[:stage_seats], params[:stage_seats][:seats], cookies.signed[:actor_id])
     if (@error = @form.save).blank?
       redirect_to current_actor, notice: '登録しました'
     else

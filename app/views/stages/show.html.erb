@@ -35,11 +35,11 @@
   </table>
   <ul>
     <li>S席</li>
-    <li> <%= @stage.seats.find_by(seat_type:"S1").seat_prise%>円</li>
+    <li> <%= @stage.seats.find_by('seat_type like ?', '%S%').seat_prise%>円</li>
     <li>A席</li>
-    <li><%= @stage.seats.find_by(seat_type:"A7").seat_prise%>円</li>
+    <li><%= @stage.seats.find_by('seat_type like ?', '%A%').seat_prise%>円</li>
     <li>B席</li>
-    <li><%= @stage.seats.find_by(seat_type:"B3").seat_prise%>円</li>
+    <li><%= @stage.seats.find_by('seat_type like ?', '%B%').seat_prise%>円</li>
   </ul>
 <% end %>
 <% unless current_actor || current_admin %>

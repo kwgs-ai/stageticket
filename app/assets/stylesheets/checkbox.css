@@ -12,7 +12,7 @@
 input[type=checkbox]{
     display: none;
 }
- label{
+.check label{
      width: 30px;
      color: black;
      border: solid 2px black;
@@ -22,4 +22,17 @@ input[type=checkbox]{
 input[type="checkbox"]:checked + label {
     background: #31A9EE;/* マウス選択時の背景色を指定する */
     color: #ffffff; /* マウス選択時のフォント色を指定する */
+}
+
+input[type=checkbox]:checked:disabled + label:before {
+    opacity: 0.5;
+}
+/*操作不可のテキストの色を薄い#999で表示。操作不可のhover時のカーソルを標準にする。*/
+input[type=checkbox]:disabled + label {
+    background-color: #f56565;
+    cursor: default;
+}
+/*操作不可のチェック文字を囲むボーダーの色を薄い#aaaで表示*/
+input[type=checkbox]:disabled + label:after{
+    border-color: #fe0000;
 }

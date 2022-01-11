@@ -27,7 +27,6 @@ class PasswordsController < ApplicationController
     elsif current_user
       @account = current_user
     end
-    current_password = params[:account][:current_password]
 
     if current_password.present?
       if @account.authenticate(current_password)

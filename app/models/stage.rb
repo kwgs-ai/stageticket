@@ -12,9 +12,9 @@ class Stage < ApplicationRecord
   # validate do
   #   errors.add(:after_date, '日付が不正です') if date <= Date.today.days_since(2)
   # end
-  validate do
-    errors.add(:dable_stage, '同じ日時あり') if Stage.where.not(id: id).where(date: date, status: 2).present?
-  end
+  # validate do
+  #   errors.add(:dable_stage, '同じ日時あり') if Stage.where.not(id: id).where(date: date, status: 2).present?
+  # end
 
   class << self
     def search(title, date, morning, afternoon, actor, category)

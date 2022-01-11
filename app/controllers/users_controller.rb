@@ -35,6 +35,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
+    cookies.delete(:user_id)
     redirect_to :root, notice: '会員を削除しました。'
   end
 end

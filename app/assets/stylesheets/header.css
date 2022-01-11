@@ -8,16 +8,17 @@
 
 .head-imag {
     z-index: 10;
-padding-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 /* メニューバー */
 nav.menubar {
-right: 0;
+    right: 0;
     color: #ccc;
     font-size: 80%;
     padding: 8px 16px;
 }
+
 header h1 {
     margin-bottom: 30px;
     z-index: 2000;
@@ -27,14 +28,12 @@ header h1 {
 }
 
 header {
-
     /*background-image: url("header-img.jpg");*/
     background-color: black;
     background-size: cover;
     font-family: 'Caveat', cursive;
     border-top: 4px solid #6bb;
     padding: 40px 10px;
-
 }
 
 /*header::before {*/

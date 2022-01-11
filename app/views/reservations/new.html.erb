@@ -1,6 +1,19 @@
 <% @page_title = "予約確認" %>
 <h1><%= @page_title %></h1>
-
+<% if @errors.present? %>
+  <% if @errors.instance_of?(Array) %>
+    <div id="errors">
+      <h3>エラーがあります。</h3>
+      <ul>
+        <% @errors.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <h3><%= @errors %></h3>
+  <% end %>
+<% end %>
 <% if @stage.present? %>
   <table class="list">
     <thead>
@@ -33,16 +46,17 @@
     </tbody>
   </table>
 <% end %>
-
 <%= form_for [@stage, @reservation] do |form| %>
-  <p>S席のチケット枚数
-    <%= text_field_tag "s_count" ,"",{size: 3} %>
-  </p>
-  <p>A席のチケット枚数
-    <%= text_field_tag "a_count" ,"",{size: 3} %>
-  </p>
-  <p>B席のチケット枚数
-    <%= text_field_tag "b_count" ,"",{size: 3} %>
-  </p>
+<h1>座席表</h1>
+<div class="check">
+  <h2>まえ</h2>
+    <div class="seat-out">
+      <%= collection_check_boxes(:seat, :seat_type, @stage.seats, :seat_type, :seat_type, include_hidden: false, html_options: { class: "seat" }) do |b| %>
+        <%= b.check_box %>
+        <%= b.label { b.text } %>
+      <% end %>
+    </div>
+  <h2>うしろ</h2>
+</div>
   <div><%= form.submit %></div>
 <% end %>

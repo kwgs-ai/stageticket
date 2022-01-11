@@ -1,0 +1,25 @@
+.check{
+    width: 65%;
+    border: solid 2px black;
+    margin: 30px auto 0;
+}
+.check h2{
+    text-align: center;
+    margin:  10px;
+}
+
+
+input[type=checkbox]{
+    display: none;
+}
+ label{
+     width: 30px;
+     color: black;
+     border: solid 2px black;
+     margin: 5px 5px 0px;
+     padding: 50px  30px;
+ }
+input[type="checkbox"]:checked + label {
+    background: #31A9EE;/* マウス選択時の背景色を指定する */
+    color: #ffffff; /* マウス選択時のフォント色を指定する */
+}

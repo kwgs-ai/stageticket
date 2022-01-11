@@ -8,11 +8,11 @@
       <th>名前</th>
       <td><%= @actor.name %></td>
     </tr>
-    <th>ID</th>
-    <td><%= @actor.login_name %></td>
+    <tr>
+      <th>ID</th>
+      <td><%= @actor.login_name %></td>
     </tr>
     </thead>
-    </tbody>
   </table>
 
   <%= menu_link_to "申請一覧", actor_false_stages_actors_path %>

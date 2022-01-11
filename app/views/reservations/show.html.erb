@@ -7,47 +7,9 @@
   <h2>チケット購入枚数</h2>
   <table class="list">
     <thead>
-    <% if @reservation.seats.where(seat_type: "S").count != 0 %>
-      <tr>
-        <th>S席 枚数</th>
-        <td>
-          <%= @reservation.seats.where(seat_type: "S").count %>
-        </td>
-      </tr>
-      <tr>
-        <th>S席　小計</th>
-        <td>
-          <%= @cost += @reservation.seats.where(seat_type: "S").count * @reservation.seats.find_by(seat_type: "S").seat_prise %>
-        </td>
-      </tr>
-    <% end %>
-    <% if @reservation.seats.where(seat_type: "A").count != 0 %>
-      <tr>
-        <th>A席 枚数</th>
-        <td>
-          <%= @reservation.seats.where(seat_type: "A").count %>
-        </td>
-      </tr>
-      <tr>
-        <th>A席　小計</th>
-        <td>
-          <%= @cost += @reservation.seats.where(seat_type: "A").count * @reservation.seats.find_by(seat_type: "A").seat_prise %>
-        </td>
-      </tr>
-    <% end %>
-    <% if @reservation.seats.where(seat_type: "B").count != 0 %>
-      <tr>
-        <th>B席 枚数</th>
-        <td>
-          <%= @reservation.seats.where(seat_type: "B").count %>
-        </td>
-      </tr>
-      <tr>
-        <th>B席　小計</th>
-        <td>
-          <%= @cost += @reservation.seats.where(seat_type: "B").count * @reservation.seats.find_by(seat_type: "B").seat_prise %>
-        </td>
-      </tr>
+    <% @reservation.seats.each do |seat| %>
+      <th>席種</th>
+      <td><%= seat.seat_type %><br><%= @cost += seat.seat_prise %></td>
     <% end %>
     <tr>
       <th>合計金額</th>
@@ -60,7 +22,7 @@
   </table>
 
   <% if @stage.date >= Date.today.days_since(2) %>
-    <%= link_to "予約キャンセル", [ current_user, @reservation], method: :delete, data: { confirm: "本当に削除しますか" } %>
+    <%= link_to "予約キャンセル", [current_user, @reservation], method: :delete, data: { confirm: "本当に削除しますか" } %>
   <% end %>
 <% end %>
-<%=menu_link_to "<<戻る",:back %>
+<%= menu_link_to "<<戻る", :back %>

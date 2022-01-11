@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
-  before_action :user_login_required, only: [:index,:show]
-
-
+  before_action :user_login_required, only: [:index, :show]
 
   def new
     @user = User.new
@@ -10,9 +8,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      redirect_to :root, notice: "登録しました"
+      redirect_to :root, notice: '登録しました'
     else
-      render "new"
+      render 'new'
     end
   end
 
@@ -24,11 +22,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.assign_attributes(params[:user])
     if @user.save
-      redirect_to @user, notice: "会員情報を更新しました。"
+      redirect_to @user, notice: '会員情報を更新しました。'
     else
-      render "edit"
+      render 'edit'
     end
-
   end
 
   def show
@@ -38,7 +35,6 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to :root, notice: "会員を削除しました。"
-
+    redirect_to :root, notice: '会員を削除しました。'
   end
 end

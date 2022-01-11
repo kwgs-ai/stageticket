@@ -70,7 +70,7 @@ class StagesController < ApplicationController
   end
 
   def create
-    @form = StageSeats.new( params[:stage_seats],  params[:stage_seats][:seats], session[:actor_id])
+    @form = StageSeats.new(params[:stage_seats], params[:stage_seats][:seats], session[:actor_id])
     if (@error = @form.save).blank?
       redirect_to current_actor, notice: '登録しました'
     else

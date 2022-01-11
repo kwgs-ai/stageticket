@@ -6,7 +6,7 @@ status = [1, 2, 3]
   actor = Actor.find(idx)
   category = Category.find(rand(1..3))
   0.upto(2) do |idx|
-    Stage.create(
+    Stage.create!(
       status: status[idx],
       actor_id: actor.id,
       category_id: category.id,

@@ -2,7 +2,7 @@ class ActorsController < ApplicationController
   before_action :actor_login_required, only: [:index, :show]
 
   def index
-    # @actor = Actor.new
+
   end
 
   def show
@@ -10,12 +10,18 @@ class ActorsController < ApplicationController
   end
 
   def new
-    @actor = Actor.new
+    if cookies.signed[:actor_id].nil? && cookies.signed[:user_id].nil? && cookies.signed[:admin_id].nil?
+      @actor = Actor.new
+    else
+      redirect_to :root, notice: 'すでにログイン中です'
+      end
+
   end
 
   def create
     @actor = Actor.new(params[:actor])
     if @actor.save
+      cookies.signed[:actor_id] = @actor.id
       redirect_to :root, notice: "登録しました"
     else
       render "new"
@@ -60,8 +66,8 @@ class ActorsController < ApplicationController
                   .page(params[:page]).per(3)
   end
 
-  def actor_stage_show
-    @stage = Stage.find(params[:id])
-    @count = Stage.find(params[:id]).reservations.count
-  end
+  # def actor_stage_show
+  #   @stage = Stage.find(params[:id])
+  #   @count = Stage.find(params[:id]).reservations.count
+  # end
 end

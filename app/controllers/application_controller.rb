@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+
+  class LoginRequired < StandardError; end
+
   class Actor_LoginRequired < StandardError; end
 
   class User_LoginRequired < StandardError; end
@@ -15,10 +18,15 @@ class ApplicationController < ActionController::Base
 
   rescue_from Forbidden, with: :rescue_forbidden
 
-
+  rescue_from LoginRequired, with: :rescue_login_required
   rescue_from Actor_LoginRequired, with: :rescue_actor_login_required
   rescue_from User_LoginRequired, with: :rescue_user_login_required
   rescue_from Admin_LoginRequired, with: :rescue_admin_login_required
+
+  private def login_required
+    session[:path] = request.fullpath
+    raise LoginRequired  if cookies.signed[:actor_id].nil? && cookies.signed[:user_id].nil? && cookies.signed[:admin_id].nil?
+  end
 
   private def actor_login_required
     session[:path] = request.fullpath
@@ -47,6 +55,11 @@ class ApplicationController < ActionController::Base
     Admin.find_by(id: cookies.signed[:admin_id]) if cookies.signed[:admin_id]
   end
   helper_method :current_admin
+
+  private def rescue_login_required(exception)
+    render 'errors/login_required', status: 403, layout: 'error',
+           formats: [:html]
+  end
 
   private def rescue_actor_login_required(exception)
     render 'errors/actor_login_required', status: 403, layout: 'error',

@@ -9,7 +9,7 @@
 }
 
 
-input[type=checkbox]{
+.check input[type=checkbox]{
     display: none;
 }
 .check label{

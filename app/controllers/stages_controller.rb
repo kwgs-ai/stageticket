@@ -2,11 +2,11 @@ class StagesController < ApplicationController
   before_action :actor_login_required, only: [:new]
 
   def bad_request
-    raise ActionController::ParameterMissing, ""
+    raise ActionController::ParameterMissing, ''
   end
 
   def forbidden
-    raise Forbidden, ""
+    raise Forbidden, ''
   end
 
   def internal_server_error
@@ -21,7 +21,7 @@ class StagesController < ApplicationController
 
   def search
     @link = 'stage'
-    @stages = Stage.search(params[:title], params[:date], params[:morning], params[:afternoon], params[:actor],
+    @stages = Stage.search(params[:title], params[:date], params[:time], params[:actor],
                            params[:category])
                    .page(params[:page]).per(4)
     render 'index'

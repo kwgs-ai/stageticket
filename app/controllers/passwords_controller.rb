@@ -1,4 +1,5 @@
 class PasswordsController < ApplicationController
+  before_action :login_required
   def edit
     if current_admin
       @account = current_admin
@@ -27,17 +28,18 @@ class PasswordsController < ApplicationController
     elsif current_user
       @account = current_user
     end
+    current_password = params[:account][:current_password]
 
     if current_password.present?
       if @account.authenticate(current_password)
         @account.assign_attributes(params[:account])
         if @account.save
           if current_actor
-            redirect_to current_actor,notice: 'パスワードを変更しました'
+            redirect_to current_actor, notice: 'パスワードを変更しました'
           elsif current_user
-            redirect_to current_user,notice: 'パスワードを変更しました'
+            redirect_to current_user, notice: 'パスワードを変更しました'
           elsif current_admin
-            redirect_to current_admin,notice: 'パスワードを変更しました'
+            redirect_to current_admin, notice: 'パスワードを変更しました'
           end
         else
           @account.errors.add(:current_password, '新しいパスワードへの変更に失敗しました')

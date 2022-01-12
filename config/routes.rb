@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :reservations
   end
-  resources :users
+  # resources :users
   resource :admin do
     collection do
       get :admin_false_stages

@@ -18,10 +18,8 @@
       <tr>
         <th height="70">午前・午後</th>
         <td>
-          午前
-          <%= check_box_tag "morning" %>
-          午後
-          <%= check_box_tag "afternoon" %></td>
+          <%= select_tag "time", options_for_select(%w[なし 午前 午後]) %>
+        </td>
       </tr>
       <tr>
         <th height="70">カテゴリー</th>

@@ -1,7 +1,11 @@
 <% @page_title = "Stage List" %>
 <h1><%= @page_title %></h1>
-
-
+<%= Time.now %>
+<%= Date.today %>
+<%= Date.current %>
+<h1>実験</h1>
+<%= DateTime.now + 9.hours %>
+<%= DateTime.new(2022, 1, 27, 14, 50, 45) > DateTime.now + 9.hours %>
 <div class="search">
   <table class="attr">
     <%= form_tag :search_stages, method: :get, class: "search" do %>

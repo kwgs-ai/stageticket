@@ -17,6 +17,10 @@ class StagesController < ApplicationController
     @link = 'stage'
     @stages = Stage.where('date >= ?', Date.current).where(status: 2).order(:date)
                    .page(params[:page]).per(4)
+    if params[:actor_id]
+      @stages = Actor.find(params[:actor_id]).stages
+      render 'actors/actor_true_stages'
+    end
   end
 
   def search
@@ -92,4 +96,11 @@ class StagesController < ApplicationController
     @stage = Stage.find(params[:id])
   end
 
+  def actor_true_stages
+    @link = 'actor_stage_show_stage'
+    @stages = Stage.where(actor_id: params[:actor_id]).where('date >= ?', Date.today)
+                   .page(params[:page]).per(3)
+    @after = Stage.where(actor_id: params[:actor_id]).where('date < ?', Date.today)
+                  .page(params[:page]).per(3)
+  end
 end

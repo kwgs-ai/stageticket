@@ -3,7 +3,8 @@
 
 <% if @actors.present? %>
   <% @actors.each do |actor|%>
-    <p><%=actor.name %></p>
+    <p><%=link_to actor.name, actor_true_stages_actor_stages_path(actor.id)%></p>
     <%end %>
+  <%else %>
 <P>公演者がない</P>
 <% end %>

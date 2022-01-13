@@ -2,12 +2,16 @@
 <h1><%= @page_title %></h1>
 
 
-<% if @stages.present? %>
+<%# if @stages.present? %>
+<%#= render "shared/table_list", stages: @stages %>
+<%# end %>
+<%#= paginate @stages %>
+<!--<h1>過去</h1>-->
+<%# if @after.present? %>
+<%#= render "shared/table_list", stages: @after %>
+<%# end %>
+<%#= paginate @after %>
+<% if @stages %>
   <%= render "shared/table_list", stages: @stages %>
 <% end %>
-<%= paginate @stages %>
-<h1>過去</h1>
-<% if @after.present? %>
-  <%= render "shared/table_list", stages: @after %>
-<% end %>
-<%= paginate @after %>
+<h1><%= request.path %></h1>

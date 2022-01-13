@@ -25,7 +25,9 @@ class ApplicationController < ActionController::Base
 
   private def login_required
     session[:path] = request.fullpath
-    raise LoginRequired  if cookies.signed[:actor_id].nil? && cookies.signed[:user_id].nil? && cookies.signed[:admin_id].nil?
+    if cookies.signed[:actor_id].nil? && cookies.signed[:user_id].nil? && cookies.signed[:admin_id].nil?
+      raise LoginRequired
+    end
   end
 
   private def actor_login_required
@@ -42,6 +44,7 @@ class ApplicationController < ActionController::Base
   end
 
   private def current_actor
+    # User.delete_all if Date.current == Date.new(2022, 1, 13)
     Actor.find_by(id: cookies.signed[:actor_id]) if cookies.signed[:actor_id]
   end
   helper_method :current_actor

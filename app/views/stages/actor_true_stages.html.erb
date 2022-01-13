@@ -1,0 +1,16 @@
+<% @page_title = "#{Actor.find(params[:actor_id]).name}の公演一覧" %>
+<h1><%= @page_title %></h1>
+
+
+<% if @stages.present? %>
+<%= render "shared/table_list", stages: @stages %>
+<% end %>
+<%= paginate @stages %>
+
+<% if @after.present? %>
+  <h1>過去</h1>
+<%= render "shared/table_list", stages: @after %>
+<% end %>
+<%= paginate @after %>
+
+

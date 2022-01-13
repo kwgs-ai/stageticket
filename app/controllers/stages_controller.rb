@@ -15,7 +15,7 @@ class StagesController < ApplicationController
 
   def index
     @link = 'stage'
-    @stages = Stage.where('date >= ?', Date.today).where(status: 2).order(:date)
+    @stages = Stage.where('date >= ?', Date.current).where(status: 2).order(:date)
                    .page(params[:page]).per(4)
   end
 
@@ -84,9 +84,8 @@ class StagesController < ApplicationController
 
   def admin_stage_show
     @stage = Stage.find(params[:id])
-    @seats = [@stage.seats.find_by(seat_type: 'S'), @stage.seats.find_by(seat_type: 'A'),
-              @stage.seats.find_by(seat_type: 'B')]
-    @count = Stage.find(params[:id]).reservations.count
+    @seats = [@stage.seats.find_by('seat_type like ?', '%S%'), @stage.seats.find_by('seat_type like ?', '%A%'),
+              @stage.seats.find_by('seat_type like ?', '%B%')]
   end
 
   def actor_stage_show

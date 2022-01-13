@@ -1,50 +1,9 @@
-<% @page_title = "舞台一覧" %>
+<% @page_title = "公演者一覧" %>
 <h1><%= @page_title %></h1>
 
-<%= form_tag :search_stages, method: :get, class: "search" do %>
-  <p>タイトル名
-    <%= text_field_tag "title", params[:title] %>
-  </p>
-  <p>公演者名
-    <%= text_field_tag "actor", params[:actor] %>
-  </p>
-  <p>日付
-    <%= date_field_tag :date, params[:date] %>
-  </p>
-  <p>
-    午前
-    <%= check_box_tag "morning" %>
-    午後
-    <%= check_box_tag "afternoon" %>
-  </p>
-  <%= submit_tag "検索" %>
-<% end %>
-
-<% if @stages.present? %>
-  <table class="list">
-    <thead>
-    <tr>
-      <th>舞台タイトル</th>
-      <th>団体名</th>
-      <th>日時</th>
-      <th>午前・午後</th>
-      <th>本文</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @stages.each do |stage| %>
-      <tr>
-        <td style="text-align: right">
-          <%=link_to stage.title,stage %></td>
-        <td>
-          <%= stage.Actor.name %>
-        </td>
-        <td><%= stage.date %></td>
-        <td><%= stage.time == 1 ? "午前" : "午後" %></td>
-        <td><%= stage.text %></td>
-      </tr>
-      </tbody>
-    <% end %>
-    </tbody>
-    </table>
+<% if @actors.present? %>
+  <% @actors.each do |actor|%>
+    <p><%=actor.name %></p>
+    <%end %>
+<P>公演者がない</P>
 <% end %>

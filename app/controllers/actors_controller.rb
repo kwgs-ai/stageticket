@@ -1,8 +1,8 @@
 class ActorsController < ApplicationController
-  before_action :actor_login_required, only: [:index, :show]
+  before_action :actor_login_required, only: [:show]
 
   def index
-
+    @actors = Actor.all
   end
 
   def show

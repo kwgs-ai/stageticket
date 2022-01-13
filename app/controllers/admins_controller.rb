@@ -2,7 +2,7 @@ class AdminsController < ApplicationController
   before_action :admin_login_required, only: [:index,:show]
 
   def index
-
+    @actors = Actor.all
   end
 
   def show

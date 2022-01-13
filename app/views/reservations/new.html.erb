@@ -52,7 +52,7 @@
     <h2>まえ</h2>
     <div class="seat-out">
       <%= collection_check_boxes(:seat, :seat_type, @stage.seats, :seat_type, :seat_type, include_hidden: false, html_options: { class: "seat" }) do |b| %>
-        <%= b.check_box disabled: @stage.seats.find_by(seat_type: b.text).reservation_id != nil %>
+        <%= b.check_box disabled: @stage.seats.find_by(seat_type: b.text, stage_id: params[:stage_id]).reservation_id != nil %>
         <%= b.label %>
       <% end %>
     </div>

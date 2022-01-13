@@ -25,9 +25,7 @@ class ReservationsController < ApplicationController
       @s_seats = Seat.where('seat_type like ?', '%S%').where(stage_id: params[:stage_id], reservation_id: nil)
       @a_seats = Seat.where('seat_type like ?', '%A%').where(stage_id: params[:stage_id], reservation_id: nil)
       @b_seats = Seat.where('seat_type  like ?', '%B%').where(stage_id: params[:stage_id], reservation_id: nil)
-      @sum = @s_count = params[:s_count].to_i + @a_count = params[:a_count].to_i + @b_count = params[:b_count].to_i
-      @errors << '一回の予約に取れるのは６席までです' if @sum > 6
-      @errors << 'あき席数が足りないです' if @s_seats.count < @s_count || @a_seats.count < @a_count || @b_seats.count < @b_count
+      @errors << '一回の予約に取れるのは5席までです' if @seat_types.length >= 6
       if @reservation.save
         @seat_types.each do |seat|
           @seat = Seat.find_by(seat_type: seat, stage_id: params[:stage_id], reservation_id: nil)

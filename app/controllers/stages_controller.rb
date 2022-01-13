@@ -33,8 +33,8 @@ class StagesController < ApplicationController
 
   def edit
     @stage = Stage.find(params[:id])
-    @seats = [@stage.seats.find_by(seat_type: 'S'), @stage.seats.find_by(seat_type: 'A'),
-              @stage.seats.find_by(seat_type: 'B')]
+    @seats = [@stage.seats.find_by('seat_type like ?', '%S%'), @stage.seats.find_by('seat_type like ?', '%A%'),
+              @stage.seats.find_by('seat_type like ?', '%B%')]
   end
 
   def update
@@ -48,7 +48,8 @@ class StagesController < ApplicationController
         redirect_to admin_false_stages_admin_path, notice: '更新しました'
         end
     else
-      @seats = [@stage.seats.find_by(seat_type: 'S'), @stage.seats.find_by(seat_type: 'A'), @stage.seats.find_by(seat_type: 'B')]
+      @seats = [@stage.seats.find_by('seat_type like ?', '%S%'), @stage.seats.find_by('seat_type like ?', '%A%'), 
+                @stage.seats.find_by('seat_type like ?', '%B%')]
       render 'edit'
     end
   end
@@ -60,7 +61,8 @@ class StagesController < ApplicationController
                        date: @date, time: @stage_date[:time], category_id: @stage_date[:category_id], actor_id: cookies.signed[:actor_id])
     @form = StageSeats.new
     @seats = @form.collection
-    @cost = [@stage_date[:seats][0]['seat_prise'], @stage_date[:seats][1]['seat_prise'], @stage_date[:seats][2]['seat_prise']]
+    @cost = [@stage_date[:seats][0]['seat_prise'], @stage_date[:seats][1]['seat_prise'], 
+             @stage_date[:seats][2]['seat_prise']]
   end
 
   def new

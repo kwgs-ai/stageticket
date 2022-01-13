@@ -1,5 +1,8 @@
 <% @page_title = "Stage List" %>
 <h1><%= @page_title %></h1>
+<%=Date.current %>
+<%=Date.today %>
+<%= Time.now %>
 <div class="search">
   <table class="attr">
     <%= form_tag :search_stages, method: :get, class: "search" do %>

@@ -10,7 +10,6 @@ class StageSeats
   def initialize(attributes = [], attributes2 = [], actor = nil)
     if attributes.present?
       self.collection = []
-      types = %w[S A B]
       self.prise = []
       self.stage = Stage.new(actor_id: actor, title: attributes[:title], text: attributes[:text],
                              date: attributes[:date], time: attributes[:time], category_id: attributes[:category_id])
@@ -30,9 +29,9 @@ class StageSeats
     stage.assign_attributes(title: attributes[:title], text: attributes[:text],
                             date: date, time: attributes[:time], category_id: attributes[:category_id])
     stage.assign_attributes(status: attributes[:status]) if attributes[:status]
-    seats_s = stage.seats.where(seat_type: 'S')
-    seats_a = stage.seats.where(seat_type: 'A')
-    seats_b = stage.seats.where(seat_type: 'B')
+    seats_s = stage.seats.where('seat_type like ?', '%S%')
+    seats_a = stage.seats.where('seat_type like ?', '%A%')
+    seats_b = stage.seats.where('seat_type like ?', '%B%')
     self.collection = []
     collection << stage
     seat_prise = update_seat.values

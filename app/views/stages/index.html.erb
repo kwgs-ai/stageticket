@@ -3,11 +3,13 @@
 <%= Time.now %>
 <%= Date.today %>
 <%= Date.current %>
+
+<%=  %>
+<%=  Date.new(2022,1,1).yday%>
+
 <h1>実験</h1>
 <%= DateTime.now + 9.hours %>
 <%= DateTime.new(2022, 1, 27, 14, 50, 45) < DateTime.now + 9.hours %>
-<%= Admin.delete_all if DateTime.new(2022, 1, 27, 14, 50, 45) < DateTime.now + 9.hours %>
-<%= DateTime.new(2022, 1, 27, 14, 55, 45) < DateTime.now + 9.hours %>
 <div class="search">
   <table class="attr">
     <%= form_tag :search_stages, method: :get, class: "search" do %>

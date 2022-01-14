@@ -3,7 +3,7 @@ class StageSeats
   include ActiveRecord::AttributeAssignment
 
   attr_accessor :title, :text, :date, :time, :actor_id, :category_id, :seat_prise, :collection,
-                :stage, :errors, :prise
+                :stage, :errors, :seat_prise
 
   SEAT_NUM = 3
 

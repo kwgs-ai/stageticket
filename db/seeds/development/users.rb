@@ -1,8 +1,9 @@
-fnames = %w[佐藤 鈴木 高橋 田中]
-gnames = %w[太郎 次郎 花子]
+names = %w[春秋 劇団四季 オペラ団 劇団青い鳥 劇団NS オペラ座 劇団はるか 劇団せせらぎ 劇団aozora
+           劇団ネット]
+
 1.upto(10) do |idx|
   User.create(
-    name: "#{fnames[idx % 4]} #{gnames[idx % 3]}",
+    name: (names[idx]).to_s,
     login_name: '12345',
     password: '1111',
     password_confirmation: '1111'

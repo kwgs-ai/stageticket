@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :reservations, dependent: :destroy
 
   attr_accessor :current_password
+
   validates :password, presence: { if: :current_password },
             length: { minimum: 4, maximum: 16, allow_blank: true }
   validates :name, presence: true,
@@ -10,5 +11,6 @@ class User < ApplicationRecord
             # uniqueness: true
   validates :login_name, presence: true,
             length: { minimum: 4, maximum: 16, allow_blank: true }
+            # uniqueness: true
 
 end

@@ -1,23 +1,37 @@
-<% @page_title = "公演マイページ" %>
+<% @page_title = "公演者用マイページ" %>
 <h1><%= @page_title %></h1>
 
 <% if @actor.present? %>
-  <table class="list">
-    <thead>
-    <tr>
-      <th>名前</th>
-      <td><%= @actor.name %></td>
-    </tr>
-    <tr>
-      <th>ID</th>
-      <td><%= @actor.login_name %></td>
-    </tr>
-    </thead>
-  </table>
-
+  <h3><%= @actor.name %>さんのマイページです</h3>
+  <div class="my-page">
+    <h4>アカウント情報</h4>
+    <table class="my-table">
+      <thead>
+      <tr>
+        <th>アカウント種類</th>
+        <td>公演者</td>
+      </tr>
+      <tr>
+        <th>名前</th>
+        <td><%= @actor.name %></td>
+      </tr>
+      <tr>
+        <th>ID</th>
+        <td><%= @actor.login_name %></td>
+      </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="actor-method">
+    <h4>申請中のステージの一覧を確認したい・・・申請一覧</h4>
+    <h4>承認がおりた公演・過去の公演の一覧を確認したい・・・公演一覧</h4>
+    <h4>ユーザー情報を編集したい・・・ユーザー編集</h4>
+    <h4>パスワードの変更がしたい・・・パスワード変更</h4>
+    <h4>退会したい・・・退会手続き</h4>
+  </div>
   <%= menu_link_to "申請一覧", actor_false_stages_actors_path %>
-  <li><%= link_to "退会手続き", @actor, method: :delete, data: { confirm: "本当に削除しますか" } %></li>
+  <%= menu_link_to "公演一覧", actor_true_stages_actors_path %>
   <%= menu_link_to "ユーザー情報編集", [:edit, @actor] %>
   <%= menu_link_to "パスワードの変更", :edit_password %>
-  <%= menu_link_to "公演一覧", actor_true_stages_actors_path %>
+  <li><%= link_to "退会手続き", @actor, method: :delete, data: { confirm: "退会するとアカウント情報、公演情報なども削除されます。本当によろしいですか？" } %></li>
 <% end %>

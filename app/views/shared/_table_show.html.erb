@@ -1,4 +1,20 @@
-<table class="attr">
+<div class="stage_img">
+  <% if (@category = stage.category.name) == "恋愛もの" %>
+    <%= image_tag "love.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+  <% elsif @category == "オペラ" %>
+    <%= image_tag "opera.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+  <% elsif @category == "お笑い" %>
+    <%= image_tag "owarai.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+  <% elsif @category == "戯曲" %>
+    <%= image_tag "gikyoku.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+  <% end %>
+  <div class="list-content">
+    <%= stage.title %>
+    <p><%= @category %><br>
+      <%= stage.actor.name %></p>
+  </div>
+</div>
+<table class="show-table">
   <thead>
   <% if action_name == 'actor_stage_show' || action_name == 'admin_stage_show' %>
     <tr>
@@ -24,6 +40,11 @@
       <%= stage.title %></td>
   </tr>
   <tr>
+    <th>カテゴリー</th>
+    <td>
+      <%= @category %></td>
+  </tr>
+  <tr>
     <th>団体名</th>
     <td>
       <%= stage.actor.name %>
@@ -44,10 +65,34 @@
   <% if action_name == 'actor_stage_show' %>
     <tr>
       <th>予約人数</th>
-      <td><%= "#{@count.to_i}人" %></td>
+      <td><%= @stage.seats.where.not(reservation_id:nil).count %>人</td>
     </tr>
   <% end %>
   </thead>
   <tbody>
 
 </table>
+<% if action_name == 'actor_stage_show' %>
+  <h3>予約状況</h3>
+  <h2 class="seat_index">座席表</h2>
+  <div class="check">
+    <h5>ステージ</h5>
+    <h4>まえ</h4>
+    <div class="seat-actor">
+        <% @stage.seats.each do |seat| %>
+          <% if seat.reservation_id.nil? %>
+            <div class="true">
+              <%= seat.seat_type %>
+            </div>
+          <% else %>
+            <div class="false">
+              <%= seat.seat_type %>
+            </div>
+          <% end %>
+        <% end %>
+    </div>
+
+    <h4>うしろ</h4>
+  </div>
+
+<% end %>

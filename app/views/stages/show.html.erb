@@ -3,14 +3,31 @@
 
 
 <% if @stage.present? %>
-  <table class="list">
+  <div class="stage_img">
+    <% if (@category = @stage.category.name) == "恋愛もの" %>
+      <%= image_tag "love.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+    <% elsif @category == "オペラ" %>
+      <%= image_tag "opera.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+    <% elsif @category == "お笑い" %>
+      <%= image_tag "owarai.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+    <% elsif @category == "戯曲" %>
+      <%= image_tag "gikyoku.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+    <% end %>
+    <div class="list-content">
+      <h3><%= @stage.title %></h3>
+      <p><%= @category %><br>
+        <%= @stage.actor.name %><br>
+        <%= @stage.date %>  <%= @stage.time == 1 ? "午前" : "午後" %></p>
+    </div>
+  </div>
+  <div class="text">
+  <h3>舞台の紹介</h3>
+    <p><%= @stage.text %></p>
+  </div>
+
+  <table class="seat-table">
     <thead>
     <tr>
-      <th>舞台タイトル</th>
-      <th>団体名</th>
-      <th>日時</th>
-      <th>午前・午後</th>
-      <th>本文</th>
       <th>残り座席数　S</th>
       <th>残り座席数　A</th>
       <th>残り座席数　B</th>
@@ -18,30 +35,26 @@
     </thead>
     <tbody>
     <tr>
-      <td style="text-align: right">
-        <%= @stage.title %></td>
-      <td>
-        <%= @stage.actor.name %>
-      </td>
-      <td><%= @stage.date %></td>
-      <td><%= @stage.time == 1 ? "午前" : "午後" %></td>
-      <td><%= @stage.text %></td>
-      <td><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%S%').count %></td>
-      <td><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%A%').count %></td>
-      <td><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%B%').count %></td>
+      <td style="text-align: center">
+        <%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%S%').count %>席</td>
+      <td style="text-align: center"><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%A%').count %>席</td>
+      <td style="text-align: center"><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%B%').count %>席</td>
     </tr>
     </tbody>
     </tbody>
   </table>
-  <ul>
-    <li>S席</li>
-    <li> <%= @stage.seats.find_by('seat_type like ?', '%S%').seat_prise%>円</li>
-    <li>A席</li>
-    <li><%= @stage.seats.find_by('seat_type like ?', '%A%').seat_prise%>円</li>
-    <li>B席</li>
-    <li><%= @stage.seats.find_by('seat_type like ?', '%B%').seat_prise%>円</li>
-  </ul>
+  <div class="prise-list">
+    <h3>各種座席料金一覧</h3>
+    <ul>
+      <h4>S席</h4>
+      <li> <%= @stage.seats.find_by('seat_type like ?', '%S%').seat_prise %>円</li>
+      <h4>A席</h4>
+      <li><%= @stage.seats.find_by('seat_type like ?', '%A%').seat_prise %>円</li>
+      <h4>B席</h4>
+      <li><%= @stage.seats.find_by('seat_type like ?', '%B%').seat_prise %>円</li>
+    </ul>
+  </div>
 <% end %>
 <% unless current_actor || current_admin %>
-<%= link_to "この舞台を予約", [:new, @stage, :reservation] %>
+  <%= link_to "この舞台を予約", [:new, @stage, :reservation] %>
 <% end %>

@@ -2,22 +2,35 @@
 <h1><%= @page_title %></h1>
 
 <% if @user.present? %>
-  <table class="list">
-    <thead>
-    <tr>
-      <th>名前</th>
-      <td><%= @user.name %></td>
-    </tr>
-    <tr>
-      <th>ID</th>
-      <td><%= @user.login_name %></td>
-    </tr>
-    </thead>
-    </tbody>
+  <h3><%= @user.name %>さんのマイページです</h3>
+  <div class="my-page">
+    <h4>アカウント情報</h4>
+    <table class="my-table">
+      <thead>
+      <tr>
+        <th>アカウント種類</th>
+        <td>ユーザー</td>
+      </tr>
+      <tr>
+        <th>名前</th>
+        <td><%= @user.name %></td>
+      </tr>
+      <tr>
+        <th>ID</th>
+        <td><%= @user.login_name %></td>
+      </tr>
+      </thead>
     </table>
+  </div>
+  <div class="actor-method">
+    <h4>自分が取った予約の一覧を確認したい・・・申請一覧</h4>
+    <h4>ユーザー情報を編集したい・・・ユーザー編集</h4>
+    <h4>パスワードの変更がしたい・・・パスワード変更</h4>
+    <h4>退会したい・・・退会手続き</h4>
+  </div>
 
-<%=menu_link_to "予約一覧", [@user, :reservations]%>
-<li><%= link_to "退会手続き", @user, method: :delete, data: { confirm: "本当に削除しますか"} %></li>
-<%=menu_link_to "ユーザー情報編集",[:edit, @user] %>
-  <%=menu_link_to "パスワードの変更", :edit_password %>
+  <%= menu_link_to "予約一覧", [@user, :reservations] %>
+  <%= menu_link_to "ユーザー情報編集", [:edit, @user] %>
+  <%= menu_link_to "パスワードの変更", :edit_password %>
+  <li><%= link_to "退会手続き", @user, method: :delete, data: { confirm: "本当に削除しますか" } %></li>
 <% end %>

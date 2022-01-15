@@ -2,15 +2,28 @@
 <h1><%= @page_title %></h1>
 
 <% if @admin.present? %>
-  <table class="list">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <td> <%= @admin.login_name %></td>
-    </tr>
-    </thead>
-    </tbody>
-  </table>
+  <h3>管理者のマイページです</h3>
+  <div class="my-page">
+    <h4>アカウント情報</h4>
+    <table class="my-table">
+      <thead>
+      <tr>
+        <th>アカウント種類</th>
+        <td>管理者</td>
+      </tr>
+      <tr>
+        <th>ID</th>
+        <td><%= @admin.login_name %></td>
+      </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="actor-method">
+    <h4>申請中の舞台の一覧を確認して、承認したい・・・申請一覧</h4>
+    <h4>それぞれの公演者の舞台を確認したい・・・公演者一覧</h4>
+    <h4>ユーザーの編集がしたい・・・ユーザー編集</h4>
+    <h4>パスワードを変更したい・・・パスワード変更</h4>
+  </div>
 
   <%= menu_link_to "申請一覧", admin_false_stages_admin_path %>
   <%= menu_link_to "公演者一覧", :actors %>

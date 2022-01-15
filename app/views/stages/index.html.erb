@@ -1,31 +1,20 @@
 <% @page_title = "Stage List" %>
 <h1><%= @page_title %></h1>
-<%= Time.now %>
-<%= Date.today %>
-<%= Date.current %>
 
-<%=  %>
-<%=  Date.new(2022,1,1).yday%>
 
-<h1>実験</h1>
-<%= DateTime.now + 9.hours %>
-<%= DateTime.new(2022, 1, 27, 14, 50, 45) < DateTime.now + 9.hours %>
 <div class="search">
-  <table class="attr">
+  <h2>ステージを探す(複数条件選択可能）</h2>
+  <table class="search-table">
     <%= form_tag :search_stages, method: :get, class: "search" do %>
       <tr>
         <th width="100" height="70">タイトル名</th>
         <td><%= text_field_tag "title", params[:title] %></td>
-      </tr>
-      <tr>
-        <th height="70">公演者名</th>
-        <td><%= text_field_tag "actor", params[:actor] %></td>
-      </tr>
-      <tr>
         <th height="70">日付</th>
         <td><%= date_field_tag :date, params[:date] %></td>
       </tr>
       <tr>
+        <th height="70">公演者名</th>
+        <td><%= text_field_tag "actor", params[:actor] %></td>
         <th height="70">午前・午後</th>
         <td>
           <%= select_tag "time", options_for_select(%w[なし 午前 午後]) %>
@@ -36,7 +25,9 @@
         <td><%= select_tag "category", options_for_select(%w[なし お笑い 恋愛もの オペラ 戯曲]) %></td>
       </tr>
       </table>
-      <%= submit_tag "検索" %>
+<div class="search-field">
+      <td><%= submit_tag "舞台を検索する",class:"search_btn" %></td>
+</div>
     <% end %>
 
     </div>

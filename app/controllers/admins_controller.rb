@@ -26,9 +26,9 @@ class AdminsController < ApplicationController
 
   def admin_false_stages
     @link = 'admin_stage_show_stage'
-    @stages = Stage.where(status: 1).where('date >= ?', Date.today)
+    @stages = Stage.where(status: [1,3]).where('date >= ?', Date.today)
                 .page(params[:page]).per(3)
-    @after = Stage.where(status: 1).where('date < ?', Date.today)
+    @after = Stage.where(status: [1,3]).where('date < ?', Date.today)
                   .page(params[:page]).per(3)
   end
 

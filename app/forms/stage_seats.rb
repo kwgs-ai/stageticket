@@ -3,7 +3,7 @@ class StageSeats
   include ActiveRecord::AttributeAssignment
 
   attr_accessor :title, :text, :date, :time, :actor_id, :category_id, :seat_prise, :collection,
-                :stage, :errors, :seat_prise
+                :stage, :errors, :prise
 
   SEAT_NUM = 3
 
@@ -11,12 +11,26 @@ class StageSeats
     if attributes.present?
       self.collection = []
       self.prise = []
+      types = %w[S A B]
+      date = attributes['date(1i)'] ? Date.parse("#{attributes['date(1i)']}-#{attributes['date(2i)']}-#{attributes['date(3i)']}") : attributes['date']
       self.stage = Stage.new(actor_id: actor, title: attributes[:title], text: attributes[:text],
-                             date: attributes[:date], time: attributes[:time], category_id: attributes[:category_id])
+                             date: date, time: attributes[:time], category_id: attributes[:category_id])
       collection << stage
       attributes2.each_with_index do |value, i|
         prise << value['seat_prise']
-        0.upto(9) { collection << Seat.new(seat_prise: value['seat_prise'], seat_type: types[i]) }
+        if i == 0
+          1.upto(6) do |idx|
+            collection << Seat.new(seat_prise: value['seat_prise'], seat_type: "#{types[i]}#{idx}")
+          end
+        elsif i == 1
+          1.upto(12) do |idx|
+            collection << Seat.new(seat_prise: value['seat_prise'], seat_type: "#{types[i]}#{idx}")
+          end
+        elsif i == 2
+          1.upto(12) do |idx|
+            collection << Seat.new(seat_prise: value['seat_prise'], seat_type: "#{types[i]}#{idx}")
+          end
+        end
       end
     else
       self.collection = SEAT_NUM.times.map { Seat.new }
@@ -52,6 +66,7 @@ class StageSeats
   def save
     errors = []
     ActiveRecord::Base.transaction do
+      p collection.first
       errors << collection.first.errors.full_messages unless collection.first.save
       collection.drop(1).each do |result|
         result.stage_id = collection.first.id

@@ -47,5 +47,6 @@
       <%= fs.hidden_field :seat_prise, :value => @cost[i] %>
     <% end %>
   <% end %>
+  <div><%=form.submit "修正",name: :back %></div>
   <div><%= form.submit %></div>
 <% end %>

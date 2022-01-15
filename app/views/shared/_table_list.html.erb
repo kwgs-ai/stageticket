@@ -1,9 +1,20 @@
 <% stages.each do |stage| %>
   <div class="index_list">
-    <h3> <%= link_to stage.title, send("#{@link}_path", stage) %></h3>
-    <div class="list-content">
-      <p><%= stage.actor.name %></p>
-      <p> <%= stage.category.name %></p>
+    <div class="stage_img">
+      <% if (@category = stage.category.name) == "恋愛もの" %>
+        <%= image_tag "love.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+      <% elsif @category == "オペラ" %>
+        <%= image_tag "opera.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+      <% elsif @category == "お笑い" %>
+        <%= image_tag "owarai.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+      <% elsif @category == "戯曲" %>
+        <%= image_tag "gikyoku.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+      <% end %>
+      <div class="list-content">
+        <%= link_to stage.title, send("#{@link}_path", stage), :style => "font-size:26px;" %>
+        <p><%= @category %><br>
+          <%= stage.actor.name %></p>
+      </div>
     </div>
     <table class="table">
       <thead>

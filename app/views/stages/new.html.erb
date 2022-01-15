@@ -1,7 +1,13 @@
 <% @page_title = "公演の新規登録" %>
-
+<%=@errors %>
+<%if @errors.present? %>
+  <%@errors.each do |e| %>
+    <li><%=e %></li>
+    <%end %>
+  <%end %>
 <h1><%= @page_title %></h1>
 <%= form_for @form, model: @form, url: confirm_stages_path do |form| %>
   <%= render "form", form: form %>
   <div><%= form.submit %></div>
+
 <% end %>

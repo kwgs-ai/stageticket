@@ -4,7 +4,9 @@
     <% if current_actor %>
       <h3>公演者アカウント</h3>
       <%= menu_link_to current_actor.name, @account = current_actor %>
-      <%= menu_link_to "ログアウト", :actorsessions, method: :delete, data: { confirm: "ログアウトしますか" } %>
+      <%= menu_link_to "ログアウト", :actorsessions, method: :delete, data: { confirm: '本当に削除して良いですか?',
+                                                                         cancel: 'やめる',
+                                                                         commit: '削除する'}, title: '削除確認' %>
     <% end %>
     <% if current_user %>
       <h3>ユーザーアカウント</h3>

@@ -1,0 +1,32 @@
+
+
+
+/* 表：一覧表示、詳細表示 */
+.search-table {
+    background-color: #fcefeb;
+    font-size: large;
+    width: 95%;
+    padding-top: 50px;
+    margin: 0 auto;
+}
+
+.search-table th {
+    color: black;
+    font-weight: normal;
+}
+
+.search-table td {
+    padding: 4px;
+}
+
+
+
+.search-table th {
+    padding: 4px;
+    text-align: right;
+}
+
+
+
+
+

@@ -1,6 +1,6 @@
 
 <%#= render "shared/errors", obj: @seats %>
-<%= @error %>
+<%= @seats %>
 <%if @stage.status == 1 %>
 <table class="attr">
   <tr>
@@ -18,7 +18,7 @@
   <tr>
     <th><%= form.label :date, for: "member_birthday_1i" %></th>
     <td><%= form.date_select :date,
-                             start_year: Time.current.year, end_year: 2050,
+                             start_year: Time.current.year, end_year: 2050,start_year: Time.current.year, end_year: 2050,
                              use_month_numbers: true,selected:@stage.date %></td>
   </tr>
   <tr>

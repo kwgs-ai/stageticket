@@ -46,17 +46,31 @@
     </tbody>
   </table>
 <% end %>
-<%= form_for [@stage, @reservation] do |form| %>
-  <h1>座席表</h1>
+
+  <h2 class="seat_index">座席表</h2>
+  <div class="reserve-method">
+    <h3>予約方法</h3>
+    <ul>
+      <li>一回に予約できるのは五席までです</li>
+      <li>座席表で赤くなっている席はすでに予約済みであり予約できません</li>
+      <li>予約した遺跡を選んでクリックしてください</li>
+    </ul>
+  </div>
+
+
   <div class="check">
-    <h2>まえ</h2>
+    <h5>ステージ</h5>
+    <h4>まえ</h4>
+    <div class="seat">
     <div class="seat-out">
+      <%= form_for [@stage, @reservation] do |form| %>
       <%= collection_check_boxes(:seat, :seat_type, @stage.seats, :seat_type, :seat_type, include_hidden: false, html_options: { class: "seat" }) do |b| %>
         <%= b.check_box disabled: @stage.seats.find_by(seat_type: b.text, stage_id: params[:stage_id]).reservation_id != nil %>
         <%= b.label %>
       <% end %>
     </div>
-    <h2>うしろ</h2>
+    </div>
+    <h4>うしろ</h4>
   </div>
   <div><%= form.submit %></div>
 <% end %>

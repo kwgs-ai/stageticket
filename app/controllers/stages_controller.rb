@@ -50,9 +50,9 @@ class StagesController < ApplicationController
         redirect_to actor_stage_show_stage_path(@stage), notice: '更新しました'
       else
         redirect_to admin_false_stages_admin_path, notice: '更新しました'
-        end
+      end
     else
-      @seats = [@stage.seats.find_by('seat_type like ?', '%S%'), @stage.seats.find_by('seat_type like ?', '%A%'), 
+      @seats = [@stage.seats.find_by('seat_type like ?', '%S%'), @stage.seats.find_by('seat_type like ?', '%A%'),
                 @stage.seats.find_by('seat_type like ?', '%B%')]
       render 'edit'
     end
@@ -60,13 +60,27 @@ class StagesController < ApplicationController
 
   def confirm
     @stage_date = params[:stage_seats]
-    @date = Date.parse("#{@stage_date["date(1i)"]}-#{@stage_date["date(2i)"]}-#{@stage_date["date(3i)"]}")
-    @stage = Stage.new(title: @stage_date[:title], text: @stage_date[:text],
-                       date: @date, time: @stage_date[:time], category_id: @stage_date[:category_id], actor_id: cookies.signed[:actor_id])
-    @form = StageSeats.new
-    @seats = @form.collection
-    @cost = [@stage_date[:seats][0]['seat_prise'], @stage_date[:seats][1]['seat_prise'], 
+    @seats = []
+    @errors = []
+    @cost = [@stage_date[:seats][0]['seat_prise'], @stage_date[:seats][1]['seat_prise'],
              @stage_date[:seats][2]['seat_prise']]
+    @form = StageSeats.new(params[:stage_seats], params[:stage_seats][:seats], cookies.signed[:actor_id])
+    @stage = @form.collection.first
+
+    @stage.errors.full_messages.each {|e|@errors << e} if @form.collection.first.invalid?
+
+    @seats << @form.collection[2]
+    @seats << @form.collection[8]
+    @seats << @form.collection[20]
+    @seat_date = @form.collection.drop(1)
+    @seat_date.length
+    @seat_date.each do |seat|
+       seat.stage_id = 1
+      break seat.errors.full_messages.each {|e|@errors << e} if seat.invalid?
+    end
+    @stage = @form.collection.first
+    render "new" if @errors.present?
+
   end
 
   def new
@@ -76,11 +90,15 @@ class StagesController < ApplicationController
   end
 
   def create
+    @seats = []
     @form = StageSeats.new(params[:stage_seats], params[:stage_seats][:seats], cookies.signed[:actor_id])
-    if (@error = @form.save).blank?
-      redirect_to current_actor, notice: '登録しました'
+    if  params[:back].nil? && (@error = @form.save).blank?
+      redirect_to :root, notice: '登録しました'
     else
-      @seats = @form.collection.drop(1)
+      @seats << @form.collection[2]
+      @seats << @form.collection[8]
+      @seats << @form.collection[20]
+      p @seats
       @stage = @form.collection.first
       render 'new'
     end

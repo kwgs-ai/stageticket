@@ -113,3 +113,7 @@ footer nav ul li:not(:last-child):after {
 .pagination>li>a:hover {
     border-radius: 15px;    /*角を丸くする*/
 }
+.notice{
+    text-align: center;
+    font-size: 25px;
+}

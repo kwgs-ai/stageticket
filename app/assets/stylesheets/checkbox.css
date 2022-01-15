@@ -1,38 +1,87 @@
-.check{
+.check {
     width: 65%;
     border: solid 2px black;
     margin: 30px auto 0;
 }
-.check h2{
+
+.seat-out {
+    justify-content: center;
+}
+
+.check h4 {
     text-align: center;
-    margin:  10px;
+    margin: 10px;
+}
+
+.check h5 {
+    padding: 10px;
+    text-align: center;
+    margin: 10px;
+    border: solid 2px black;
+}
+
+.seat {
+    display: flex;
+}
+
+.seat-out {
+}
+
+.seat-color {
+    width: 50%;
 }
 
 
-.check input[type=checkbox]{
+.check input[type=checkbox] {
     display: none;
 }
-.check label{
-     width: 30px;
-     color: black;
-     border: solid 2px black;
-     margin: 5px 5px 0px;
-     padding: 50px  30px;
- }
+
+.check label {
+    width: 30px;
+    color: black;
+    border: solid 2px black;
+    margin: 5px 5px 0px;
+    padding: 40px 30px;
+    font-size: 20px;
+    font-family: "Hiragino Kaku Gothic Pro";
+}
+
 input[type="checkbox"]:checked + label {
-    background: #31A9EE;/* マウス選択時の背景色を指定する */
+    background: #31A9EE; /* マウス選択時の背景色を指定する */
+    color: #ffffff; /* マウス選択時のフォント色を指定する */
+}
+
+.check label:hover {
+    background: #a9dfff; /* マウス選択時の背景色を指定する */
     color: #ffffff; /* マウス選択時のフォント色を指定する */
 }
 
 input[type=checkbox]:checked:disabled + label:before {
     opacity: 0.5;
 }
+
 /*操作不可のテキストの色を薄い#999で表示。操作不可のhover時のカーソルを標準にする。*/
 input[type=checkbox]:disabled + label {
     background-color: #f56565;
     cursor: default;
+    color: white;
 }
+
 /*操作不可のチェック文字を囲むボーダーの色を薄い#aaaで表示*/
-input[type=checkbox]:disabled + label:after{
+input[type=checkbox]:disabled + label:after {
     border-color: #fe0000;
+}
+
+.reserve-method {
+    width: 80%;
+    margin: 10px auto;
+    border: solid 2px black;
+    padding: 10px;
+}
+.seat_index{
+    padding: 10px;
+    text-align: center;
+    font-size: 27px;
+    color: black;
+    border-bottom: 8px double black;
 }

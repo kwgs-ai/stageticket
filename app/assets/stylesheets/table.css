@@ -1,14 +1,15 @@
 /* 表：一覧表示、詳細表示 */
-table.list, table.attr {
+table.attr,table.list  {
+    background-color: #f8f0ef;
     font-size: large;
-    width: 80%;
+    width: 95%;
     padding-top: 50px;
     margin: 0 auto;
 }
 
 table.list th, table.attr th {
-    background-color: #499;
-    color: white;
+    color: #100000;
+    background-color: #f8a197;
     font-weight: normal;
 }
 
@@ -26,8 +27,5 @@ table.attr th {
 }
 
 table.list td, table.attr td {
-    background-color: #cee;
+
 }
-
-
-

@@ -19,22 +19,28 @@ class ReservationsController < ApplicationController
   def create
     @errors = []
     @stage = Stage.find(params[:stage_id])
-    p @seat_types = params['seat']['seat_type']
+    @user = current_user
     ActiveRecord::Base.transaction do
       @reservation = Reservation.new(user_id: cookies.signed[:user_id], stage_id: Stage.find(params[:stage_id]).id)
       @s_seats = Seat.where('seat_type like ?', '%S%').where(stage_id: params[:stage_id], reservation_id: nil)
       @a_seats = Seat.where('seat_type like ?', '%A%').where(stage_id: params[:stage_id], reservation_id: nil)
       @b_seats = Seat.where('seat_type  like ?', '%B%').where(stage_id: params[:stage_id], reservation_id: nil)
-      @errors << '一回の予約に取れるのは5席までです' if @seat_types.length >= 6
-      if @reservation.save
-        @seat_types.each do |seat|
-          @seat = Seat.find_by(seat_type: seat, stage_id: params[:stage_id], reservation_id: nil)
-          break @errors << 'その席は予約済みです' if @seat.nil?
-          @seat.reservation_id = @reservation.id
-          break @errors << @seat.errors.full_messages unless @seat.save
-        end
+      if params['seat'].nil?
+        @errors << '座席が選択されていません'
       else
-        @errors << @reservation.errors.full_messages
+        @seat_types = params['seat']['seat_type']
+        @errors << '一回の予約に取れるのは5席までです' if @seat_types.length >= 6
+        if @reservation.save
+          @seat_types.each do |seat|
+            @seat = Seat.find_by(seat_type: seat, stage_id: params[:stage_id], reservation_id: nil)
+            break @errors << 'その席は予約済みです' if @seat.nil?
+
+            @seat.reservation_id = @reservation.id
+            break @errors << @seat.errors.full_messages unless @seat.save
+          end
+        else
+          @errors << @reservation.errors.full_messages
+        end
       end
       raise ActiveRecord::RecordInvalid if @errors.present?
     end
@@ -42,11 +48,11 @@ class ReservationsController < ApplicationController
     p 'エラーがあります＜デバッグ用＞'
     p e
   ensure
-    @errors = '予約完了' unless @errors.present?
+    @errors = '予約が完了しました' unless @errors.present?
     if @errors.instance_of?(Array)
       render "new"
     else
-      redirect_to :root, notice: @errors
+      redirect_to [@reservation.user,@reservation], notice: @errors
     end
 
   end

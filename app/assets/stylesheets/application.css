@@ -17,22 +17,6 @@ form#login-form {
     font-size: 12px;
 }
 
-form#login-form div {
-    padding: 2px;
-    text-align: center;
-}
-
-form#login-form label {
-    display: inline-block;
-    width: 80px;
-    text-align: center;
-}
-
-form#login-form input[type="text"],
-form#login-form input[type="password"] {
-    width: 120px;
-}
-
 
 /* ページ全体 */
 body {

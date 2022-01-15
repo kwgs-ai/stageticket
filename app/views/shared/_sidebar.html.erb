@@ -62,10 +62,10 @@
   <h2>マイページはこちら</h2>
   <%= menu_link_to "マイページ", @account %>
 <% else %>
-  <h2>ログインはこちら</h2>
+  <h2>ログイン・新規登録はこちらから</h2>
   <ul>
-    <%= menu_link_to "ユーザーログイン", user_path(1) %>
-    <%= menu_link_to "公演者ログイン", actor_path(1) %>
+    <%= menu_link_to "ユーザーログイン・新規登録", user_path(1) %>
+    <%= menu_link_to "公演者ログイン・新規登録", actor_path(1) %>
     <%= menu_link_to "管理者ログイン", admin_path %>
   </ul>
 <% end %>
@@ -76,11 +76,7 @@
   <%= menu_link_to "公演団体用予約", :new_stage %>
 
 </ul>
-<h2>新規登録</h2>
-<ul>
-  <%= menu_link_to "ユーザー新規登録", :new_user %>
-  <%= menu_link_to "公演者新規登録", :new_actor %>
-</ul>
+
 
 <script>
     function twoDigit(num) {

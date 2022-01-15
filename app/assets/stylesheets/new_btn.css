@@ -1,0 +1,41 @@
+.login-h{
+text-align: center;
+    font-size: 25px;
+    border-bottom: solid 2px black;
+    font-weight: normal;
+}
+
+form#login-form div {
+    padding: 2px;
+    text-align: center;
+}
+
+form#login-form label {
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+}
+
+form#login-form input[type="text"],
+form#login-form input[type="password"] {
+    width: 300px;
+    height: 30px;
+    margin: 10px 0;
+}
+
+.new-btn  {
+   text-align: center;
+    margin: 0 auto;
+    padding: 0.5em 1em;
+    width: 300px;
+    color: #333;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: #fd9a9a;
+}
+
+
+.new-btn:hover {
+    text-decoration: none;
+    background-color: #ff7b7b;
+}

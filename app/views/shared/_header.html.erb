@@ -1,4 +1,3 @@
-
 <div class="header-content">
   <%= image_tag "logo.svg", size: "90x100", alt: "TeS", class: "head-imag" %>
   <h1 class="header-center">Stage e-Ticket</h1>
@@ -8,8 +7,8 @@
 <nav class="menubar">
   <ul class="main-nav">
     <%= menu_link_to "TOP", :root %>
-    <%= menu_link_to "公演団体用予約", :new_stage %>
-    <%= menu_link_to "ユーザー新規登録", :new_user %>
-    <%= menu_link_to "公演者新規登録", :new_actor %>
+    <%= menu_link_to "ユーザーログイン・新規登録", user_path(1) %>
+    <%= menu_link_to "公演者ログイン・新規登録", actor_path(1) %>
+    <%= menu_link_to "管理者ログイン", admin_path %>
   </ul>
 </nav>

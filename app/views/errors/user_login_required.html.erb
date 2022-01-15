@@ -1,19 +1,18 @@
 <% @page_title = "ログインが必要です" %>
-<h1><%= @page_title %></h1>
-<%= link_to "新規会員登録はこちら", :new_user %>
+<h3 class="login-h"><%= @page_title %></h3>
+
 <% if flash.alert %><p class="alert"><%= flash.alert %></p><% end %>
+<%= link_to "ユーザー新規登録", :new_user %>
 <%= form_tag :usersessions, id: "login-form" do %>
   <form id="login-form">
     <div>
-      <label>ID：</label>
-      <input type="text" name="ID">
+      <input type="text" name="ID" placeholder="Login ID">
     </div>
     <div>
-      <label>パスワード：</label>
-      <input type="password" name ="password">
+      <input type="password" name ="password" placeholder="password">
     </div>
     <div>
-      <input type="submit" value="ログイン">
+      <input class="new-btn" type="submit" value="ログイン" >
     </div>
   </form>
 <% end %>

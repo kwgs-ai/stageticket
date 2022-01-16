@@ -4,22 +4,45 @@
   <%= render "shared/table_show", stage: @stage %>
 
 
-  <h2>チケット購入枚数</h2>
-  <table class="list">
+  <h3>チケット購入枚数</h3>
+  <table class="show-table">
     <thead>
     <% @reservation.seats.each do |seat| %>
       <th>席種</th>
-      <td><%= seat.seat_type %><br><%= @cost += seat.seat_prise %></td>
+      <td><%= seat.seat_type %>  小計:<%= @cost += seat.seat_prise %></td>
     <% end %>
     <tr>
       <th>合計金額</th>
-      <td><%= @cost %></td>
+      <td><%= @cost %>円</td>
     </tr>
 
     </thead>
     <tbody>
 
   </table>
+
+    <h3>予約状況</h3>
+    <h2 class="seat_index">座席表</h2>
+    <div class="check">
+      <h5>ステージ</h5>
+      <h4>まえ</h4>
+      <div class="seat-actor">
+        <% @stage.seats.each do |seat| %>
+          <% if seat.reservation_id == @reservation.id %>
+            <div class="false">
+              <%= seat.seat_type %>
+            </div>
+          <% else %>
+            <div class="true">
+              <%= seat.seat_type %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <h4>うしろ</h4>
+    </div>
+
 
   <%# if @stage.date >= Date.current.days_since(2) %>
     <%= link_to "予約キャンセル", [current_user, @reservation], method: :delete, data: { confirm: "本当に削除しますか" } %>

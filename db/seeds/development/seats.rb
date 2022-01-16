@@ -22,11 +22,11 @@
     )
   end
 end
-already = Stage.where(status: 2)
+
 1.upto(42) do |idx|
-  sta = already[rand(0...already.length)]
-  seat = sta.seats[rand(0...29)]
   reservation = Reservation.find(idx)
+  seats = reservation.stage.seats.where(reservation_id:nil)
+  seat = seats[rand(0...seats.length)]
   seat.update(
     reservation_id: reservation.id
   )

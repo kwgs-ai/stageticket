@@ -1,0 +1,53 @@
+ja:
+  activerecord:
+    models:
+      stage: 会員情報
+      user: ニュース記事
+      actor: ブログ記事
+      admin: 会員情報
+      category: ニュース記事
+      seat: ブログ記事
+      reservation: 予約
+    attributes:
+      stage:
+        title: タイトル
+        status: ステータス
+        text: 本文
+        date: 日付
+        time: 午前・午後
+        category_id: カテゴリー
+        actor_id: 公演団体
+      user:
+        name: 名前
+        login_name: ログインID
+        current_password: 現在のパスワード
+        password: 新しいパスワード
+        password_confirmation: 新しいパスワードの確認
+      actor:
+        name: 名前
+        login_name: ログインID
+        current_password: 現在のパスワード
+        password: 新しいパスワード
+        password_confirmation: 新しいパスワードの確認
+      admin:
+        login_name: ログインID
+        current_password: 現在のパスワード
+        password: 新しいパスワード
+        password_confirmation: 新しいパスワードの確認
+      reservation:
+        user_id: 予約者
+        stage_id: 舞台名
+      category:
+        name: カテゴリー
+      seat:
+        stage_id: 舞台名
+        seat_type: 席の種類
+        seat_prise: 席の値段
+    errors:
+      messages:
+        invalid_user_login: は半角英数字で入力してください。
+        invalid_actor_login: は半角英数字で入力してください。
+        invalid_admin_login: は半角英数字で入力してください。
+        invalid_actor_pass: は半角英数字で入力してください。
+        invalid_user_pass: は半角英数字で入力してください。
+        id_no: 役職が登録できません

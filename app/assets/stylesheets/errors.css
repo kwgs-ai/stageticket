@@ -1,9 +1,10 @@
 /* エラー表示 */
 div#errors {
+    width:  80%;
   background-color: #fee;
   border: 1px solid #ecc;
   padding: 15px;
-  margin: 0 0 1em;
+ margin: 10px auto;
 }
 
 div#errors h2 {

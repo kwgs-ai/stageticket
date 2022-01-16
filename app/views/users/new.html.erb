@@ -1,8 +1,8 @@
 <% @page_title = "会員の新規登録" %>
 
 <h1><%= @page_title %></h1>
-
-<div class="new-table">
+<%= render "shared/errors", obj: @user %>
+<div class="register-method">
   <h3>新規登録規則</h3>
   <ul>
     <li>全部必須入力です</li>
@@ -13,5 +13,5 @@
 </div>
 <%= form_for @user do |form| %>
   <%= render "form", form: form %>
-  <div><%= form.submit class:"btn btn--orange btn--cubic btn--shadow"%></div>
+  <div><%= form.submit class: "btn btn--orange btn--cubic btn--shadow" %></div>
 <% end %>

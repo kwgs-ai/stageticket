@@ -10,10 +10,10 @@ class Stage < ApplicationRecord
   validates :text, presence: true,
             length: { minimum: 10, maximum: 400, allow_blank: true }
   validate do
-    errors.add(:after_date, '日付が不正です') if date <= Date.current.days_since(2)
+    errors.add(:date, "が不正な日付です。今日から３日後以降を選択してください") if date <= Date.current.days_since(2)
   end
   validate do
-    errors.add(:dable_stage, '同じ日時あり') if Stage.where.not(id: id).where(date: date, time: time, status: 2).present?
+    errors.add(:date, "にはすでに承認された公演があります") if Stage.where.not(id: id).where(date: date, time: time, status: 2).present?
   end
 
   class << self

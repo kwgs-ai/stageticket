@@ -2,9 +2,11 @@
 <h1><%= @page_title %></h1>
 
 <% if @actors.present? %>
-  <% @actors.each do |actor|%>
-    <p><%=link_to actor.name, actor_true_stages_actor_stages_path(actor.id)%></p>
-    <%end %>
-  <%else %>
-<P>公演者がない</P>
+  <ol class="actor-index">
+    <% @actors.each do |actor| %>
+      <li><%= link_to actor.name, actor_true_stages_actor_stages_path(actor.id) %></li>
+    <% end %>
+  </ol>
+<% else %>
+  <P>公演者がない</P>
 <% end %>

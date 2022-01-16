@@ -5,7 +5,7 @@
     <title><%= page_title %></title>
     <%= stylesheet_link_tag "application", media: "all" %>
   </head>
-  <body>
+  <body class="error-body">
 
       <header>
         <%= render "shared/header" %>
@@ -14,7 +14,7 @@
 <!--        </nav>-->
       </header>
       <div id="container">
-      <main>
+      <main class="error">
         <%= yield %>
       </main>
 

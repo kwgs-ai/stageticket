@@ -21,8 +21,9 @@
 
   </table>
 
-  <% if @stage.date >= Date.current.days_since(2) %>
+  <%# if @stage.date >= Date.current.days_since(2) %>
     <%= link_to "予約キャンセル", [current_user, @reservation], method: :delete, data: { confirm: "本当に削除しますか" } %>
   <% end %>
-<% end %>
+<%# end %>
 <%= menu_link_to "<<戻る", :back %>
+

@@ -1,0 +1,32 @@
+ol.actor-index{
+    counter-reset:list;
+    list-style-type:none;
+    padding: 1.5em;
+}
+ol.actor-index li{
+    position:relative;
+    padding: 7px 5px 7px 90px;
+    margin: 9px 0 10px 30px;
+    font-weight: bold;
+    font-size:20px;
+    border-bottom:dashed 1px #F6A38B;
+}
+ol.actor-index li:before{
+    counter-increment: list;
+    content: counter(list);
+    position: absolute;
+    left: 0px;
+    width: 45px;
+    height: 45px;
+    line-height: 25px;
+    text-align: center;
+    color: #fff;
+    background: #F6A38B;
+    border-radius: 50%;
+    top: 50%;
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}

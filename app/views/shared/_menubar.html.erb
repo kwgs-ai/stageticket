@@ -1,14 +1,8 @@
 <nav class="menubar">
-  <ul>
+  <ul class="main-nav">
     <%= menu_link_to "TOP", :root %>
-    <%#= menu_link_to "ニュース", :articles %>
-    <%#= menu_link_to "ブログ", :entries %>
-    <%#= menu_link_to "当番", :duties %>
-    <%# if current_member %>
-      <%#= menu_link_to "会員名簿", :members %>
-      <%# if current_member.administrator? %>
-        <%#= menu_link_to "管理ページ", :admin_root %>
-      <%# end %>
-    <%# end %>
+    <%= menu_link_to "ユーザーログイン・新規登録", user_path(1) %>
+    <%= menu_link_to "公演者ログイン・新規登録", actor_path(1) %>
+    <%= menu_link_to "管理者ログイン", admin_path %>
   </ul>
 </nav>

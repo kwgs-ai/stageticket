@@ -52,18 +52,21 @@ class ReservationsController < ApplicationController
     if @errors.instance_of?(Array)
       render "new"
     else
-      redirect_to [@reservation.user,@reservation], notice: @errors
+      redirect_to [@reservation.user,@reservation], notice: @errorserrors
     end
 
   end
 
   def destroy
     @reservation = Reservation.find(params[:id])
-    if @reservation.stage.date >= Date.current.days_since(2)
-      @reservation.destroy
+    # if @reservation.stage.date >= Date.current.days_since(2)
+    if @reservation.destroy
       redirect_to user_reservations_path, notice: '予約をキャンセルしました'
     else
-      redirect_to user_reservation_path, notice: 'この予約はキャンセルできません'
-    end
+      redirect_to user_reservation_path, notice: @reservation.errors.full_messages
+      end
+    # else
+    #   redirect_to user_reservation_path, notice: 'この予約はキャンセルできません'
+    # end
   end
 end

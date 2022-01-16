@@ -1,0 +1,61 @@
+
+
+/* 表：一覧表示、詳細表示 */
+.stage_new {
+    background-color: #fcefeb;
+    font-size: large;
+    width: 95%;
+    padding-top: 50px;
+    margin: 0 auto;
+}
+
+.stage_new th {
+    color: black;
+    font-weight: normal;
+    text-align: left;
+}
+
+.stage_new td {
+    padding: 4px;
+}
+
+
+
+.stage_new th {
+    padding: 4px;
+}
+.new-form{
+    border: solid 2px black;
+    background-color: #f9f1f1;
+    padding: 10px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+
+.register-method {
+    width: 80%;
+    margin: 5px auto;
+    padding: 10px;
+}
+.btn--orange {
+    color: #fff;
+    background-color: #eb6100;
+    border-bottom: 5px solid #b84c00;
+
+}
+.btn--orange:hover {
+    margin-top: 3px;
+    color: #fff;
+    background: #f56500;
+    border-bottom: 2px solid #b84c00;
+}
+.btn--shadow {
+    -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+.center-ok{
+    width: 80%;
+    margin: 20px auto 0;
+}

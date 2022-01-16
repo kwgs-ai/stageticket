@@ -1,7 +1,18 @@
 <% @page_title = "公演団体の新規登録" %>
 
 <h1><%= @page_title %></h1>
+
+<div class="register-method">
+  <h3>新規登録規則</h3>
+  <ul>
+    <li>全部必須入力です</li>
+    <li>タイトルは１文字以上２０文字以内、本文は１０文字以上４００文字以内入力してください</li>
+    <li>今日から三日後以降から登録できます</li>
+    <li>もうすでに承認された公演がある日時は登録できません</li>
+    <li>席の値段は自然数で入力してください</li>
+  </ul>
+</div>
 <%= form_for @actor do |form| %>
   <%= render "form", form: form %>
-  <div><%= form.submit %></div>
+  <div><%= form.submit class:"btn btn--orange btn--cubic btn--shadow"%></div>
 <% end %>

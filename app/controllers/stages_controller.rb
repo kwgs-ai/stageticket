@@ -42,18 +42,18 @@ class StagesController < ApplicationController
   end
 
   def update
-    @seats = StageSeats.new
+    @errors = []
+    @form = StageSeats.new
     @stage = Stage.find(params[:id])
-    @seats.assign_attributes(@stage, params[:stage], params[:stage][:seats])
-    if (@error = @seats.save).blank?
+    @form.assign_attributes(@stage, params[:stage], params[:stage][:seats])
+    @seats = [@form.collection[2], @form.collection[8], @form.collection[20]]
+    if (@errors = @form.save).blank?
       if current_actor
         redirect_to actor_stage_show_stage_path(@stage), notice: '更新しました'
       else
         redirect_to admin_false_stages_admin_path, notice: '更新しました'
       end
     else
-      @seats = [@stage.seats.find_by('seat_type like ?', '%S%'), @stage.seats.find_by('seat_type like ?', '%A%'),
-                @stage.seats.find_by('seat_type like ?', '%B%')]
       render 'edit'
     end
   end
@@ -67,7 +67,7 @@ class StagesController < ApplicationController
     @form = StageSeats.new(params[:stage_seats], params[:stage_seats][:seats], cookies.signed[:actor_id])
     @stage = @form.collection.first
 
-    @stage.errors.full_messages.each {|e|@errors << e} if @form.collection.first.invalid?
+    @stage.errors.full_messages.each { |e| @errors << e } if @form.collection.first.invalid?
 
     @seats << @form.collection[2]
     @seats << @form.collection[8]
@@ -75,8 +75,8 @@ class StagesController < ApplicationController
     @seat_date = @form.collection.drop(1)
     @seat_date.length
     @seat_date.each do |seat|
-       seat.stage_id = 1
-      break seat.errors.full_messages.each {|e|@errors << e} if seat.invalid?
+      seat.stage_id = 1
+      break seat.errors.full_messages.each { |e| @errors << e } if seat.invalid?
     end
     @stage = @form.collection.first
     render "new" if @errors.present?
@@ -87,12 +87,13 @@ class StagesController < ApplicationController
     @form = StageSeats.new
     @stage = Stage.new
     @seats = @form.collection
+
   end
 
   def create
     @seats = []
     @form = StageSeats.new(params[:stage_seats], params[:stage_seats][:seats], cookies.signed[:actor_id])
-    if  params[:back].nil? && (@error = @form.save).blank?
+    if params[:back].nil? && (@error = @form.save).blank?
       redirect_to :root, notice: '登録しました'
     else
       @seats << @form.collection[2]
@@ -115,7 +116,7 @@ class StagesController < ApplicationController
   end
 
   def actor_true_stages
-    @link = 'actor_stage_show_stage'
+    @link = 'admin_stage_show_stage'
     @stages = Stage.where(actor_id: params[:actor_id]).where('date >= ?', Date.today)
                    .page(params[:page]).per(3)
     @after = Stage.where(actor_id: params[:actor_id]).where('date < ?', Date.today)

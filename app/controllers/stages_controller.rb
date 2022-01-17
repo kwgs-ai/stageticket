@@ -20,7 +20,7 @@ class StagesController < ApplicationController
                    .page(params[:page]).per(4)
     if params[:actor_id]
       @stages = Actor.find(params[:actor_id]).stages
-      render 'actors/actor_true_stages'
+      @actor = Actor.find(params[:actor_id])
     end
   end
 
@@ -34,6 +34,8 @@ class StagesController < ApplicationController
 
   def show
     @stage = Stage.find(params[:id])
+    @seats = [@stage.seats.find_by('seat_type like ?', '%S%'), @stage.seats.find_by('seat_type like ?', '%A%'),
+              @stage.seats.find_by('seat_type like ?', '%B%')]
   end
 
   def edit
@@ -50,9 +52,9 @@ class StagesController < ApplicationController
     @seats = [@form.collection[2], @form.collection[8], @form.collection[20]]
     if (@errors = @form.save).blank?
       if current_actor
-        redirect_to actor_stage_show_stage_path(@stage), notice: '更新しました'
+        redirect_to @stage, notice: '更新しました'
       else
-        redirect_to admin_false_stages_admin_path, notice: '更新しました'
+        redirect_to @stage, notice: '更新しました'
       end
     else
       p @form.collection
@@ -107,21 +109,19 @@ class StagesController < ApplicationController
     end
   end
 
-  def admin_stage_show
-    @stage = Stage.find(params[:id])
-    @seats = [@stage.seats.find_by('seat_type like ?', '%S%'), @stage.seats.find_by('seat_type like ?', '%A%'),
-              @stage.seats.find_by('seat_type like ?', '%B%')]
-  end
-
-  def actor_stage_show
-    @stage = Stage.find(params[:id])
-  end
-
-  def actor_true_stages
-    @link = 'admin_stage_show_stage'
-    @stages = Stage.where(actor_id: params[:actor_id]).where('date >= ?', Date.today)
-                   .page(params[:page]).per(3)
-    @after = Stage.where(actor_id: params[:actor_id]).where('date < ?', Date.today)
-                  .page(params[:page]).per(3)
-  end
+  # def admin_stage_show
+  #
+  # end
+  #
+  # def actor_stage_show
+  #   @stage = Stage.find(params[:id])
+  # end
+  #
+  # def actor_true_stages
+  #   @link = 'admin_stage_show_stage'
+  #   @stages = Stage.where(actor_id: params[:actor_id]).where('date >= ?', Date.today)
+  #                  .page(params[:page]).per(3)
+  #   @after = Stage.where(actor_id: params[:actor_id]).where('date < ?', Date.today)
+  #                 .page(params[:page]).per(3)
+  # end
 end

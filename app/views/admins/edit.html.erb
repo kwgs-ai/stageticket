@@ -4,6 +4,6 @@
 
 <%= form_for @admin do |form| %>
   <%= render "form", form: form %>
-  <div><%= form.submit %></div>
+  <div><%= form.submit class:"edit-stage"%></div>
 <% end %>
-<%= link_to "戻る",:back %>
+<%= link_to "<<戻る",:back ,class: "link_to"%>

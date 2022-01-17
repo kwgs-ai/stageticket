@@ -13,27 +13,44 @@
 </div>
 <%= form_for @user do |form| %>
   <%= render "form", form: form %>
-  <div><%= form.submit class: "btn btn--orange btn--cubic btn--shadow" %></div>
+  <div><%= form.submit  "edit-stage" %></div>
 <% end %>
 
 <script>
+    var methods = {
+        hankaku: function (value, element) { // メールアドレスの正規表現
+            return this.optional(element) || /^[A-Za-z0-9]*$/i.test(value);
+        },
+        password: function (value, element) { // パスワードの正規表現
+            return this.optional(element) || /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i.test(value);
+        },
+        date: function (value, element) { // パスワードの正規表現
+            return this.optional(element) ||new Date() == value;
+        },
+    }
+    // メソッドの追加
+    $.each(methods, function (key) {
+        $.validator.addMethod(key, this);
+    });
     $("#new_user").validate({
         // ルール設定
         rules: {
             "user[name]": {
                 required: true, // ニックネームの入力有無チェック
                 maxlength: 10,
-                minlength: 2,
+                minlength: 2
             },
             "user[login_name]": {
                 required: true, // ニックネームの入力有無チェック
                 maxlength: 16,
                 minlength: 4,
+                hankaku:true
             },
             "user[password]": {
                 required: true, // ニックネームの入力有無チェック
                 maxlength: 16,
                 minlength: 4,
+                hankaku:true
             }
         },
         // エラーメッセージの定義
@@ -44,14 +61,16 @@
                 minlength: "２文字以上で入力してください"
             },
             "user[login_name]": {
-                required: "氏名を入力してください",
+                required: "ログインIDを入力してください",
                 maxlength: "16文字以内で入力してください",
-                minlength: "4文字以上で入力してください"
+                minlength: "4文字以上で入力してください",
+                hankaku:"半角英数字で入力してください"
             },
             "user[password]": {
-                required: "氏名を入力してください",
+                required: "パスワードを入力してください",
                 maxlength: "16文字以内で入力してください",
-                minlength: "4文字以上で入力してください"
+                minlength: "4文字以上で入力してください",
+                hankaku:"半角英数字で入力してください"
             },
         },
         errorClass: "invalid", // バリデーションNGの場合に追加するクラス名の指定

@@ -1,13 +1,15 @@
 <% if current_actor || current_admin || current_user %>
-  <h2>ログイン中のアカウント</h2>
+
 
   <div class="account">
     <% if current_actor %>
       <h3><%= image_tag "account.png", alt: "cate", class: "category-img" %>公演者アカウント</h3>
+      <div class="login">
       <%= menu_link_to current_actor.name, @account = current_actor %>
       <%= menu_link_to "ログアウト", :actorsessions, method: :delete, data: { confirm: '本当に削除して良いですか?',
                                                                          cancel: 'やめる',
                                                                          commit: '削除する' }, title: '削除確認' %>
+      </div>
     <% end %>
     <% if current_user %>
       <h3><%= image_tag "account.png", alt: "cate", class: "category-img" %>ユーザーアカウント</h3>

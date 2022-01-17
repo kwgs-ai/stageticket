@@ -1,28 +1,36 @@
-ol.actor-index{
+ol.sample1{
     counter-reset:list;
     list-style-type:none;
-    padding: 1.5em;
+   width:  80%;
+    margin:  0 auto;
+    padding: 0px;
 }
-ol.actor-index li{
+.border{
+    border: solid 2px #F6A38B;
+    background-color: #f7e9e4;
+    padding:  10px;
+    margin: 20px 10px
+}
+
+ol.sample1 li{
     position:relative;
-    padding: 7px 5px 7px 90px;
-    margin: 9px 0 10px 30px;
+    line-height: 30px;
+    margin: 7px 0 7px 40px;
+    padding-left: 10px;
     font-weight: bold;
     font-size:20px;
-    border-bottom:dashed 1px #F6A38B;
 }
-ol.actor-index li:before{
+
+ol.sample1 li:before{
     counter-increment: list;
     content: counter(list);
     position: absolute;
-    left: 0px;
-    width: 45px;
-    height: 45px;
-    line-height: 25px;
+    left: -35px;
+    width: 30px;
+    height: 30px;
+    background: #F6A38B;
     text-align: center;
     color: #fff;
-    background: #F6A38B;
-    border-radius: 50%;
     top: 50%;
     -moz-transform: translateY(-50%);
     -webkit-transform: translateY(-50%);

@@ -2,11 +2,15 @@
 <h1><%= @page_title %></h1>
 
 <% if @actors.present? %>
-  <ol class="actor-index">
+  <ol class="sample1">
     <% @actors.each do |actor| %>
-      <li><%= link_to actor.name, actor_true_stages_actor_stages_path(actor.id) %></li>
+      <div class="border">
+      <li><%= link_to actor.name, admin_actor_stages_path(actor.id) %></li>
+      </div>
+
     <% end %>
   </ol>
+  <%= paginate @actors %>
 <% else %>
   <P>公演者がない</P>
 <% end %>

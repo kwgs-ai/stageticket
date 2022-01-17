@@ -45,8 +45,8 @@
 
 
   <%# if @stage.date >= Date.current.days_since(2) %>
-    <%= link_to "予約キャンセル", [current_user, @reservation], method: :delete, data: { confirm: "本当に削除しますか" } %>
+    <%= link_to "予約キャンセル", [current_user, @reservation], method: :delete, data: { confirm: "本当に削除しますか" } ,class: "edit-stage"%>
   <% end %>
 <%# end %>
-<%= menu_link_to "<<戻る", :back %>
+<%= link_to "<<戻る", :back,class: "link_to" %>
 

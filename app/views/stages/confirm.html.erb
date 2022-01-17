@@ -43,11 +43,11 @@
   </tr>
   <tr>
     <th>午前・午後</th>
-    <td><%= @stage.text %></td>
+    <td><%= @stage.time == 1 ? "午前" : "午後" %></td>
   </tr>
   <tr>
     <th>本文</th>
-    <td><%= @stage.time == 1 ? "午前" : "午後" %></td>
+    <td><%= @stage.text %></td>
   </tr>
 
   <% 3.times do |i| %>

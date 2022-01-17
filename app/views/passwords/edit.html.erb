@@ -5,7 +5,7 @@
 <%= form_for @account, as: "account", url: :password do |form| %>
   <%= render "shared/errors", obj: @account %>
 
-  <table class="attr">
+  <table class="new-table">
     <tr>
       <th><%= form.label :current_password %></th>
       <td><%= form.password_field :current_password %></td>
@@ -20,6 +20,6 @@
     </tr>
   </table>
 
-  <div><%= form.submit "変更" %></div>
+  <div><%= form.submit "パスワードを変更する",class:"edit-stage" %></div>
 <% end %>
-<%= link_to "戻る",:back %>
+<%= link_to "<<戻る",:back ,class: "link_to"%>

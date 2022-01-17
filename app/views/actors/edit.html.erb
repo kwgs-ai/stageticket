@@ -3,5 +3,5 @@
 <h1><%= @page_title %></h1>
 <%= form_for @actor do |form| %>
   <%= render "form", form: form %>
-  <div><%= form.submit %></div>
+  <div><%= form.submit class:  "edit-stage"%></div>
 <% end %>

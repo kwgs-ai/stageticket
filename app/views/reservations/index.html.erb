@@ -3,20 +3,20 @@
 
 
 <% if @reservations.present? %>
-  <table class="list">
+  <table class="reservation-index">
     <thead>
     <tr>
       <th>予約番号</th>
       <th>舞台タイトル</th>
       <th>団体名</th>
       <th>日時</th>
-      <th>午前・午後</th>
+      <th width="299">午前・午後</th>
     </tr>
     </thead>
     <tbody>
     <% @reservations.each do |reservation| %>
       <tr>
-        <td style="text-align: right">
+        <td>
           <%= reservation.id %>
         </td>
         <td>
@@ -31,5 +31,6 @@
     <% end %>
     </tbody>
     </table>
+  <%= paginate @reservations  %>
 <% end %>
-<%=link_to "<<戻る",current_user %>
+<%=link_to "<<戻る",current_user ,class: "link_to"%>

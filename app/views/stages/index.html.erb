@@ -1,6 +1,50 @@
 <% @page_title = "Stage List" %>
 <h1><%= @page_title %></h1>
+<%if @actor %>
+  <% @stages.each do |stage| %>
+    <div class="index_list">
+      <div class="stage_img">
+        <% if (@category = stage.category.name) == "恋愛もの" %>
+          <%= image_tag "love.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+        <% elsif @category == "オペラ" %>
+          <%= image_tag "opera.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+        <% elsif @category == "お笑い" %>
+          <%= image_tag "owarai.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+        <% elsif @category == "戯曲" %>
+          <%= image_tag "gikyoku.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+        <% end %>
+        <div class="list-content">
+          <%= link_to stage.title, send("#{@link}_path", stage), :style => "font-size:26px;" %>
+          <p><%= @category %><br>
+            <%= stage.actor.name %></p>
+        </div>
+      </div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>日時</th>
+          <th>午前・午後</th>
+            <th>ステータス</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= stage.date %></td>
+          <td><%= stage.time == 1 ? "午前" : "午後" %></td>
+            <% if stage.status == 1 %>
+              <td>申請中</td>
+            <% elsif stage.status == 2 %>
+              <td>承認</td>
+            <% else %>
+              <td>拒否</td>
+            <% end %>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 
+<%else %>
 <div class="search">
   <h2>ステージを探す(複数条件選択可能）</h2>
   <table class="search-table">
@@ -38,4 +82,4 @@
 
 
 
-
+<%end %>

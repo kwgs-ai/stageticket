@@ -9,10 +9,6 @@ Rails.application.routes.draw do
     collection do
       post :confirm
     end
-    member do
-      get :admin_stage_show
-      get :actor_stage_show
-    end
     resources :reservations
   end
   resource :actorsessions, only: %i[create destroy]
@@ -36,6 +32,9 @@ Rails.application.routes.draw do
   end
   # resources :users
   resource :admin do
+    resources :actors do
+      resources :stages
+        end
     collection do
       get :admin_false_stages
       get :admin_true_stages

@@ -1,6 +1,10 @@
 <%#= render "shared/errors", obj: @member %>
 
-<table class="attr">
+<table class="new-table">
+  <tr>
+    <th>アカウント種類</th>
+    <td>管理者</td>
+  </tr>
   <tr>
     <th><%= form.label :ID %></th>
     <td><%= form.text_field :login_name, size: 8 %></td>

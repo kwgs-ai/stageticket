@@ -3,6 +3,7 @@ class ActorsController < ApplicationController
 
   def index
     @actors = Actor.all
+                .page(params[:page]).per(6)
   end
 
   def show
@@ -51,7 +52,7 @@ class ActorsController < ApplicationController
   end
 
   def actor_false_stages
-    @link = 'actor_stage_show_stage'
+    @link = 'stage'
     @stages = Stage.where(actor_id: cookies.signed[:actor_id]).where(status: [1,3]).where('date >= ?', Date.today)
                    .page(params[:page]).per(3)
     @after = Stage.where(actor_id: cookies.signed[:actor_id]).where(status: [1,3]).where('date < ?', Date.today)
@@ -59,7 +60,7 @@ class ActorsController < ApplicationController
   end
 
   def actor_true_stages
-    @link = 'actor_stage_show_stage'
+    @link = 'stage'
     @stages = Stage.where(actor_id: cookies.signed[:actor_id]).where(status: [2]).where('date >= ?', Date.today)
                    .page(params[:page]).per(3)
     @after = Stage.where(actor_id: cookies.signed[:actor_id]).where(status: [2]).where('date < ?', Date.today)

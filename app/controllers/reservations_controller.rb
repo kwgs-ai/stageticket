@@ -3,6 +3,7 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = Reservation.where(user_id: cookies.signed[:user_id])
+                      .page(params[:page]).per(10)
   end
 
   def new

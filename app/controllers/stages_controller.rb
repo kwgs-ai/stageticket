@@ -15,6 +15,7 @@ class StagesController < ApplicationController
 
   def index
     @link = 'stage'
+    # @pop_stages = Stage.
     @stages = Stage.where('date >= ?', Date.current).where(status: 2).order(:date)
                    .page(params[:page]).per(4)
     if params[:actor_id]
@@ -54,6 +55,7 @@ class StagesController < ApplicationController
         redirect_to admin_false_stages_admin_path, notice: '更新しました'
       end
     else
+      p @form.collection
       render 'edit'
     end
   end
@@ -99,7 +101,7 @@ class StagesController < ApplicationController
       @seats << @form.collection[2]
       @seats << @form.collection[8]
       @seats << @form.collection[20]
-      p @seats
+      p @errors
       @stage = @form.collection.first
       render 'new'
     end

@@ -1,38 +1,75 @@
 <%#= render "shared/errors", obj: @stage %>
 <% @page_title = "舞台確認" %>
 <h1><%= @page_title %></h1>
-<table class="list">
+
+
+  <div class="stage_img">
+    <% if (@category = @stage.category.name) == "恋愛もの" %>
+      <%= image_tag "love.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+    <% elsif @category == "オペラ" %>
+      <%= image_tag "opera.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+    <% elsif @category == "お笑い" %>
+      <%= image_tag "owarai.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+    <% elsif @category == "戯曲" %>
+      <%= image_tag "gikyoku.jpg", size: "160x110", alt: "cate", class: "category-img" %>
+    <% end %>
+    <div class="list-content">
+      <%= @stage.title %>
+      <p><%= @category %><br>
+        <%= @stage.actor.name %></p>
+    </div>
+  </div>
+<table class="show-table">
   <thead>
   <tr>
     <th>舞台タイトル</th>
-    <th>団体名</th>
-    <th>カテゴリー</th>
-    <th>日時</th>
-    <th>午前・午後</th>
-    <th>本文</th>
-    <th>S値段</th>
-    <th>A値段</th>
-    <th>B値段</th>
+    <td><%= @stage.title %></td>
   </tr>
-  </thead>
-  <tbody>
   <tr>
-    <td style="text-align: right">
-      <%= @stage.title %></td>
+    <th>団体名</th>
     <td>
       <%= @stage.actor.name %>
     </td>
+  </tr>
+  <tr>
+    <th>カテゴリー</th>
     <td>
       <%= @stage.category.name %>
     </td>
-    <td><%= @stage.date %></td>
-    <td><%= @stage.time == 1 ? "午前" : "午後" %></td>
-    <td><%= @stage.text %></td>
-    <% 3.times do |i| %>
-      <td><%= @cost[i] %></td>
-    <% end %>
   </tr>
-  </tbody>
+  <tr>
+    <th>日時</th>
+    <td><%= @stage.date %></td>
+  </tr>
+  <tr>
+    <th>午前・午後</th>
+    <td><%= @stage.text %></td>
+  </tr>
+  <tr>
+    <th>本文</th>
+    <td><%= @stage.time == 1 ? "午前" : "午後" %></td>
+  </tr>
+
+  <% 3.times do |i| %>
+    <% if i == 0 %>
+      <tr>
+        <th>S値段</th>
+        <td><%= @cost[i] %></td>
+      </tr>
+    <% elsif i == 1 %>
+      <tr>
+        <th>A値段</th>
+        <td><%= @cost[i] %></td>
+      </tr>
+    <% elsif i == 2 %>
+      <tr>
+        <th>B値段</th>
+        <td><%= @cost[i] %></td>
+      </tr>
+    <% end %>
+  <% end %>
+
+  </thead>
 </table>
 
 
@@ -47,6 +84,8 @@
       <%= fs.hidden_field :seat_prise, :value => @cost[i] %>
     <% end %>
   <% end %>
-  <div><%=form.submit "修正",name: :back %></div>
-  <div><%= form.submit %></div>
+  <div class="confirm-btns">
+  <div><%= form.submit "修正", name: :back, class:"arrow-button"%></div>
+  <div><%= form.submit class:"arrow-button"%></div>
+  </div>
 <% end %>

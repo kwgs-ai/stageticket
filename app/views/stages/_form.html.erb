@@ -19,79 +19,84 @@
       </tr>
       <tr>
         <th><%= form.label :date, for: "member_birthday_1i" %></th>
-        <td><%= form.date_select :date,
-                                 start_year: Time.current.year, end_year: 2050, start_year: Time.current.year, end_year: 2050,
+        <td>
+          <% if @stage.date %>
+            <%= form.date_select :date, start_year: Time.current.year, end_year: 2050, start_year: Time.current.year, end_year: 2050,
                                  use_month_numbers: true, selected: @stage.date %></td>
-      </tr>
-      <tr>
-        <th><%= form.label :午前・午後 %></th>
-        <td><%= form.select :time, { '午前': 1, '午後': 2 } %></td>
-      </tr>
-      <% @count = 0 %>
-      <% @seats.each do |seat| %>
-        <%= form.fields_for 'seats[]', seat do |fs| %>
-          <% @count += 1 %>
-          <tr>
-            <% if @count == 1 %>
-              <th><%= fs.label :S金額 %></th>
-            <% elsif @count == 2 %>
-              <th><%= fs.label :A金額 %></th>
-            <% elsif @count == 3 %>
-              <th><%= fs.label :B金額 %></th>
+            <%else %>
+            <%= form.date_select :date, start_year: Time.current.year, end_year: 2050, start_year: Time.current.year, end_year: 2050,
+                                 use_month_numbers: true, selected: Date.current %></td>
+          <%end %>
+            </tr>
+            <tr>
+              <th><%= form.label :午前・午後 %></th>
+              <td><%= form.select :time, { '午前': 1, '午後': 2 } %></td>
+            </tr>
+            <% @count = 0 %>
+            <% @seats.each do |seat| %>
+              <%= form.fields_for 'seats[]', seat do |fs| %>
+                <% @count += 1 %>
+                <tr>
+                  <% if @count == 1 %>
+                    <th><%= fs.label :S金額 %></th>
+                  <% elsif @count == 2 %>
+                    <th><%= fs.label :A金額 %></th>
+                  <% elsif @count == 3 %>
+                    <th><%= fs.label :B金額 %></th>
+                  <% end %>
+                  <td><%= fs.text_field :seat_prise %></td>
+                </tr>
+              <% end %>
             <% end %>
-            <td><%= fs.text_field :seat_prise %></td>
-          </tr>
-        <% end %>
-      <% end %>
-    </table>
-  <% else %>
-    <table class="attr">
-      <tr>
-        <th><%= form.label :title %></th>
-        <td><%= form.text_field :title, :value => @stage.title, size: 8 %></td>
-      </tr>
-      <tr>
-        <th><%= form.label :category %></th>
-        <td><%= @stage.category.name %></td>
-      </tr>
-      <tr>
-        <th><%= form.label :text %></th>
-        <td><%= form.text_field :text, :value => @stage.text %></td>
-      </tr>
-      <tr>
-        <th><%= form.label :date, for: "member_birthday_1i" %></th>
-        <td><%= @stage.date %></td>
-      </tr>
-      <tr>
-        <th><%= form.label :午前・午後 %></th>
-        <td><%= @stage.time == 1 ? "午前" : "午後" %></td>
-      </tr>
+            </table>
+          <% else %>
+            <table class="attr">
+              <tr>
+                <th><%= form.label :title %></th>
+                <td><%= form.text_field :title, :value => @stage.title, size: 8 %></td>
+              </tr>
+              <tr>
+                <th><%= form.label :category %></th>
+                <td><%= @stage.category.name %></td>
+              </tr>
+              <tr>
+                <th><%= form.label :text %></th>
+                <td><%= form.text_field :text, :value => @stage.text %></td>
+              </tr>
+              <tr>
+                <th><%= form.label :date, for: "member_birthday_1i" %></th>
+                <td><%= @stage.date %></td>
+              </tr>
+              <tr>
+                <th><%= form.label :午前・午後 %></th>
+                <td><%= @stage.time == 1 ? "午前" : "午後" %></td>
+              </tr>
 
-      <%= form.hidden_field :category_id, :value => @stage.category_id %>
-      <%= form.hidden_field :date, :value => @stage.date %>
-      <%= form.hidden_field :time, :value => @stage.time %>
-      <% @seats.each_with_index do |seat, i| %>
-        <%= form.fields_for 'seats[]', seat do |fs| %>
-          <%= fs.hidden_field :seat_prise, :value => seat.seat_prise %>
-        <% end %>
-      <% end %>
+              <%= form.hidden_field :category_id, :value => @stage.category_id %>
+              <%= form.hidden_field :date, :value => @stage.date %>
+              <%= form.hidden_field :time, :value => @stage.time %>
+              <% @seats.each_with_index do |seat, i| %>
+                <%= form.fields_for 'seats[]', seat do |fs| %>
+                  <%= fs.hidden_field :seat_prise, :value => seat.seat_prise %>
+                <% end %>
+              <% end %>
 
-      <% @seats.each do |seat| %>
-        <tr>
-          <% if @count == 1 %>
-            <th><%= fs.label :S金額 %></th>
-          <% elsif @count == 2 %>
-            <th><%= fs.label :A金額 %></th>
-          <% elsif @count == 3 %>
-            <th><%= fs.label :B金額 %></th>
+              <% @seats.each do |seat| %>
+                <tr>
+                  <% if @count == 1 %>
+                    <th><%= fs.label :S金額 %></th>
+                  <% elsif @count == 2 %>
+                    <th><%= fs.label :A金額 %></th>
+                  <% elsif @count == 3 %>
+                    <th><%= fs.label :B金額 %></th>
+                  <% end %>
+                  <td><%= seat.seat_prise %></td>
+                </tr>
+              <% end %>
+            </table>
+
           <% end %>
-          <td><%= seat.seat_prise %></td>
-        </tr>
-      <% end %>
-    </table>
-
-  <% end %>
-</div>
+          </div>
 
 
 

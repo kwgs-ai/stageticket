@@ -56,5 +56,5 @@
   </div>
 <% end %>
 <% unless current_actor || current_admin %>
-  <%= link_to "この舞台を予約", [:new, @stage, :reservation] %>
+  <%= link_to "この舞台を予約する", [:new, @stage, :reservation] ,class:"edit-stage"%>
 <% end %>

@@ -1,14 +1,14 @@
 <% @page_title = "公演の新規登録" %>
 <h1><%= @page_title %></h1>
 
-<%if @errors.present? %>
+<% if @errors.present? %>
   <div id="errors">
     <h3>エラーがあります。</h3>
-  <%@errors.each do |e| %>
-    <li><%=e %></li>
-  <%end %>
+    <% @errors.each do |e| %>
+      <li><%= e %></li>
+    <% end %>
   </div>
-<%end %>
+<% end %>
 
 
 <div class="register-method">
@@ -24,6 +24,6 @@
 
 <%= form_for @form, model: @form, url: confirm_stages_path do |form| %>
   <%= render "form", form: form %>
-  <div class="center-ok"><%= form.submit class:"btn btn--orange btn--cubic btn--shadow"%></div>
+  <div class="center-ok"><%= form.submit class: "edit-stage" %></div>
 
 <% end %>

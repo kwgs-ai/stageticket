@@ -18,15 +18,16 @@ class StageSeats
       collection << stage
       attributes2.each_with_index do |value, i|
         prise << value['seat_prise']
-        if i == 0
+        case i
+        when 0
           1.upto(6) do |idx|
             collection << Seat.new(seat_prise: value['seat_prise'], seat_type: "#{types[i]}#{idx}")
           end
-        elsif i == 1
+        when 1
           1.upto(12) do |idx|
             collection << Seat.new(seat_prise: value['seat_prise'], seat_type: "#{types[i]}#{idx}")
           end
-        elsif i == 2
+        when 2
           1.upto(12) do |idx|
             collection << Seat.new(seat_prise: value['seat_prise'], seat_type: "#{types[i]}#{idx}")
           end
@@ -43,6 +44,7 @@ class StageSeats
     stage.assign_attributes(title: attributes[:title], text: attributes[:text],
                             date: date, time: attributes[:time], category_id: attributes[:category_id])
     stage.assign_attributes(status: attributes[:status]) if attributes[:status]
+    self.stage = stage
     seats_s = stage.seats.where('seat_type like ?', '%S%')
     seats_a = stage.seats.where('seat_type like ?', '%A%')
     seats_b = stage.seats.where('seat_type like ?', '%B%')
@@ -70,7 +72,7 @@ class StageSeats
       errors << collection.first.errors.full_messages unless collection.first.save
       collection.drop(1).each do |result|
         result.stage_id = collection.first.id
-        break errors << result.errors.full_messages unless result.save
+        break result.errors.full_messages.each { |e| errors << e } unless result.save
       end
       raise ActiveRecord::RecordInvalid if errors.present?
     end
@@ -78,9 +80,8 @@ class StageSeats
     p 'エラーがあります＜デバッグ用＞'
     p e
     self.collection = []
-    collection << stage
-    3.times { |id| collection << Seat.new(seat_prise: prise[id]) }
-  ensure
+    p collection << stage
+    # 3.times { |id| collection << Seat.new(seat_prise: prise[id]) }
     return errors
   end
 end

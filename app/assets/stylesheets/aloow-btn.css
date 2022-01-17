@@ -1,0 +1,26 @@
+.arrow-button{
+    /* ボタンのCSS */
+    background-color: #f6a25e;
+    border-radius: 8px;
+    box-shadow: 0 4px 0 #c66228;
+    color: #fff;
+    display: inline-block;
+    padding: 8px;
+    position: relative; /* position: relative;で矢印の位置を基点とさせます */
+    text-align: center;
+    text-decoration: none;
+    width: 200px;
+}
+.arrow-button:hover{
+ background-color: #f0c591;
+}
+
+.arrow-button:active{
+    /* ボタンをクリックしたときに沈むように見える動き */
+    box-shadow: 0 0 0 #c66a28;
+}
+.confirm-btns{
+    width: 90%;
+    display: flex;
+  justify-content: space-between;
+}

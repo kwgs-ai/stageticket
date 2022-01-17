@@ -32,7 +32,6 @@
 }
 
 .edit-stage {
-    margin: 20px;
     width:  70%;
     display: inline-block;
     border-radius: 25px; /* 角丸       */
@@ -45,8 +44,11 @@
     line-height: 1em; /* 1行の高さ  */
     transition: .3s; /* なめらか変化 */
     box-shadow: 6px 6px 3px #666666; /* 影の設定 */
-    border: 2px solid rgba(102, 102, 255, 0.82); /* 枠の指定 */
-    vertical-align: middle;
+    border: 2px solid rgba(102, 102, 255, 0.82);
+    display: flex;
+    justify-content: center;
+    margin-left: 15%;
+    margin-top: 20px;
 }
 
 .edit-stage:hover {

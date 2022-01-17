@@ -15,3 +15,59 @@
   <%= render "form", form: form %>
   <div><%= form.submit class: "btn btn--orange btn--cubic btn--shadow" %></div>
 <% end %>
+
+<script>
+    $("#new_user").validate({
+        // ルール設定
+        rules: {
+            "user[name]": {
+                required: true, // ニックネームの入力有無チェック
+                maxlength: 10,
+                minlength: 2,
+            },
+            "user[login_name]": {
+                required: true, // ニックネームの入力有無チェック
+                maxlength: 16,
+                minlength: 4,
+            },
+            "user[password]": {
+                required: true, // ニックネームの入力有無チェック
+                maxlength: 16,
+                minlength: 4,
+            }
+        },
+        // エラーメッセージの定義
+        messages: {
+            "user[name]": {
+                required: "氏名を入力してください",
+                maxlength: "10文字以内で入力してください",
+                minlength: "２文字以上で入力してください"
+            },
+            "user[login_name]": {
+                required: "氏名を入力してください",
+                maxlength: "16文字以内で入力してください",
+                minlength: "4文字以上で入力してください"
+            },
+            "user[password]": {
+                required: "氏名を入力してください",
+                maxlength: "16文字以内で入力してください",
+                minlength: "4文字以上で入力してください"
+            },
+        },
+        errorClass: "invalid", // バリデーションNGの場合に追加するクラス名の指定
+        errorElement: "p", // エラーメッセージの要素種類の指定
+        validClass: "valid", // バリデーションOKの場合に追加するクラス名の指定
+    }).cancelSubmit = true;
+
+    // 入力欄をフォーカスアウトしたときにバリデーションを実行
+    $("#user_name,#user_login_name,#user_password").keyup(function () {
+        $(this).valid()
+
+    });
+    $("#user_name,#user_login_name,#user_password").blur(function () {
+        $(this).valid()
+
+    });
+
+</script>
+

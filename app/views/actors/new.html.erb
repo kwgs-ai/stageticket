@@ -7,13 +7,66 @@
   <h3>新規登録規則</h3>
   <ul>
     <li>全部必須入力です</li>
-    <li>タイトルは１文字以上２０文字以内、本文は１０文字以上４００文字以内入力してください</li>
-    <li>今日から三日後以降から登録できます</li>
-    <li>もうすでに承認された公演がある日時は登録できません</li>
-    <li>席の値段は自然数で入力してください</li>
+    <li>名前は２文字以上１０文字以内で同じ名前がすでにある場合は登録できません</li>
+    <li>ログインID、パスワードは４文字以上１６文字以内で半角英数字のみです</li>
+    <li>もうすでに登録されているログインIDがは登録できません</li>
   </ul>
 </div>
 <%= form_for @actor do |form| %>
   <%= render "form", form: form %>
-  <div><%= form.submit class:"btn btn--orange btn--cubic btn--shadow"%></div>
+  <div><%= form.submit class: "btn btn--orange btn--cubic btn--shadow" %></div>
 <% end %>
+<script>
+    $("#new_actor").validate({
+        // ルール設定
+        rules: {
+            "actor[name]": {
+                required: true, // ニックネームの入力有無チェック
+                maxlength: 10,
+                minlength: 2,
+            },
+            "actor[login_name]": {
+                required: true, // ニックネームの入力有無チェック
+                maxlength: 16,
+                minlength: 4,
+            },
+            "actor[password]": {
+                required: true, // ニックネームの入力有無チェック
+                maxlength: 16,
+                minlength: 4,
+            }
+        },
+        // エラーメッセージの定義
+        messages: {
+            "actor[name]": {
+                required: "氏名を入力してください",
+                maxlength: "10文字以内で入力してください",
+                minlength: "２文字以上で入力してください"
+            },
+            "actor[login_name]": {
+                required: "氏名を入力してください",
+                maxlength: "16文字以内で入力してください",
+                minlength: "4文字以上で入力してください"
+            },
+            "actor[password]": {
+                required: "氏名を入力してください",
+                maxlength: "16文字以内で入力してください",
+                minlength: "4文字以上で入力してください"
+            },
+        },
+        errorClass: "invalid", // バリデーションNGの場合に追加するクラス名の指定
+        errorElement: "p", // エラーメッセージの要素種類の指定
+        validClass: "valid", // バリデーションOKの場合に追加するクラス名の指定
+    }).cancelSubmit = true;
+
+    // 入力欄をフォーカスアウトしたときにバリデーションを実行
+    $("#actor_name,#actor_login_name,#actor_password").keyup(function () {
+        $(this).valid()
+
+    });
+    $("#actor_name,#actor_login_name,a#ctor_password").blur(function () {
+        $(this).valid()
+
+    });
+
+</script>

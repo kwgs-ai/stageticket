@@ -101,3 +101,13 @@ footer nav ul li:not(:last-child):after {
     text-align: center;
     font-size: 25px;
 }
+
+
+input.invalid {
+    background-color: #ffc6c6;
+}
+
+input[type="text"] :invalid {
+    border: solid 7px red;
+    background-color: red;
+}

@@ -33,6 +33,7 @@ class StagesController < ApplicationController
   end
 
   def show
+    @reservation = Reservation.new
     @stage = Stage.find(params[:id])
     @seats = [@stage.seats.find_by('seat_type like ?', '%S%'), @stage.seats.find_by('seat_type like ?', '%A%'),
               @stage.seats.find_by('seat_type like ?', '%B%')]

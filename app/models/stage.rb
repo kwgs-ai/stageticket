@@ -29,7 +29,7 @@ class Stage < ApplicationRecord
         rel = rel.where(category_id: category)
       end
       rel = rel.where('title LIKE ?', "%#{title}%") if title.present?
-      rel = rel.where(date:date) if date.present?
+      rel = rel.where(date: date) if date.present?
       if time.present? && time != 'なし'
         time = time == '午前' ? 1 : 2
         rel = rel.where(time: time)

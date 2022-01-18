@@ -46,7 +46,7 @@
     </tr>
     <tr>
       <th>日時</th>
-      <td><%=@stage.date %></td>
+      <td><%= @stage.date %></td>
     </tr>
     <tr>
       <th>午前・午後</th>
@@ -68,34 +68,21 @@
       <th>残り座席数　B</th>
       <td><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%B%').count %></td>
     </tr>
+    <tr>
+      <th>予約席</th>
+      <td>
+        <% @seat_types.each do |seat| %>
+          <%= seat %>
+        <% end %>
+      </td>
+    </tr>
     </thead>
   </table>
 <% end %>
 
-<h2 class="seat_index">座席表</h2>
-<div class="reserve-method">
-  <h3>予約方法</h3>
-  <ul>
-    <li>一回に予約できるのは五席までです</li>
-    <li>座席表で赤くなっている席はすでに予約済みであり予約できません</li>
-    <li>予約したい席を選んでクリックしてください</li>
-  </ul>
-</div>
+<%= form_for [@stage, @reservation] do |form| %>
+  <%= hidden_field_tag :stage_id, :value => @stage.id %>
+  <%= hidden_field_tag 'seats[]', @seat_types, multiple: true %>
+  <div><%= form.submit "この舞台を予約する", class: "edit-stage" %></div>
+<% end %>
 
-
-<div class="check">
-  <h5>ステージ</h5>
-  <h4>まえ</h4>
-  <div class="seat">
-    <div class="seat-out">
-      <%= form_for [@stage, @reservation] do |form| %>
-        <%= collection_check_boxes(:seat, :seat_type, @stage.seats, :seat_type, :seat_type, include_hidden: false, html_options: { class: "seat" }) do |b| %>
-          <%= b.check_box disabled: @stage.seats.find_by(seat_type: b.text, stage_id: params[:stage_id]).reservation_id != nil %>
-          <%= b.label %>
-        <% end %>
-        </div>
-        </div>
-        <h4>うしろ</h4>
-        </div>
-        <div><%= form.submit class:"edit-stage" %></div>
-      <% end %>

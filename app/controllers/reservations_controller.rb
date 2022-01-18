@@ -3,12 +3,59 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = Reservation.where(user_id: cookies.signed[:user_id])
-                      .page(params[:page]).per(10)
+                               .page(params[:page]).per(10)
   end
 
   def new
-    @stage = Stage.find(params[:stage_id])
+    p 2222222222222222222222222
+    p @stage = params[:reservation]
+    p @stage[:stage_id]
+    @stage = Stage.find(params[:reservation]['stage_id'])
     @reservation = Reservation.new
+    @user = current_user
+    @errors = []
+    ActiveRecord::Base.transaction do
+      @reservation = Reservation.new(user_id: cookies.signed[:user_id], stage_id: @stage.id).id
+      @s_seats = Seat.where('seat_type like ?', '%S%').where(stage_id: params[:stage_id], reservation_id: nil)
+      @a_seats = Seat.where('seat_type like ?', '%A%').where(stage_id: params[:stage_id], reservation_id: nil)
+      @b_seats = Seat.where('seat_type  like ?', '%B%').where(stage_id: params[:stage_id], reservation_id: nil)
+      if params['seat'].nil?
+        @errors << '座席が選択されていません'
+      else
+        @seat_types = params['seat']['seat_type']
+        p 222222222222222
+        p @seat_types
+        p params['seat']
+        @errors << '一回の予約に取れるのは5席までです' if @seat_types.length >= 6
+        if @reservation.valid?
+          @seat_types.each do |seat|
+            @seat = Seat.find_by(seat_type: seat, stage_id: params[:stage_id], reservation_id: nil)
+            break @errors << 'その席は予約済みです' if @seat.nil?
+
+            @seat.reservation_id = @reservation.id
+            break @errors << @seat.errors.full_messages unless @seat.valid?
+          end
+        else
+          @errors << @reservation.errors.full_messages
+        end
+      end
+      raise ActiveRecord::RecordInvalid if @errors.present?
+    end
+  rescue => e
+    p 'エラーがあります＜デバッグ用＞'
+    p e
+  ensure
+    @errors = '予約を確認' unless @errors.present?
+    if @errors.instance_of?(Array)
+      p 111111111111111111111
+      p @errors.present?
+
+      redirect_to @stage, notice: 'エラー'
+    else
+      @reservation = Reservation.new
+      render 'new', notice: 'エラーなし'
+    end
+
   end
 
   def show
@@ -18,22 +65,25 @@ class ReservationsController < ApplicationController
   end
 
   def create
+    p 11111111111111111111111
+    p params['stage_id']
+    p params['seats']
     @errors = []
-    @stage = Stage.find(params[:stage_id])
+    @stage = Stage.find(params['stage_id'])
     @user = current_user
+    @seat_types = params['seats']
     ActiveRecord::Base.transaction do
       @reservation = Reservation.new(user_id: cookies.signed[:user_id], stage_id: Stage.find(params[:stage_id]).id)
       @s_seats = Seat.where('seat_type like ?', '%S%').where(stage_id: params[:stage_id], reservation_id: nil)
       @a_seats = Seat.where('seat_type like ?', '%A%').where(stage_id: params[:stage_id], reservation_id: nil)
       @b_seats = Seat.where('seat_type  like ?', '%B%').where(stage_id: params[:stage_id], reservation_id: nil)
-      if params['seat'].nil?
+      if params['seats'].nil?
         @errors << '座席が選択されていません'
       else
-        @seat_types = params['seat']['seat_type']
         @errors << '一回の予約に取れるのは5席までです' if @seat_types.length >= 6
         if @reservation.save
           @seat_types.each do |seat|
-            @seat = Seat.find_by(seat_type: seat, stage_id: params[:stage_id], reservation_id: nil)
+            @seat = Seat.find_by(seat_type: seat, stage_id: @stage.id, reservation_id: nil)
             break @errors << 'その席は予約済みです' if @seat.nil?
 
             @seat.reservation_id = @reservation.id
@@ -51,9 +101,10 @@ class ReservationsController < ApplicationController
   ensure
     @errors = '予約が完了しました' unless @errors.present?
     if @errors.instance_of?(Array)
-      render "new"
+      p @errors
+      render 'new'
     else
-      redirect_to [@reservation.user,@reservation], notice: '予約が完了しました'
+      redirect_to [@reservation.user, @reservation], notice: '予約が完了しました'
     end
 
   end
@@ -65,7 +116,7 @@ class ReservationsController < ApplicationController
       redirect_to user_reservations_path, notice: '予約をキャンセルしました'
     else
       redirect_to user_reservation_path, notice: @reservation.errors.full_messages
-      end
+    end
     # else
     #   redirect_to user_reservation_path, notice: 'この予約はキャンセルできません'
     # end

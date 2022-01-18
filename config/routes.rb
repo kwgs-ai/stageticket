@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resource :usersessions, only: %i[create destroy]
   resource :adminsessions, only: %i[create destroy]
   resource :password, only: %i[show edit update]
-
+  resources :reservations
   resources :actors do
     collection do
       get :actor_false_stages

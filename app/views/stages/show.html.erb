@@ -240,7 +240,7 @@
       <div class="seat-out">
         <%= form_for [@stage, @reservation], url: new_reservation_path, method: :get do |form| %>
           <%= form.hidden_field :stage_id, :value => @stage.id %>
-          <%= collection_check_boxes(:seat, :seat_type, @stage.seats, :seat_type, :seat_type, include_hidden: false, html_options: { class: "seat" }) do |b| %>
+          <%= collection_check_boxes(:seat, :seat_type, @stage.seats.order(:id), :seat_type, :seat_type, include_hidden: false, html_options: { class: "seat" }) do |b| %>
             <%= b.check_box disabled: @stage.seats.find_by(seat_type: b.text, stage_id: @stage.id).reservation_id != nil %>
             <%= b.label %>
           <% end %>
@@ -248,12 +248,6 @@
           </div>
           <h4>うしろ</h4>
           </div>
-          <label>
-          <% @stage.seats.each do |seat| %>
-            <%= form.check_box :seat_ids, { multiple: true ,disabled: @stage.seats.find_by(seat_type: seat.seat_type, stage_id: @stage.id).reservation_id != nil}, seat.id, "" %><%= seat.seat_type %>&emsp;
-          <% end %>
-          </label>
-
 
           <% unless current_actor || current_admin %>
           <div><%= form.submit "この舞台を予約する", class: "edit-stage" %></div>

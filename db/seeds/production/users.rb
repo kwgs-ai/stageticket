@@ -4,9 +4,9 @@ gnames = ['太郎', '次郎', '花子','龍彦','由紀夫','工房',"晴彦",'�
 lnames = %w[satou suzuki takahashi tanaka mishima kawagishi kawashima murakami hasegawa kaji]
 
 0.upto(9) do |idx|
-  User.create(
+  User.create!(
     name: "#{fnames[idx]} #{gnames[idx]}",
-    login_name: "user#{[idx]}",
+    login_name: "user#{idx}",
     password: '1111',
     password_confirmation: '1111'
   )

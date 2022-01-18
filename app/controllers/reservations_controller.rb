@@ -63,6 +63,7 @@ class ReservationsController < ApplicationController
     @stage = Stage.find(params['stage_id'])
     @user = current_user
     @seat_types = params['seats']
+    p @seat_types
     ActiveRecord::Base.transaction do
       @reservation = Reservation.new(user_id: cookies.signed[:user_id], stage_id: Stage.find(params[:stage_id]).id)
       @s_seats = Seat.where('seat_type like ?', '%S%').where(stage_id: params[:stage_id], reservation_id: nil)

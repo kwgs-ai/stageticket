@@ -79,9 +79,12 @@
     </thead>
   </table>
 <% end %>
+<%=@seat_types %>
 
 <%= form_for [@stage, @reservation] do |form| %>
   <%= hidden_field_tag :stage_id, :value => @stage.id %>
-  <%= hidden_field_tag 'seats[]', @seat_types, multiple: true %>
+  <% @seat_types.each do |seat| %>
+    <%= hidden_field_tag 'seats[]', seat, multiple: true %>
+  <% end %>
   <div><%= form.submit "この舞台を予約する", class: "edit-stage" %></div>
 <% end %>

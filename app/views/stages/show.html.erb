@@ -248,6 +248,12 @@
           </div>
           <h4>うしろ</h4>
           </div>
+          <label>
+          <% @stage.seats.each do |seat| %>
+            <%= form.check_box :seat_ids, { multiple: true ,disabled: @stage.seats.find_by(seat_type: seat.seat_type, stage_id: @stage.id).reservation_id != nil}, seat.id, "" %><%= seat.seat_type %>&emsp;
+          <% end %>
+          </label>
+
 
           <% unless current_actor || current_admin %>
           <div><%= form.submit "この舞台を予約する", class: "edit-stage" %></div>

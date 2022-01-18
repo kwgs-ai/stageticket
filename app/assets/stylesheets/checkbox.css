@@ -64,7 +64,6 @@ input[type=checkbox]:checked:disabled + label:before {
 input[type=checkbox]:disabled + label {
     background-color: #f56565;
     cursor: default;
-    color: white;
 }
 
 /*操作不可のチェック文字を囲むボーダーの色を薄い#aaaで表示*/

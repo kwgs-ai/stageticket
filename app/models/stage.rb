@@ -19,7 +19,7 @@ class Stage < ApplicationRecord
 
   class << self
     def search(title, date, time, actor, category)
-      rel = order('date').where(status: 2).where('date >= ?', Date.today)
+      rel = order('date').where(status: 2).where('date >= ?', Date.current)
       if actor.present?
         actor = Actor.where('name LIKE ?', "%#{actor}%").ids
         rel = rel.where(actor_id: actor)
@@ -29,7 +29,7 @@ class Stage < ApplicationRecord
         rel = rel.where(category_id: category)
       end
       rel = rel.where('title LIKE ?', "%#{title}%") if title.present?
-      rel = rel.where('date LIKE ?', "%#{date}%") if date.present?
+      rel = rel.where(date:date) if date.present?
       if time.present? && time != 'なし'
         time = time == '午前' ? 1 : 2
         rel = rel.where(time: time)

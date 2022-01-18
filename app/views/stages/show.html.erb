@@ -9,6 +9,62 @@
   <% if @stage.present? %>
     <%= render "shared/table_show", stage: @stage if @stage.present? %>
   <% end %>
+  <table class="seat-table">
+    <thead>
+    <tr>
+      <th>残り座席数　S</th>
+      <th>残り座席数　A</th>
+      <th>残り座席数　B</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td style="text-align: center">
+        <%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%S%').count %>席
+      </td>
+      <td style="text-align: center"><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%A%').count %>
+        席
+      </td>
+      <td style="text-align: center"><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%B%').count %>
+        席
+      </td>
+    </tr>
+    </tbody>
+    </tbody>
+  </table>
+  <div class="prise-list">
+    <h3>各種座席料金一覧</h3>
+    <ul>
+      <h4>S席</h4>
+      <li> <%= @stage.seats.find_by('seat_type like ?', '%S%').seat_prise %>円</li>
+      <h4>A席</h4>
+      <li><%= @stage.seats.find_by('seat_type like ?', '%A%').seat_prise %>円</li>
+      <h4>B席</h4>
+      <li><%= @stage.seats.find_by('seat_type like ?', '%B%').seat_prise %>円</li>
+    </ul>
+  </div>
+  <h3>予約状況</h3>
+  <h2 class="seat_index">座席表</h2>
+  <div class="check">
+    <h5>ステージ</h5>
+    <h4>まえ</h4>
+    <div class="seat-actor">
+      <% @stage.seats.each do |seat| %>
+        <% if seat.reservation_id.nil?%>
+          <div class="true">
+            <%= seat.seat_type %>
+          </div>
+        <% else %>
+          <div class="false">
+            <%= seat.seat_type %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <h4>うしろ</h4>
+  </div>
+
   <%= form_for @stage do |form| %>
     <%= form.hidden_field :title %>
     <%= form.hidden_field :category_id %>
@@ -31,6 +87,62 @@
   <%= link_to "<<マイページに戻る", current_admin, class: "link_to" %>
 <% elsif @path[:action] == "actor_false_stages" || @path[:action] == "actor_true_stages" || (@path[:action] == "edit" && current_actor)  %>
   <%= render "shared/table_show", stage: @stage if @stage.present? %>
+  <table class="seat-table">
+    <thead>
+    <tr>
+      <th>残り座席数　S</th>
+      <th>残り座席数　A</th>
+      <th>残り座席数　B</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td style="text-align: center">
+        <%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%S%').count %>席
+      </td>
+      <td style="text-align: center"><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%A%').count %>
+        席
+      </td>
+      <td style="text-align: center"><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%B%').count %>
+        席
+      </td>
+    </tr>
+    </tbody>
+    </tbody>
+  </table>
+  <div class="prise-list">
+    <h3>各種座席料金一覧</h3>
+    <ul>
+      <h4>S席</h4>
+      <li> <%= @stage.seats.find_by('seat_type like ?', '%S%').seat_prise %>円</li>
+      <h4>A席</h4>
+      <li><%= @stage.seats.find_by('seat_type like ?', '%A%').seat_prise %>円</li>
+      <h4>B席</h4>
+      <li><%= @stage.seats.find_by('seat_type like ?', '%B%').seat_prise %>円</li>
+    </ul>
+  </div>
+  <h3>予約状況</h3>
+  <h2 class="seat_index">座席表</h2>
+  <div class="check">
+    <h5>ステージ</h5>
+    <h4>まえ</h4>
+    <div class="seat-actor">
+      <% @stage.seats.each do |seat| %>
+        <% if seat.reservation_id.nil?%>
+          <div class="true">
+            <%= seat.seat_type %>
+          </div>
+        <% else %>
+          <div class="false">
+            <%= seat.seat_type %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <h4>うしろ</h4>
+  </div>
+
   <% if @stage.date >= Date.current %>
     <%= button_to "舞台の編集をおこなう", [:edit, @stage], { method: "get", class: "edit-stage" } %>
   <% end %>

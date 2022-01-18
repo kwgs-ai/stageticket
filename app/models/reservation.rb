@@ -1,8 +1,8 @@
 class Reservation < ApplicationRecord
+  before_destroy :reservation_seats
   belongs_to :stage, optional: true
   belongs_to :user
   has_many :seats, dependent: :nullify
-  before_destroy :reservation_seats
 
   def reservation_seats
     p 111111111111111
@@ -10,7 +10,7 @@ class Reservation < ApplicationRecord
     p self.stage.date
     p Date.current.days_since(3)
     if self.stage.date <= Date.current.days_since(3)
-      errors.add(:reservation,'予約をキャンセルできませんできません')
+      errors.add(:reservation, '今日から三日以内の予約はキャンセルできません')
       throw(:abort)
       end
   end

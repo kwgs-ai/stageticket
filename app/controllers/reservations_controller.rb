@@ -53,7 +53,7 @@ class ReservationsController < ApplicationController
     if @errors.instance_of?(Array)
       render "new"
     else
-      redirect_to [@reservation.user,@reservation], notice: @errorserrors
+      redirect_to [@reservation.user,@reservation], notice: '予約が完了しました'
     end
 
   end

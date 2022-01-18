@@ -69,7 +69,8 @@ class StageSeats
     errors = []
     ActiveRecord::Base.transaction do
       p collection.first
-      errors << collection.first.errors.full_messages unless collection.first.save
+       collection.first.errors.full_messages.each { |e| errors << e } unless collection.first.save
+      p errors
       collection.drop(1).each do |result|
         result.stage_id = collection.first.id
         break result.errors.full_messages.each { |e| errors << e } unless result.save

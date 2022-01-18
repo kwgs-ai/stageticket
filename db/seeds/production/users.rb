@@ -1,9 +1,12 @@
-fnames = %w[佐藤 鈴木 高橋 田中]
-gnames = %w[太郎 次郎 花子]
-1.upto(10) do |idx|
+
+fnames = ['佐藤', '鈴木', '高橋', '田中','三島','河岸','川島','村上','長谷川','梶']
+gnames = ['太郎', '次郎', '花子','龍彦','由紀夫','工房',"晴彦",'由紀','房',"晴"]
+lnames = %w[satou suzuki takahashi tanaka mishima kawagishi kawashima murakami hasegawa kaji]
+
+0.upto(9) do |idx|
   User.create(
-    name: "#{fnames[idx % 4]} #{gnames[idx % 3]}",
-    login_name: '12345',
+    name: "#{fnames[idx]} #{gnames[idx]}",
+    login_name: "user#{[idx]}",
     password: '1111',
     password_confirmation: '1111'
   )

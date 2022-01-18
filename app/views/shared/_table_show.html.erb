@@ -1,3 +1,6 @@
+
+<% @path = Rails.application.routes.recognize_path(request.referer) %>
+
 <div class="stage_img">
   <% if (@category = stage.category.name) == "恋愛もの" %>
     <%= image_tag "love.jpg", size: "160x110", alt: "cate", class: "category-img" %>
@@ -16,7 +19,7 @@
 </div>
 <table class="show-table">
   <thead>
-  <% if action_name == 'actor_stage_show' || action_name == 'admin_stage_show' %>
+  <%# if @path[:action] == "admin_false_stages" || @path[:actor_id] != nil || @path[:action] == "actor_false_stages" || @path[:action] == "actor_true_stages" %>
     <tr>
       <th>ステータス</th>
       <% if stage.status == 1 %>
@@ -27,7 +30,7 @@
         <td>拒否</td>
       <% end %>
     </tr>
-  <% end %>
+  <%# end %>
   <tr>
     <th width="200">舞台番号</th>
     <td>

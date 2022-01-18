@@ -7,9 +7,6 @@ class ReservationsController < ApplicationController
   end
 
   def new
-    p 2222222222222222222222222
-    p @stage = params[:reservation]
-    p @stage[:stage_id]
     @stage = Stage.find(params[:reservation]['stage_id'])
     @reservation = Reservation.new
     @user = current_user
@@ -23,9 +20,6 @@ class ReservationsController < ApplicationController
         @errors << '座席が選択されていません'
       else
         @seat_types = params['seat']['seat_type']
-        p 222222222222222
-        p @seat_types
-        p params['seat']
         @errors << '一回の予約に取れるのは5席までです' if @seat_types.length >= 6
         if @reservation.valid?
           @seat_types.each do |seat|
@@ -47,9 +41,6 @@ class ReservationsController < ApplicationController
   ensure
     @errors = '予約を確認' unless @errors.present?
     if @errors.instance_of?(Array)
-      p 111111111111111111111
-      p @errors.present?
-
       redirect_to @stage, notice: 'エラー'
     else
       @reservation = Reservation.new

@@ -248,11 +248,12 @@
           </div>
           <h4>うしろ</h4>
           </div>
+
+          <% unless current_actor || current_admin %>
           <div><%= form.submit "この舞台を予約する", class: "edit-stage" %></div>
+            <%end %>
         <% end %>
 
-        <% unless current_actor || current_admin %>
-          <%= link_to "この舞台を予約する", [:new, @stage, :reservation], class: "edit-stage" %>
-        <% end %>
+
 
 <% end %>

@@ -30,7 +30,7 @@
       <h5>ステージ</h5>
       <h4>まえ</h4>
       <div class="seat-actor">
-        <% @stage.seats.each do |seat| %>
+        <% @stage.seats.order(:id).each do |seat| %>
           <% if seat.reservation_id == @reservation.id %>
             <div class="false">
               <%= seat.seat_type %>

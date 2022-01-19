@@ -15,7 +15,7 @@ class Stage < ApplicationRecord
   end
   validate do
     errors.add(:date, 'にはすでに承認された公演があります') if Stage.where.not(id: id).where(date: date, time: time, 
-                                                                                             status: 2,actor_id:actor_id).present? && status == 1
+                                                                                             status: 2).present? && status == 1
   end
 
   class << self

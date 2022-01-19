@@ -1,8 +1,14 @@
 <nav class="menubar">
   <ul class="main-nav">
     <%= menu_link_to "TOP", :root %>
-    <% if current_admin || current_actor || current_user %>
-      <%= menu_link_to "マイページ", @account %>
+    <% if current_admin || current_user || current_actor %>
+      <% if current_admin %>
+        <%= menu_link_to "マイページ", current_admin %>
+      <% elsif current_actor %>
+        <%= menu_link_to "マイページ", current_actor %>
+      <% elsif current_user %>
+        <%= menu_link_to "マイページ", current_user %>
+      <% end %>
     <% else %>
       <%= menu_link_to "ユーザーログイン・新規登録", user_path(1) %>
       <%= menu_link_to "公演者ログイン・新規登録", actor_path(1) %>

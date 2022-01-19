@@ -62,7 +62,13 @@
 
 <% if current_admin || current_actor || current_user %>
   <h2>マイページはこちら</h2>
-  <%= menu_link_to "マイページ", @account %>
+  <% if current_admin %>
+    <%= menu_link_to "マイページ", current_admin %>
+    <%elsif current_user%>
+    <%= menu_link_to "マイページ", current_user %>
+    <%elsif  current_actor%>
+    <%= menu_link_to "マイページ", current_actor %>
+  <% end %>
 <% else %>
   <h2>ログイン・新規登録はこちらから</h2>
   <ul>

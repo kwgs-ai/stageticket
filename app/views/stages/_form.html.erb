@@ -4,6 +4,7 @@
 
 <div class="new-form">
   <% if @stage.status == 1 || @stage.status == 3 %>
+    <%= form.hidden_field :status , :value => 1%>
     <table class="stage_new">
       <tr>
         <th><%= form.label :title %></th>

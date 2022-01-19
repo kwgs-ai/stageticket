@@ -41,6 +41,7 @@ class StageSeats
   def assign_attributes(stage, attributes, update_seat)
     date = attributes['date(1i)'] ? Date.parse("#{attributes['date(1i)']}-#{attributes['date(2i)']}-#{attributes['date(3i)']}") : attributes['date']
 
+
     stage.assign_attributes(title: attributes[:title], text: attributes[:text],
                             date: date, time: attributes[:time], category_id: attributes[:category_id])
     stage.assign_attributes(status: attributes[:status]) if attributes[:status]

@@ -12,6 +12,7 @@ class ReservationsController < ApplicationController
     @user = current_user
     @errors = []
     ActiveRecord::Base.transaction do
+      p 5555555555555555555555555555
       @reservation = Reservation.new(user_id: cookies.signed[:user_id], stage_id: @stage.id).id
       @s_seats = Seat.where('seat_type like ?', '%S%').where(stage_id: params[:stage_id], reservation_id: nil)
       @a_seats = Seat.where('seat_type like ?', '%A%').where(stage_id: params[:stage_id], reservation_id: nil)
@@ -21,12 +22,16 @@ class ReservationsController < ApplicationController
       else
         @seat_types = params['seat']['seat_type']
         @errors << '一回の予約に取れるのは5席までです' if @seat_types.length >= 6
+        p 44444444444444444444444444
+        p @reservation
         if @reservation.valid?
           @seat_types.each do |seat|
             @seat = Seat.find_by(seat_type: seat, stage_id: params[:stage_id], reservation_id: nil)
             break @errors << 'その席は予約済みです' if @seat.nil?
 
             @seat.reservation_id = @reservation.id
+            p 333333333333333333333
+            p @seat
             break @errors << @seat.errors.full_messages unless @seat.valid?
           end
         else
@@ -41,10 +46,10 @@ class ReservationsController < ApplicationController
   ensure
     @errors = '予約を確認' unless @errors.present?
     if @errors.instance_of?(Array)
-      redirect_to @stage, notice: 'エラー'
+      redirect_to @stage, notice: @errors
     else
       @reservation = Reservation.new
-      render 'new', notice: 'エラーなし'
+      render 'new', notice: @errors
     end
 
   end

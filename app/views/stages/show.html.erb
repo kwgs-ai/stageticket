@@ -221,7 +221,7 @@
       </ul>
     </div>
   <% end %>
-
+  <% unless current_actor || current_admin %>
   <h2 class="seat_index">座席表</h2>
   <div class="reserve-method">
     <h3>予約方法</h3>
@@ -234,27 +234,24 @@
   </div>
 
 
-  <div class="check">
-    <h5>ステージ</h5>
-    <h4>まえ</h4>
-    <div class="seat">
-      <div class="seat-out">
-        <%= form_for [@stage, @reservation], url: new_reservation_path, method: :get do |form| %>
-          <%= form.hidden_field :stage_id, :value => @stage.id %>
-          <%= collection_check_boxes(:seat, :seat_type, @stage.seats.order(:id), :seat_type, :seat_type, include_hidden: false, html_options: { class: "seat" }) do |b| %>
-            <%= b.check_box disabled: @stage.seats.find_by(seat_type: b.text, stage_id: @stage.id).reservation_id != nil %>
-            <%= b.label %>
+    <div class="check">
+      <h5>ステージ</h5>
+      <h4>まえ</h4>
+      <div class="seat">
+        <div class="seat-out">
+          <%= form_for [@stage, @reservation], url: new_reservation_path, method: :get do |form| %>
+            <%= form.hidden_field :stage_id, :value => @stage.id %>
+            <%= collection_check_boxes(:seat, :seat_type, @stage.seats.order(:id), :seat_type, :seat_type, include_hidden: false, html_options: { class: "seat" }) do |b| %>
+              <%= b.check_box disabled: @stage.seats.find_by(seat_type: b.text, stage_id: @stage.id).reservation_id != nil %>
+              <%= b.label %>
+            <% end %>
+            </div>
+            </div>
+            <h4>うしろ</h4>
+            </div>
+
+
+            <div><%= form.submit "この舞台を予約する", class: "edit-stage" %></div>
           <% end %>
-          </div>
-          </div>
-          <h4>うしろ</h4>
-          </div>
-
-          <% unless current_actor || current_admin %>
-          <div><%= form.submit "この舞台を予約する", class: "edit-stage" %></div>
-            <%end %>
-        <% end %>
-
-
-
+  <% end %>
 <% end %>

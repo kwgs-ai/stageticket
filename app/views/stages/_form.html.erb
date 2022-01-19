@@ -4,7 +4,7 @@
 
 <div class="new-form">
   <% if @stage.status == 1 || @stage.status == 3 %>
-    <%= form.hidden_field :status , :value => 1%>
+    <%= form.hidden_field :status, :value => 1 %>
     <table class="stage_new">
       <tr>
         <th><%= form.label :title %></th>
@@ -31,7 +31,7 @@
           </tr>
       <tr>
         <th><%= form.label :午前・午後 %></th>
-        <td><%= form.select :time, { '選択してください': nil, '午前': 1, '午後': 2 } %></td>
+        <td><%= form.select :time, { '選択してください': nil, '午前': 1, '午後': 2 }, { selected: @stage.time } %></td>
       </tr>
       <% @count = 0 %>
       <% @seats.each do |seat| %>

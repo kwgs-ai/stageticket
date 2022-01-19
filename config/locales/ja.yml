@@ -1,12 +1,12 @@
 ja:
   activerecord:
     models:
-      stage: 会員情報
-      user: ニュース記事
-      actor: ブログ記事
-      admin: 会員情報
-      category: ニュース記事
-      seat: ブログ記事
+      stage: 舞台
+      user: ユーザー情報
+      actor: 公演団体情報
+      admin: 管理者情報
+      category: カテゴリー
+      seat: 席
       reservation: 予約
     attributes:
       stage:
@@ -38,6 +38,7 @@ ja:
         user_id: 予約者
         stage_id: 舞台名
       category:
+        id: カテゴリー
         name: カテゴリー
       seat:
         stage_id: 舞台名

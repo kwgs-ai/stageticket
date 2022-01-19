@@ -8,8 +8,11 @@
   <table class="show-table">
     <thead>
     <% @reservation.seats.each do |seat| %>
-      <th>席種</th>
-      <td><%= seat.seat_type %>  小計:<%= @cost += seat.seat_prise %></td>
+    <tr>
+      <th><%= seat.seat_type %></th>
+      <td>  小計:<%=seat.seat_prise %></td>
+      <% @cost += seat.seat_prise %>
+    </tr>
     <% end %>
     <tr>
       <th>合計金額</th>

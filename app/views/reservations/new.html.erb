@@ -58,15 +58,15 @@
     </tr>
     <tr>
       <th>残り座席数　S</th>
-      <td><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%S%').count %></td>
+      <td><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%S%').count %>席</td>
     </tr>
     <tr>
       <th>残り座席数　A</th>
-      <td><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%A%').count %></td>
+      <td><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%A%').count %>席</td>
     </tr>
     <tr>
       <th>残り座席数　B</th>
-      <td><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%B%').count %></td>
+      <td><%= @stage.seats.where(reservation_id: nil).where('seat_type like ?', '%B%').count %>席</td>
     </tr>
     <tr>
       <th>予約席</th>
@@ -79,7 +79,7 @@
     </thead>
   </table>
 <% end %>
-<%=@seat_types %>
+
 
 <%= form_for [@stage, @reservation] do |form| %>
   <%= hidden_field_tag :stage_id, :value => @stage.id %>

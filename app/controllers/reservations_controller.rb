@@ -61,45 +61,48 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    p 11111111111111111111111
-    p params['stage_id']
-    p params['seats']
+
     @errors = []
     @stage = Stage.find(params['stage_id'])
     @user = current_user
     @seat_types = params['seats']
     p @seat_types
-    ActiveRecord::Base.transaction do
-      @reservation = Reservation.new(user_id: cookies.signed[:user_id], stage_id: Stage.find(params[:stage_id]).id)
-      @s_seats = Seat.where('seat_type like ?', '%S%').where(stage_id: params[:stage_id], reservation_id: nil)
-      @a_seats = Seat.where('seat_type like ?', '%A%').where(stage_id: params[:stage_id], reservation_id: nil)
-      @b_seats = Seat.where('seat_type  like ?', '%B%').where(stage_id: params[:stage_id], reservation_id: nil)
-      if params['seats'].nil?
-        @errors << '座席が選択されていません'
-      else
-        @errors << '一回の予約に取れるのは5席までです' if @seat_types.length >= 6
-        if @reservation.save
-          @seat_types.each do |seat|
-            @seat = Seat.find_by(seat_type: seat, stage_id: @stage.id, reservation_id: nil)
-            break @errors << 'その席は予約済みです' if @seat.nil?
-
-            @seat.reservation_id = @reservation.id
-            break @errors << @seat.errors.full_messages unless @seat.save
-          end
+    @reservation = Reservation.new(user_id: cookies.signed[:user_id], stage_id: Stage.find(params[:stage_id]).id)
+    if params[:back].nil?
+      ActiveRecord::Base.transaction do
+        @reservation = Reservation.new(user_id: cookies.signed[:user_id], stage_id: Stage.find(params[:stage_id]).id)
+        @s_seats = Seat.where('seat_type like ?', '%S%').where(stage_id: params[:stage_id], reservation_id: nil)
+        @a_seats = Seat.where('seat_type like ?', '%A%').where(stage_id: params[:stage_id], reservation_id: nil)
+        @b_seats = Seat.where('seat_type  like ?', '%B%').where(stage_id: params[:stage_id], reservation_id: nil)
+        if params['seats'].nil?
+          @errors << '座席が選択されていません'
         else
-          @errors << @reservation.errors.full_messages
+          @errors << '一回の予約に取れるのは5席までです' if @seat_types.length >= 6
+          if @reservation.save
+            @seat_types.each do |seat|
+              @seat = Seat.find_by(seat_type: seat, stage_id: @stage.id, reservation_id: nil)
+              break @errors << 'その席は予約済みです' if @seat.nil?
+
+              @seat.reservation_id = @reservation.id
+              break @errors << @seat.errors.full_messages unless @seat.save
+            end
+          else
+            @errors << @reservation.errors.full_messages
+          end
         end
+        raise ActiveRecord::RecordInvalid if @errors.present?
       end
-      raise ActiveRecord::RecordInvalid if @errors.present?
+    else
+      @errors = '確認修正'
     end
   rescue => e
     p 'エラーがあります＜デバッグ用＞'
     p e
   ensure
-    @errors = '予約が完了しました' unless @errors.present?
-    if @errors.instance_of?(Array)
+    # @errors = '予約が完了しました' unless @errors.present?
+    if @errors.present?
       p @errors
-      render 'new'
+      render 'stages/show'
     else
       redirect_to [@reservation.user, @reservation], notice: '予約が完了しました'
     end

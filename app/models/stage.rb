@@ -14,8 +14,7 @@ class Stage < ApplicationRecord
     errors.add(:date, 'が不正な日付です。今日から３日後以降を選択してください') if date <= Date.current.days_since(2)
   end
   validate do
-    errors.add(:date, 'にはすでに承認された公演があります') if Stage.where.not(id: id).where(date: date, time: time,
-                                                                                             status: 2,actor_id:actor_id).present? && (status == 2 || status == 1)
+    errors.add(:date, 'にはすでに承認された公演があります') if Stage.where.not(id: id).where(date: date, time: time,status: 2).present? && (status == 2 || status == 1)
   end
 
   class << self

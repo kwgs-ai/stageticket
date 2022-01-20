@@ -5,7 +5,7 @@ lnames = %w[satou suzuki takahashi tanaka mishima kawagishi kawashima murakami h
 
 0.upto(9) do |idx|
   User.create!(
-    name: "#{fnames[idx]} #{gnames[idx]}",
+    name: "#{fnames[idx]}#{gnames[idx]}",
     login_name: "user#{idx}",
     password: '1111',
     password_confirmation: '1111'

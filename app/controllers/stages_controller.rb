@@ -52,14 +52,13 @@ class StagesController < ApplicationController
     @form.assign_attributes(@stage, params[:stage], params[:stage][:seats])
     @seats = [@form.collection[2], @form.collection[8], @form.collection[20]]
     if (@errors = @form.save).blank?
-      if current_actor
         redirect_to @stage, notice: '更新しました'
-      else
-        redirect_to @stage, notice: '更新しました'
-      end
     else
-      p @form.collection
+      if current_actor
       render 'edit'
+      else
+        redirect_to @stage, notice: @errors
+        end
     end
   end
 

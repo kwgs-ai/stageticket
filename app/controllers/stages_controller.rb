@@ -52,13 +52,13 @@ class StagesController < ApplicationController
     @form.assign_attributes(@stage, params[:stage], params[:stage][:seats])
     @seats = [@form.collection[2], @form.collection[8], @form.collection[20]]
     if (@errors = @form.save).blank?
-        redirect_to @stage, notice: '更新しました'
+      redirect_to @stage, notice: '更新しました'
     else
       if current_actor
-      render 'edit'
+        render 'edit'
       else
         redirect_to @stage, notice: @errors
-        end
+      end
     end
   end
 
@@ -82,6 +82,8 @@ class StagesController < ApplicationController
       seat.stage_id = 1
       break seat.errors.full_messages.each { |e| @errors << e } if seat.invalid?
     end
+    @stages = Stage.where(status: 2).where('date >= ?', Date.current).order(:date)
+
     @stage = @form.collection.first
     render "new" if @errors.present?
 
@@ -91,6 +93,7 @@ class StagesController < ApplicationController
     @form = StageSeats.new
     @stage = Stage.new
     @seats = @form.collection
+    @stages = Stage.where(status: 2).where('date >= ?', Date.current).order(:date)
 
   end
 

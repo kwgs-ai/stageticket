@@ -9,6 +9,30 @@
     <% end %>
   </div>
 <% end %>
+<h2>現在の公演団体の予約状況</h2>
+<table class="reservation-index">
+  <thead>
+  <tr>
+    <th>舞台タイトル</th>
+    <th>団体名</th>
+    <th>日時</th>
+    <th width="299">午前・午後</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @stages.each do |stage| %>
+      <td>
+        <%= stage.title %></td>
+      <td>
+        <%= stage.actor.name %>
+      </td>
+      <td><%= stage.date %></td>
+      <td><%= stage.time == 1 ? "午前" : "午後" %></td>
+    </tr>
+    </tbody>
+  <% end %>
+  </tbody>
+  </table>
 
 
 <div class="register-method">
@@ -17,7 +41,7 @@
     <li>全部必須入力です</li>
     <li>タイトルは１文字以上２０文字以内、本文は１０文字以上４００文字以内入力してください</li>
     <li>今日から三日後以降から登録できます</li>
-    <li>もうすでに承認された公演がある日時は登録できません</li>
+    <li>もうすでに承認された公演がある日時は登録できません。上記の予約状況を確認してから申請してください</li>
     <li>席の値段は自然数で入力してください</li>
   </ul>
 </div>

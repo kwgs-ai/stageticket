@@ -15,7 +15,6 @@ table-layout: fixed;
     text-align: center;
 }
 .show-table td {
-    width: 600px;
     padding: 10px;
     border: solid 1px #778ca3;
 }

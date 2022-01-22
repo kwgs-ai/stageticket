@@ -1,7 +1,8 @@
 
 .show-table {
     font-family: "Hiragino Kaku Gothic Pro";
-
+table-layout: fixed;
+    width: 800px;
     text-align: center;
     border-collapse: collapse;
     border-spacing: 0;

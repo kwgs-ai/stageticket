@@ -142,4 +142,5 @@
 .text{
     margin: 20px 20px 20px 0px;
     padding: 20px;
+    word-wrap: break-word;
 }

@@ -78,9 +78,14 @@ class StageSeats
       end
       raise ActiveRecord::RecordInvalid if errors.present?
     end
-  rescue => e
+  rescue ActiveRecord::RecordInvalid => e
+    p 'エラーがあります＜デバッグ用＞'
+    p errors
+  rescue ActiveModel::RangeError => e
     p 'エラーがあります＜デバッグ用＞'
     p e
+    errors << '桁数が大きすぎます'
+    p errors
     self.collection = []
     p collection << stage
     # 3.times { |id| collection << Seat.new(seat_prise: prise[id]) }

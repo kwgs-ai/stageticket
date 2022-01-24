@@ -9,10 +9,11 @@
     <% end %>
   </div>
 <% end %>
-<h2>現在の公演団体の予約状況</h2>
-<table class="reservation-index">
+<h2 class="login-h">現在の公演団体の予約状況</h2>
+<table class="stage-list">
   <thead>
   <tr>
+    <th>ステータス</th>
     <th>舞台タイトル</th>
     <th>団体名</th>
     <th>日時</th>
@@ -21,13 +22,17 @@
   </thead>
   <tbody>
   <% @stages.each do |stage| %>
-      <td>
-        <%= stage.title %></td>
-      <td>
-        <%= stage.actor.name %>
-      </td>
-      <td><%= stage.date %></td>
-      <td><%= stage.time == 1 ? "午前" : "午後" %></td>
+    <% if stage.status == 1 %>
+      <td>申請中</td>
+    <% elsif stage.status == 2 %>
+      <td>承認</td>
+    <% else %>
+      <td>拒否</td>
+    <% end %>
+    <td><%= stage.title %></td>
+    <td><%= stage.actor.name %></td>
+    <td><%= stage.date %></td>
+    <td><%= stage.time == 1 ? "午前" : "午後" %></td>
     </tr>
     </tbody>
   <% end %>
@@ -61,7 +66,7 @@
             return this.optional(element) || /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i.test(value);
         },
         date: function (value, element) { // パスワードの正規表現
-            return this.optional(element) ||new Date() == value;
+            return this.optional(element) || new Date() == value;
         },
     }
     // メソッドの追加
@@ -87,7 +92,7 @@
             },
             "stage_seats[seats][][seat_prise]": {
                 required: true, // ニックネームの入力有無チェック
-                prise:true
+                prise: true
             }
         },
         // エラーメッセージの定義

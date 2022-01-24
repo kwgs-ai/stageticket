@@ -40,6 +40,7 @@ class StagesController < ApplicationController
   end
 
   def edit
+    @stages = Stage.where(status: 2).where('date >= ?', Date.current).order(:date)
     @stage = Stage.find(params[:id])
     @seats = [@stage.seats.find_by('seat_type like ?', '%S%'), @stage.seats.find_by('seat_type like ?', '%A%'),
               @stage.seats.find_by('seat_type like ?', '%B%')]
@@ -55,6 +56,9 @@ class StagesController < ApplicationController
       redirect_to @stage, notice: '更新しました'
     else
       if current_actor
+
+        p @errors
+        @stages = Stage.where(status: 2).where('date >= ?', Date.current).order(:date)
         render 'edit'
       else
         redirect_to @stage, notice: @errors
@@ -85,6 +89,7 @@ class StagesController < ApplicationController
     @stages = Stage.where(status: 2).where('date >= ?', Date.current).order(:date)
 
     @stage = @form.collection.first
+
     render "new" if @errors.present?
 
   end
@@ -100,13 +105,13 @@ class StagesController < ApplicationController
   def create
     @seats = []
     @form = StageSeats.new(params[:stage_seats], params[:stage_seats][:seats], cookies.signed[:actor_id])
-    if params[:back].nil? && (@error = @form.save).blank?
+    @seats << @form.collection[2]
+    @seats << @form.collection[8]
+    @seats << @form.collection[20]
+    if params[:back].nil? && (@errors = @form.save).blank?
       redirect_to :root, notice: '登録しました'
     else
-      @seats << @form.collection[2]
-      @seats << @form.collection[8]
-      @seats << @form.collection[20]
-      p @errors
+      @stages = Stage.where(status: 2).where('date >= ?', Date.current).order(:date)
       @stage = @form.collection.first
       render 'new'
     end

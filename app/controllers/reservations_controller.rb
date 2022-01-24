@@ -61,7 +61,6 @@ class ReservationsController < ApplicationController
   end
 
   def create
-
     @errors = []
     @stage = Stage.find(params['stage_id'])
     @user = current_user

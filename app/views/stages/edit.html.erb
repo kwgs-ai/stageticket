@@ -10,6 +10,35 @@
     <% end %>
   </div>
 <% end %>
+<h2 class="login-h">現在の公演団体の予約状況</h2>
+<table class="stage-list">
+  <thead>
+  <tr>
+    <th>ステータス</th>
+    <th>舞台タイトル</th>
+    <th>団体名</th>
+    <th>日時</th>
+    <th width="299">午前・午後</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @stages.each do |stage| %>
+    <% if stage.status == 1 %>
+      <td>申請中</td>
+    <% elsif stage.status == 2 %>
+      <td>承認</td>
+    <% else %>
+      <td>拒否</td>
+    <% end %>
+    <td><%= stage.title %></td>
+    <td><%= stage.actor.name %></td>
+    <td><%= stage.date %></td>
+    <td><%= stage.time == 1 ? "午前" : "午後" %></td>
+    </tr>
+    </tbody>
+  <% end %>
+  </tbody>
+  </table>
 
 <div class="register-method">
   <h3>新規登録規則</h3>

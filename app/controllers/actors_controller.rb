@@ -53,9 +53,9 @@ class ActorsController < ApplicationController
 
   def actor_false_stages
     @link = 'stage'
-    @stages = Stage.where(actor_id: cookies.signed[:actor_id]).where(status: [1,3]).where('date >= ?', Date.today)
+    @stages = Stage.where(actor_id: cookies.signed[:actor_id]).where(status: [1, 3]).where('date >= ?', Date.current)
                    .page(params[:page]).per(3)
-    @after = Stage.where(actor_id: cookies.signed[:actor_id]).where(status: [1,3]).where('date < ?', Date.today)
+    @after = Stage.where(actor_id: cookies.signed[:actor_id]).where(status: [1, 3]).where('date < ?', Date.current)
                   .page(params[:page]).per(3)
   end
 

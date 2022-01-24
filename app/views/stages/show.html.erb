@@ -84,7 +84,10 @@
       <% end %>
     <% end %>
   <% end %>
-  <%= link_to "<<マイページに戻る", current_admin, class: "link_to" %>
+    <% if @path[:action] == "admin_false_stages"%>
+      <%=link_to "<<申請・却下一覧に戻る",admin_false_stages_admin_path, class: "link_to" %>
+   <%end %>
+
 <% elsif @path[:action] == "actor_false_stages" || @path[:action] == "actor_true_stages" || (@path[:action] == "edit" && current_actor) %>
   <%= render "shared/table_show", stage: @stage if @stage.present? %>
   <table class="seat-table">
@@ -146,7 +149,11 @@
   <% if @stage.date >= Date.current %>
     <%= button_to "舞台の編集をおこなう", [:edit, @stage], { method: "get", class: "edit-stage" } %>
   <% end %>
-
+  <% if @path[:action] == "actor_false_stages"%>
+  <%=link_to "<<申請・却下一覧に戻る",actor_false_stages_actors_path, class: "link_to" %>
+    <%else %>
+    <%=link_to "<<公演一覧に戻る",actor_true_stages_actors_path, class: "link_to" %>
+    <%end %>
 <% else %>
   <% if @errors.instance_of?(Array) %>
     <div id="errors">

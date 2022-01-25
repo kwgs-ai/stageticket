@@ -5,76 +5,76 @@
   <%= render "form", form: form %>
   <div><%= form.submit class: "edit-stage" %></div>
 <% end %>
-<script>
-    var methods = {
-        hankaku: function (value, element) { // メールアドレスの正規表現
-            return this.optional(element) || /^[A-Za-z0-9]*$/i.test(value);
-        },
-        password: function (value, element) { // パスワードの正規表現
-            return this.optional(element) || /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i.test(value);
-        },
-        date: function (value, element) { // パスワードの正規表現
-            return this.optional(element) ||new Date() == value;
-        },
-    }
-    // メソッドの追加
-    $.each(methods, function (key) {
-        $.validator.addMethod(key, this);
-    });
-    $("#edit_actor_2").validate({
-        // ルール設定
-        rules: {
-            "actor[name]": {
-                required: true, // ニックネームの入力有無チェック
-                maxlength: 20,
-                minlength: 2,
-            },
-            "actor[login_name]": {
-                required: true, // ニックネームの入力有無チェック
-                hankaku: true,
-                maxlength: 16,
-                minlength: 4
-            },
-            "actor[password]": {
-                required: true, // ニックネームの入力有無チェック
-                hankaku:true,
-                maxlength: 16,
-                minlength: 4,
-            }
-        },
-        // エラーメッセージの定義
-        messages: {
-            "actor[name]": {
-                required: "氏名を入力してください",
-                maxlength: "10文字以内で入力してください",
-                minlength: "２文字以上で入力してください"
-            },
-            "actor[login_name]": {
-                required: "ログインIDを入力してください",
-                maxlength: "16文字以内で入力してください",
-                minlength: "4文字以上で入力してください",
-                hankaku:"半角英数字で入力してください"
-            },
-            "actor[password]": {
-                required: "パスワードを入力してください",
-                maxlength: "16文字以内で入力してください",
-                minlength: "4文字以上で入力してください",
-                hankaku:"半角英数字で入力してください"
-            },
-        },
-        errorClass: "invalid", // バリデーションNGの場合に追加するクラス名の指定
-        errorElement: "p", // エラーメッセージの要素種類の指定
-        validClass: "valid", // バリデーションOKの場合に追加するクラス名の指定
-    }).cancelSubmit = true;
+<!--<script>-->
+<!--    var methods = {-->
+<!--        hankaku: function (value, element) { // メールアドレスの正規表現-->
+<!--            return this.optional(element) || /^[A-Za-z0-9]*$/i.test(value);-->
+<!--        },-->
+<!--        password: function (value, element) { // パスワードの正規表現-->
+<!--            return this.optional(element) || /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i.test(value);-->
+<!--        },-->
+<!--        date: function (value, element) { // パスワードの正規表現-->
+<!--            return this.optional(element) ||new Date() == value;-->
+<!--        },-->
+<!--    }-->
+<!--    // メソッドの追加-->
+<!--    $.each(methods, function (key) {-->
+<!--        $.validator.addMethod(key, this);-->
+<!--    });-->
+<!--    $("#edit_actor_2").validate({-->
+<!--        // ルール設定-->
+<!--        rules: {-->
+<!--            "actor[name]": {-->
+<!--                required: true, // ニックネームの入力有無チェック-->
+<!--                maxlength: 20,-->
+<!--                minlength: 2,-->
+<!--            },-->
+<!--            "actor[login_name]": {-->
+<!--                required: true, // ニックネームの入力有無チェック-->
+<!--                hankaku: true,-->
+<!--                maxlength: 16,-->
+<!--                minlength: 4-->
+<!--            },-->
+<!--            "actor[password]": {-->
+<!--                required: true, // ニックネームの入力有無チェック-->
+<!--                hankaku:true,-->
+<!--                maxlength: 16,-->
+<!--                minlength: 4,-->
+<!--            }-->
+<!--        },-->
+<!--        // エラーメッセージの定義-->
+<!--        messages: {-->
+<!--            "actor[name]": {-->
+<!--                required: "氏名を入力してください",-->
+<!--                maxlength: "10文字以内で入力してください",-->
+<!--                minlength: "２文字以上で入力してください"-->
+<!--            },-->
+<!--            "actor[login_name]": {-->
+<!--                required: "ログインIDを入力してください",-->
+<!--                maxlength: "16文字以内で入力してください",-->
+<!--                minlength: "4文字以上で入力してください",-->
+<!--                hankaku:"半角英数字で入力してください"-->
+<!--            },-->
+<!--            "actor[password]": {-->
+<!--                required: "パスワードを入力してください",-->
+<!--                maxlength: "16文字以内で入力してください",-->
+<!--                minlength: "4文字以上で入力してください",-->
+<!--                hankaku:"半角英数字で入力してください"-->
+<!--            },-->
+<!--        },-->
+<!--        errorClass: "invalid", // バリデーションNGの場合に追加するクラス名の指定-->
+<!--        errorElement: "p", // エラーメッセージの要素種類の指定-->
+<!--        validClass: "valid", // バリデーションOKの場合に追加するクラス名の指定-->
+<!--    }).cancelSubmit = true;-->
 
-    // 入力欄をフォーカスアウトしたときにバリデーションを実行
-    $("#actor_name,#actor_login_name,#actor_password").keyup(function () {
-        $(this).valid()
+<!--    // 入力欄をフォーカスアウトしたときにバリデーションを実行-->
+<!--    $("#actor_name,#actor_login_name,#actor_password").keyup(function () {-->
+<!--        $(this).valid()-->
 
-    });
-    $("#actor_name,#actor_login_name,#ctor_password").blur(function () {
-        $(this).valid()
+<!--    });-->
+<!--    $("#actor_name,#actor_login_name,#ctor_password").blur(function () {-->
+<!--        $(this).valid()-->
 
-    });
+<!--    });-->
 
-</script>
+<!--</script>-->

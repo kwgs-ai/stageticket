@@ -7,9 +7,5 @@
 <% end %>
 <%= paginate @stages %>
 
-<% if @after.present? %>
-  <h1>過去</h1>
-  <%= render "shared/table_list", stages: @after %>
-<% end %>
-<%= paginate @after %>
+<%#= paginate @after %>
 <%=link_to "<<マイページに戻る",current_admin, class: "link_to"  %>

@@ -14,7 +14,7 @@
           <%= image_tag "gikyoku.jpg", size: "160x110", alt: "cate", class: "category-img" %>
         <% end %>
         <div class="list-content">
-          <%= link_to stage.title, send("#{@link}_path", stage), :style => "font-size:26px;" %>
+          <%= link_to stage.title, stage, :style => "font-size:26px;" %>
           <p><%= @category %><br>
             <%= stage.actor.name %></p>
         </div>

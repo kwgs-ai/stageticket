@@ -56,8 +56,6 @@ class StagesController < ApplicationController
       redirect_to @stage, notice: '更新しました'
     else
       if current_actor
-
-        p @errors
         @stages = Stage.where(status: 2).where('date >= ?', Date.current).order(:date)
         render 'edit'
       else

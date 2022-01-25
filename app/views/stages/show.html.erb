@@ -3,8 +3,7 @@
 
 <% @path = Rails.application.routes.recognize_path(request.referer) %>
 
-
-<% if @path[:action] == "admin_false_stages" || @path[:actor_id] != nil || (@path[:action] == "show" && current_admin) %>
+<% if @path[:action] == "admin_false_stages" || @path[:actor_id] != nil ||(@path[:action] == "show" && current_admin) %>
 
   <% if @stage.present? %>
     <%= render "shared/table_show", stage: @stage if @stage.present? %>
@@ -76,18 +75,17 @@
         <%= fs.hidden_field :seat_prise, :value => seat.seat_prise %>
       <% end %>
     <% end %>
-    <% if @stage.date >= Date.current && @stage.status == 1 %>
-      <% unless @stage.status == 2 %>
+    <% if @stage.date >= Date.current && (@stage.status == 1 || @stage.status == 3) && @path[:action] == "admin_false_stages"%>
         <p>この舞台を承認する</p>
         <%= form.select :status, { '承認': 2, '拒否': 3 } %>
         <div><%= form.submit class: "edit-stage" %></div>
-      <% end %>
     <% end %>
   <% end %>
-    <% if @path[:action] == "admin_false_stages"%>
-      <%=link_to "<<申請・却下一覧に戻る",admin_false_stages_admin_path, class: "link_to" %>
-   <%end %>
-
+  <div class="link-to">
+  <% if @path[:action] == "admin_false_stages" %>
+    <%= link_to "<<申請中一覧に戻る", admin_false_stages_admin_path %>
+  <% end %>
+  </div>
 <% elsif @path[:action] == "actor_false_stages" || @path[:action] == "actor_true_stages" || (@path[:action] == "edit" && current_actor) %>
   <%= render "shared/table_show", stage: @stage if @stage.present? %>
   <table class="seat-table">
@@ -149,11 +147,13 @@
   <% if @stage.date >= Date.current %>
     <%= button_to "舞台の編集をおこなう", [:edit, @stage], { method: "get", class: "edit-stage" } %>
   <% end %>
-  <% if @path[:action] == "actor_false_stages"%>
-  <%=link_to "<<申請・却下一覧に戻る",actor_false_stages_actors_path, class: "link_to" %>
-    <%else %>
-    <%=link_to "<<公演一覧に戻る",actor_true_stages_actors_path, class: "link_to" %>
-    <%end %>
+  <div class="link-to">
+    <% if @path[:action] == "actor_false_stages" %>
+      <%= link_to "<<申請・却下一覧に戻る", actor_false_stages_actors_path, class: "link_to" %>
+    <% else %>
+      <%= link_to "<<公演一覧に戻る", actor_true_stages_actors_path, class: "link_to" %>
+    <% end %>
+  </div>
 <% else %>
   <% if @errors.instance_of?(Array) %>
     <div id="errors">
@@ -229,16 +229,17 @@
     </div>
   <% end %>
   <% unless current_actor || current_admin %>
-  <h2 class="seat_index">座席表</h2>
-  <div class="reserve-method">
-    <h3>予約方法</h3>
-    <ul>
-      <li>一回に予約できるのは五席までです</li>
-      <li>座席表で赤くなっている席はすでに予約済みであり予約できません</li>
-      <li>データベースと画面表示にはラグがあるため赤くなっていないからと言って確実に予約できるわけではありません</li>
-      <li>予約したい席を選んでクリックしてください</li>
-    </ul>
-  </div>
+    <h2 class="seat_index">座席表</h2>
+    <div class="reserve-method">
+      <h3>予約方法</h3>
+      <ul>
+        <li>一回に予約できるのは五席までです</li>
+        <li>今日から三日後以降(<%=Date.current.days_since(3)%>日)までキャンセルできません</li>
+        <li>座席表で赤くなっている席はすでに予約済みであり予約できません</li>
+        <li>データベースと画面表示にはラグがあるため赤くなっていないからと言って確実に予約できるわけではありません</li>
+        <li>予約したい席を選んでクリックしてください</li>
+      </ul>
+    </div>
 
 
     <div class="check">

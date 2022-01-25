@@ -58,78 +58,78 @@
 <% end %>
 
 
-<script>
-    var methods = {
-        prise: function (value, element) { // メールアドレスの正規表現
-            return this.optional(element) || /^[1-9][0-9]*$/i.test(value);
-        },
-        password: function (value, element) { // パスワードの正規表現
-            return this.optional(element) || /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i.test(value);
-        },
-        date: function (value, element) { // パスワードの正規表現
-            return this.optional(element) ||new Date() == value;
-        },
-    }
-    // メソッドの追加
-    $.each(methods, function (key) {
-        $.validator.addMethod(key, this);
-    });
-    $("#edit_stage_6").validate({
-        // ルール設定
-        rules: {
-            "stage[title]": {
-                required: true, // ニックネームの入力有無チェック
-                maxlength: 20,
-                minlength: 1,
-            },
-            "stage[text]": {
-                required: true, // ニックネームの入力有無チェック
-                maxlength: 400,
-                minlength: 10,
-            },
-            "stage_seats[date]": {
-                required: true, // ニックネームの入力有無チェック
-                date: true,
-            },
-            "stage[seats]": {
-                required: true, // ニックネームの入力有無チェック
-                prise:true
-            }
-        },
-        // エラーメッセージの定義
-        messages: {
-            "stage[title]": {
-                required: "タイトルを入力してください",
-                maxlength: "20文字以内で入力してください",
-                minlength: "1文字以上で入力してください"
-            },
-            "stage[text]": {
-                required: "本文を入力してください",
-                maxlength: "400文字以内で入力してください",
-                minlength: "10文字以上で入力してください"
-            },
-            "stage[date]": {
-                required: "本文を入力してください",
-                date: "4今日を含めて３日後以降を登録してください"
-            },
-            "stage[seats][][seat_prise]": {
-                required: "席の料金を入力してください",
-                prise: "席の値段は自然数で入力してください"
-            },
-        },
-        errorClass: "invalid", // バリデーションNGの場合に追加するクラス名の指定
-        errorElement: "p", // エラーメッセージの要素種類の指定
-        validClass: "valid", // バリデーションOKの場合に追加するクラス名の指定
-    }).cancelSubmit = true;
+<!--<script>-->
+<!--    var methods = {-->
+<!--        prise: function (value, element) { // メールアドレスの正規表現-->
+<!--            return this.optional(element) || /^[1-9][0-9]*$/i.test(value);-->
+<!--        },-->
+<!--        password: function (value, element) { // パスワードの正規表現-->
+<!--            return this.optional(element) || /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i.test(value);-->
+<!--        },-->
+<!--        date: function (value, element) { // パスワードの正規表現-->
+<!--            return this.optional(element) ||new Date() == value;-->
+<!--        },-->
+<!--    }-->
+<!--    // メソッドの追加-->
+<!--    $.each(methods, function (key) {-->
+<!--        $.validator.addMethod(key, this);-->
+<!--    });-->
+<!--    $("#edit_stage_6").validate({-->
+<!--        // ルール設定-->
+<!--        rules: {-->
+<!--            "stage[title]": {-->
+<!--                required: true, // ニックネームの入力有無チェック-->
+<!--                maxlength: 20,-->
+<!--                minlength: 1,-->
+<!--            },-->
+<!--            "stage[text]": {-->
+<!--                required: true, // ニックネームの入力有無チェック-->
+<!--                maxlength: 400,-->
+<!--                minlength: 10,-->
+<!--            },-->
+<!--            "stage_seats[date]": {-->
+<!--                required: true, // ニックネームの入力有無チェック-->
+<!--                date: true,-->
+<!--            },-->
+<!--            "stage[seats]": {-->
+<!--                required: true, // ニックネームの入力有無チェック-->
+<!--                prise:true-->
+<!--            }-->
+<!--        },-->
+<!--        // エラーメッセージの定義-->
+<!--        messages: {-->
+<!--            "stage[title]": {-->
+<!--                required: "タイトルを入力してください",-->
+<!--                maxlength: "20文字以内で入力してください",-->
+<!--                minlength: "1文字以上で入力してください"-->
+<!--            },-->
+<!--            "stage[text]": {-->
+<!--                required: "本文を入力してください",-->
+<!--                maxlength: "400文字以内で入力してください",-->
+<!--                minlength: "10文字以上で入力してください"-->
+<!--            },-->
+<!--            "stage[date]": {-->
+<!--                required: "本文を入力してください",-->
+<!--                date: "4今日を含めて３日後以降を登録してください"-->
+<!--            },-->
+<!--            "stage[seats][][seat_prise]": {-->
+<!--                required: "席の料金を入力してください",-->
+<!--                prise: "席の値段は自然数で入力してください"-->
+<!--            },-->
+<!--        },-->
+<!--        errorClass: "invalid", // バリデーションNGの場合に追加するクラス名の指定-->
+<!--        errorElement: "p", // エラーメッセージの要素種類の指定-->
+<!--        validClass: "valid", // バリデーションOKの場合に追加するクラス名の指定-->
+<!--    }).cancelSubmit = true;-->
 
-    // 入力欄をフォーカスアウトしたときにバリデーションを実行
-    $("#stage_title,#stage_text,#stage_seats__seat_prise").keyup(function () {
-        $(this).valid()
+<!--    // 入力欄をフォーカスアウトしたときにバリデーションを実行-->
+<!--    $("#stage_title,#stage_text,#stage_seats__seat_prise").keyup(function () {-->
+<!--        $(this).valid()-->
 
-    });
-    $("#stage_title,#stage_text,#stage_seats_seats__seat_prise").blur(function () {
-        $(this).valid()
+<!--    });-->
+<!--    $("#stage_title,#stage_text,#stage_seats_seats__seat_prise").blur(function () {-->
+<!--        $(this).valid()-->
 
-    });
+<!--    });-->
 
-</script>
+<!--</script>-->

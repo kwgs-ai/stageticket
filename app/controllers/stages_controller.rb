@@ -13,16 +13,16 @@ class StagesController < ApplicationController
     raise
   end
 
-  def index
-    @link = 'stage'
-    # @pop_stages = Stage.
-    @stages = Stage.where('date >= ?', Date.current).where(status: 2).order(:date)
-                   .page(params[:page]).per(4)
-    if params[:actor_id]
-      @stages = Actor.find(params[:actor_id]).stages
-      @actor = Actor.find(params[:actor_id])
-    end
-  end
+  # def index
+  #   @link = 'stage'
+  #   # @pop_stages = Stage.
+  #   @stages = Stage.where('date >= ?', Date.current).where(status: 2).order(:date)
+  #                  .page(params[:page]).per(4)
+  #   if params[:actor_id]
+  #     @stages = Actor.find(params[:actor_id]).stages
+  #     @actor = Actor.find(params[:actor_id])
+  #   end
+  # end
 
   def search
     @link = 'stage'

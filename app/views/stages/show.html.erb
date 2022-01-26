@@ -148,7 +148,7 @@
     <%= button_to "舞台の編集をおこなう", [:edit, @stage], { method: "get", class: "edit-stage" } %>
   <% end %>
   <div class="link-to">
-    <% if @path[:action] == "actor_false_stages" %>
+    <% if @stage.status == 1 ||   @stage.status == 3%>
       <%= link_to "<<申請・却下一覧に戻る", actor_false_stages_actors_path, class: "link_to" %>
     <% else %>
       <%= link_to "<<公演一覧に戻る", actor_true_stages_actors_path, class: "link_to" %>

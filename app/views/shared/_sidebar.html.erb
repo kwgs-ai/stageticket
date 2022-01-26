@@ -87,11 +87,11 @@
 <h2>舞台リスト</h2>
 <h4>最近追加された舞台</h4>
 <ol>
-<% Stage.where(status: 2).order(created_at: :desc).limit(3).each do |stage| %>
+<% Stage.where(status: 2).where('date >= ?', Date.current).order(created_at: :desc).limit(3).each do |stage| %>
   <li><%= stage.title %></li>
 <% end %>
 <% @seat = {} %>
-<% Stage.where(status: 2).each do |stage| %>
+<% Stage.where(status: 2).where('date >= ?', Date.current).each do |stage| %>
   <% @seat.store(stage.id, stage.seats.where.not(reservation_id: nil).count) %>
 <% end %>
   <%@seat.delete_if {|key, value| value == 0} %>

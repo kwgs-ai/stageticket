@@ -11,7 +11,7 @@ start1 = Date.parse('2022/1/30')
 final1 = Date.parse('2023/1/12')
 1.upto(9) do |id|
   actor = Actor.find(id)
-  category = Category.find(rand(1..3))
+  category = Category.find(rand(1..4))
   0.upto(2) do |idx|
     st = status[rand(0..2)]
     stage = if st == 1

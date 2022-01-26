@@ -10,7 +10,7 @@
           <%= image_tag "opera.jpg", size: "160x110", alt: "cate", class: "category-img" %>
         <% elsif @category == "お笑い" %>
           <%= image_tag "owarai.jpg", size: "160x110", alt: "cate", class: "category-img" %>
-        <% elsif @category == "戯曲" %>
+        <% elsif @category == "アクション" %>
           <%= image_tag "gikyoku.jpg", size: "160x110", alt: "cate", class: "category-img" %>
         <% end %>
         <div class="list-content">
@@ -65,7 +65,7 @@
       </tr>
       <tr>
         <th height="70">カテゴリー</th>
-        <td><%= select_tag "category", options_for_select(%w[なし お笑い 恋愛もの オペラ 戯曲]) %></td>
+        <td><%= select_tag "category", options_for_select(%w[なし お笑い 恋愛もの オペラ アクション]) %></td>
       </tr>
       </table>
       <div class="search-field">

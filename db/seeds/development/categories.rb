@@ -1,4 +1,4 @@
-categories = ['恋愛もの', 'お笑い', 'オペラ', '戯曲']
+categories = ['恋愛もの', 'お笑い', 'オペラ', 'アクション']
 
 0.upto(3) do |idx|
   Category.create(

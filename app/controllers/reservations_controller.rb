@@ -26,7 +26,7 @@ class ReservationsController < ApplicationController
         p @reservation
         if @reservation.valid?
           @seat_types.each do |seat|
-            @seat = Seat.find_by(seat_type: seat, stage_id: params[:stage_id], reservation_id: nil)
+            @seat = Seat.find_by(seat_type: seat, stage_id: @stage.id, reservation_id: nil)
             break @errors << 'その席は予約済みです' if @seat.nil?
 
             @seat.reservation_id = @reservation.id

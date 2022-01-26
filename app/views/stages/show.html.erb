@@ -82,7 +82,7 @@
     <% end %>
   <% end %>
   <div class="link-to">
-  <% if @path[:action] == "admin_false_stages" %>
+  <% if @path[:action] == "admin_false_stages" || @path[:action] == "show" %>
     <%= link_to "<<申請中一覧に戻る", admin_false_stages_admin_path %>
   <% end %>
   </div>

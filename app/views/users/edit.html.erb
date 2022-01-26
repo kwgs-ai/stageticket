@@ -1,7 +1,15 @@
 <% @page_title = "会員の編集" %>
 
 <h1><%= @page_title %></h1>
-
+<div class="register-method">
+  <h3>登録規則</h3>
+  <ul>
+    <li>全部必須入力です</li>
+    <li>名前は２文字以上２０文字以内です</li>
+    <li>ログインID、名前はすでに登録されているものは登録できません</li>
+    <li>ログインID、パスワードは４文字以上１６文字以内の英数字です</li>
+  </ul>
+</div>
 <%= form_for @user do |form| %>
   <%= render "form", form: form %>
   <div><%= form.submit class: "edit-stage"%></div>

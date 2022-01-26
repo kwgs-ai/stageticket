@@ -1,6 +1,16 @@
 <% @page_title = "公演団体の編集" %>
 
 <h1><%= @page_title %></h1>
+<div class="register-method">
+  <h3>登録規則</h3>
+  <ul>
+    <li>全部必須入力です</li>
+    <li>名前は２文字以上２０文字以内で同じ名前がすでにある場合は登録できません</li>
+    <li>ログインID、パスワードは４文字以上１６文字以内で半角英数字のみです</li>
+    <li>もうすでに登録されているログインIDがは登録できません</li>
+  </ul>
+</div>
+
 <%= form_for @actor do |form| %>
   <%= render "form", form: form %>
   <div><%= form.submit class: "edit-stage" %></div>

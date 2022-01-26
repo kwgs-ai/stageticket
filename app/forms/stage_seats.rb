@@ -12,7 +12,7 @@ class StageSeats
       self.collection = []
       self.prise = []
       types = %w[S A B]
-      date = attributes['date(1i)'] ? Date.parse("#{attributes['date(1i)']}-#{attributes['date(2i)']}-#{attributes['date(3i)']}") : attributes['date']
+      date = attributes['date']
       self.stage = Stage.new(actor_id: actor, title: attributes[:title], text: attributes[:text],
                              date: date, time: attributes[:time], category_id: attributes[:category_id])
       collection << stage

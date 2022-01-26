@@ -21,13 +21,8 @@
       <tr>
         <th><%= form.label :date, for: "member_birthday_1i" %></th>
         <td>
-          <% if @stage.date %>
-            <%= form.date_select :date, start_year: Time.current.year, end_year: 2050, start_year: Time.current.year, end_year: 2050,
-                                 use_month_numbers: true, selected: @stage.date %></td>
-          <% else %>
-            <%= form.date_select :date, start_year: Time.current.year, end_year: 2050, start_year: Time.current.year, end_year: 2050,
-                                 use_month_numbers: true, selected: Date.current %></td>
-          <% end %>
+            <%=form.date_field :date,value: @stage.date %>
+            </td>
           </tr>
       <tr>
         <th><%= form.label :午前・午後 %></th>
